@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>D3 Test</title>
+    <script type="text/javascript" src="d3/d3.v3.js"></script>
+    <style type="text/css">
+      #content {
+        width: 600px ;
+        margin: 50px auto;
+      }
+      
+      .center_label {
+        font: 22px sans-serif;
+      }
+      
+      .arcLabel {
+        font: 15px sans-serif;
+        fill: #fff;
+      }
+    </style>
+  </head>
+  <body id="content">
+    <script type="text/javascript">
+      ///////////////////////////////////////////////////////////    
+      // The source for this example is:
+      //   http://jsfiddle.net/kPM5L/1/
+      ///////////////////////////////////////////////////////////
+    
+      ///////////////////////////////////////////////////////////    
+      // Setup all the constants
+      ///////////////////////////////////////////////////////////
+      var duration = 1000;
+      var width = 600;
+      var height = 500;
+      var radius = Math.floor(Math.min(width/2, height/2) * 0.9);
+      var colors = ["#d62728", "#ff9900", "#004963", "#3497D3"];
+
+      ///////////////////////////////////////////////////////////
+      // Randomize values
+      ///////////////////////////////////////////////////////////
+      random_data = function(a) {
+        var myArray = [{ label: 'keines', value: 30 },
+                       { label: 'wenig', value: 90 },
+                       { label: 'mittel', value: 60 },
+                       { label: 'viel', value: 40 }];
+        var limit = 100;
+        for (var i = 0; i < myArray.length; i++) {
+          myArray[i].value = Math.floor(Math.random()*limit) + 10;
+        }
+        return myArray;
+      };
+
+      ///////////////////////////////////////////////////////////
+      // Set the initial data
+      ///////////////////////////////////////////////////////////
+      var data = random_data();
+
+      ///////////////////////////////////////////////////////////
+      // Draw pie chart
+      ///////////////////////////////////////////////////////////
+      var updateChart = function(dataset) {
+        arcs.data(donut(dataset))
+            .enter()
+            .append("path")
+            .attr("stroke", "white")
+            .attr("stroke-width", 0.8)
+            .attr("fill", function(d, i) { return color(i); })
+            .attr("d", arc);
+        arcs.transition()
+          .duration(duration)
+          .attrTween("d", arcTween);
+        sliceLabel.data(donut(dataset));
+        sliceLabel.transition()
+          .duration(duration)
+          .attr("transform", function(d) { return "translate(" + (arc.centroid(d)) + ")"; })
+          .style("fill-opacity", function(d) {
+            if (d.value === 0) { return 1e-6; }
+            else { return 1; }
+          });
+    
+          sliceLabel.data(donut(dataset)).enter()
+        .append("text")
+        .attr("class", "arcLabel")
+        .attr("transform", function(d) { return "translate(" + (arc.centroid(d)) + ")"; })
+        .attr("text-anchor", "middle")
+        .style("fill-opacity", function(d) {
+          if (d.value === 0) { return 1e-6; }
+          else { return 1; }
+        })
+        .text(function(d) { return d.data.label; });
+      };
+
+      var color = d3.scale.category20();
+      var donut = d3.layout.pie()
+        .sort(null)
+        .value(function(d) { return d.value; });
+      var arc = d3.svg.arc()
+        .innerRadius(radius * .4)
+        .outerRadius(radius);
+      var svg = d3.select("body")
+        .append("svg:svg")
+        .attr("width", width)
+        .attr("height", height);
+
+      var arc_grp = svg.append("g")
+        .attr("class", "arcGrp")
+        .attr("transform", "translate(" + (width / 2) + "," + (height / 2) + ")");
+      var label_group = svg.append("g")
+        .attr("class", "lblGroup")
+        .attr("transform", "translate(" + (width / 2) + "," + (height / 2) + ")");
+
+      var arcs = arc_grp.selectAll("path")
+        .data(donut(data));
+      arcs.enter()
+        .append("path")
+        .attr("stroke", "white")
+        .attr("stroke-width", 0.8)
+        .attr("fill", function(d, i) { return color(i); })
+        .attr("d", arc)
+        .each(function(d) { return this.current = d; });
+
+      ///////////////////////////////////////////////////////////
+      // Tween Function
+      ///////////////////////////////////////////////////////////
+      var arcTween = function(a) {
+        var i = d3.interpolate(this.current, a);
+        this.current = i(0);
+        return function(t) { return arc(i(t)); };
+      };
+
+      ///////////////////////////////////////////////////////////
+      // Set slice labels
+      ///////////////////////////////////////////////////////////
+      var sliceLabel = label_group.selectAll("text").data(donut(data));
+      sliceLabel.enter()
+        .append("text")
+        .attr("class", "arcLabel")
+        .attr("transform", function(d) { return "translate(" + (arc.centroid(d)) + ")"; })
+        .attr("text-anchor", "middle")
+        .style("fill-opacity", function(d) {
+          if (d.value === 0) { return 1e-6; }
+          else { return 1; }
+        })
+        .text(function(d) { return d.data.label; });
+
+
+      ///////////////////////////////////////////////////////////
+      // Center text 
+      ///////////////////////////////////////////////////////////
+
+      // Group for center text  
+      var center_group = svg.append("svg:g")
+        .attr("class", "center_group")
+        .attr("transform", "translate(" + (width/2) + "," + (height/2) + ")");
+
+
+      // White circle behind labels
+      var whiteCircle = center_group.append("svg:circle")
+        .attr("fill", "white")
+        .attr("r", 45);
+
+      // "TOTAL" label
+      var totalLabel = center_group.append("svg:text")
+        .attr("class", "center_label")
+        .attr("dy", 5)
+        .attr("text-anchor", "middle") // text-align: right
+        .text("Gemüse");
+
+      ///////////////////////////////////////////////////////////
+      // Update on click 
+      ///////////////////////////////////////////////////////////
+      d3.select(window).on("click", function() {
+        return updateChart(random_data());
+      });
+
+    </script>
+  </body>
+</html>

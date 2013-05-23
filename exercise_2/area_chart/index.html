@@ -23,7 +23,7 @@ body {
 
 </style>
 <body>
-<script src="d3\d3.v3.js"></script>
+<script src="d3\d3.v3.min.js"></script>
 <script>
 
 var margin = {top: 20, right: 20, bottom: 30, left: 40},
@@ -31,7 +31,7 @@ var margin = {top: 20, right: 20, bottom: 30, left: 40},
     height = 500 - margin.top - margin.bottom;
 
 var x = d3.scale.ordinal()
-    .rangeRoundBands([0, width], .1);
+    .rangeRoundBands([0, width], .033);
 
 var y = d3.scale.linear()
     .rangeRound([height, 0]);
@@ -68,6 +68,12 @@ d3.csv("data.csv", function(error, data) {
     d.total = d.amount[d.amount.length - 1].y1;
   });
 
+  var area = d3.svg.area()
+    .interpolate("cardinal")
+    .x(function(d) { return x(d.Tag); })
+    .y0(function(d) {console.log(d); return y(d.y0); })
+    .y1(function(d) { return y(d.y0 + d.y); });
+
   // data.sort(function(a, b) { return b.total - a.total; });
 
   x.domain(data.map(function(d) { return d.Tag; }));
@@ -78,13 +84,35 @@ d3.csv("data.csv", function(error, data) {
       .attr("transform", "translate(0," + height + ")")
       .call(xAxis);
 
+  var stack = d3.layout.stack()
+    .values(function(d) { return d.values; });
+
+  var meals = stack(color.domain().map(function(name) {
+    return {
+      name: name,
+      values: data.map(function(d) {
+        return {Tag: d.Tag, y: +d[name]};
+      })
+    };
+  }));
+
+  var meal = svg.selectAll(".meal")
+      .data(meals)
+      .enter().append("g")
+      .attr("class", "meal");
+
+  meal.append("path")
+      .attr("class", "area")
+      .attr("d", function(d) { return area(d.values); })
+      .style("fill", function(d) { return color(d.name); });
+
   svg.append("g")
       .attr("class", "y axis")
       .call(yAxis)
     .append("text")
       .attr("transform", "rotate(-90)")
       .attr("y", 6)
-      .attr("dy", ".71em")
+      .attr("dy", ".75em")
       .style("text-anchor", "end")
       .text("Menge");
 
@@ -94,13 +122,13 @@ d3.csv("data.csv", function(error, data) {
       .attr("class", "g")
       .attr("transform", function(d) { return "translate(" + x(d.Tag) + ",0)"; });
 
-  days.selectAll("rect")
-      .data(function(d) { return d.amount; })
-    .enter().append("rect")
-      .attr("width", x.rangeBand())
-      .attr("y", function(d) { return y(d.y1); })
-      .attr("height", function(d) { return y(d.y0) - y(d.y1); })
-      .style("fill", function(d) { return color(d.name); });
+  // days.selectAll("rect")
+  //     .data(function(d) { return d.amount; })
+  //   .enter().append("rect")
+  //     .attr("width", x.rangeBand())
+  //     .attr("y", function(d) { return y(d.y1); })
+  //     .attr("height", function(d) { return y(d.y0) - y(d.y1); })
+  //     .style("fill", function(d) { return color(d.name); });
 
   var legend = svg.selectAll(".legend")
       .data(color.domain().slice().reverse())

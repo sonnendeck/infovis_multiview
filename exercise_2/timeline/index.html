@@ -4,8 +4,6 @@
 
 rect {
   fill: rgb(200,20,20);
-  stroke: rgb(250,250,250);
-  stroke-width: 1px;
 }
 
 circle {
@@ -30,6 +28,12 @@ text {
   stroke: #000;
   shape-rendering: crispEdges;
 }
+.y.axis text {
+        font-family: sans-serif;
+        font-size: 20px;
+        font-weight: bolder;
+        fill: rgb(100,100,100);
+      }
 
 .x.axis path {
   display: none;
@@ -42,7 +46,8 @@ text {
 
 var margin = {top: 20, right: 20, bottom: 30, left: 40},
     width = 960 - margin.left - margin.right,
-    height = 300 - margin.top - margin.bottom;
+    height = 200 - margin.top - margin.bottom,
+    trans_y = 100;
 
 var tickFormat = "%H:%M";
 
@@ -64,10 +69,10 @@ var tickFormat = "%H:%M";
 //   ];
 
 var data = [
-  {"name": "Houng", "zeit": new Date("March 7, 2013 08:15"), "art": "Frühstück"},
-  {"name": "Houng", "zeit": new Date("March 7, 2013 12:30"), "art": "Mittagessen"},
-  {"name": "Houng", "zeit": new Date("March 7, 2013 16:30"), "art": "Snack"},
-  {"name": "Houng", "zeit": new Date("March 7, 2013 20:00"), "art": "Abenbrot"},
+  {"name": "Huong", "zeit": new Date("March 7, 2013 08:15"), "art": "Frühstück"},
+  {"name": "Huong", "zeit": new Date("March 7, 2013 12:30"), "art": "Mittagessen"},
+  {"name": "Huong", "zeit": new Date("March 7, 2013 16:30"), "art": "Snack"},
+  {"name": "Huong", "zeit": new Date("March 7, 2013 20:00"), "art": "Abenbrot"},
   {"name": "Martin", "zeit": new Date("March 7, 2013 09:30"), "art": "Frühstück"},
   {"name": "Martin", "zeit": new Date("March 7, 2013 12:45"), "art": "Mittagessen"},
   {"name": "Martin", "zeit": new Date("March 7, 2013 13:15"), "art": "Snack"},
@@ -75,32 +80,69 @@ var data = [
   {"name": "Tom", "zeit": new Date("March 7, 2013 09:00"), "art": "Frühstück"},
   {"name": "Tom", "zeit": new Date("March 7, 2013 12:30"), "art": "Mittagessen"},
   {"name": "Tom", "zeit": new Date("March 7, 2013 15:30"), "art": "Snack"},
-  {"name": "Tom", "zeit": new Date("March 7, 2013 21:00"), "art": "Abenbrot"}
+  {"name": "Tom", "zeit": new Date("March 7, 2013 21:00"), "art": "Abenbrot"},
+  {"name": "Thomas", "zeit": new Date("March 7, 2013 10:15"), "art": "Frühstück"},
+  {"name": "Thomas", "zeit": new Date("March 7, 2013 14:30"), "art": "Mittagessen"},
+  {"name": "Thomas", "zeit": new Date("March 7, 2013 22:30"), "art": "Snack"},
+  {"name": "Thomas", "zeit": new Date("March 7, 2013 19:00"), "art": "Abenbrot"}
   ];
 
 var x = d3.time.scale().domain([new Date("March 7, 2013 07:00"),new Date("March 7, 2013 23:59")]).range([0, width]);
-var y = d3.scale.ordinal().domain(["Houng","Martin","Tom"]).rangeRoundBands([0, height], .1);
+var y = d3.scale.ordinal().domain(["Huong","Martin","Tom","Thomas"]).rangeRoundBands([0, height], .1);
 
-var xAxis = d3.svg.axis().scale(x).orient("bottom").tickFormat(d3.time.format(tickFormat)).tickSubdivide(true)
-    .tickSize(1).tickPadding(10).ticks(d3.time.minutes, 60);
+var xAxis = d3.svg.axis().scale(x).orient("bottom").tickFormat(d3.time.format(tickFormat)).tickSubdivide(1)
+    .tickSize(6,3,0).tickPadding(10).ticks(d3.time.minutes, 60);
 var yAxis = d3.svg.axis()
-    .scale(y).orient("left").tickPadding(10);
+    .scale(y).orient("left").tickSize(0).tickPadding(10);
 
 var svg = d3.select("body").append("svg")
-    .attr("width", 960)
+    .attr("width", 1200)
     .attr("height", 480)
   .append("g")
     .attr("transform", "translate(2,2)");
 
 svg.append("g")
       .attr("class", "x axis")
-      .attr("transform", "translate(50," + height + ")")
+      .attr("transform", "translate("+ trans_y +"," + height + ")")
       .call(xAxis);
 
 svg.append("g")
       .attr("class", "y axis")
-      .attr("transform", "translate(50,0)")
-      .call(yAxis)
+      .attr("transform", "translate("+ trans_y +",0)")
+      .call(yAxis);
+
+// svg.append("rect")
+//     .attr("x", function(d) {
+//       return x(new Date("March 7, 2013 08:00"));
+//     })
+//     .attr("y", function(d) {
+//       return y("Huong");
+//     })
+//     .attr("width", width)
+//     .attr("height", 50)
+//     .attr("style", "fill: rgb(200,200,200)");
+
+// svg.append("rect")
+//     .attr("x", function(d) {
+//       return x(new Date("March 7, 2013 08:00"));
+//     })
+//     .attr("y", function(d) {
+//       return y("Martin");
+//     })
+//     .attr("width", width)
+//     .attr("height", 50)
+//     .attr("style", "fill: rgb(200,200,200)");
+
+// svg.append("rect")
+//     .attr("x", function(d) {
+//       return x(new Date("March 7, 2013 08:00"));
+//     })
+//     .attr("y", function(d) {
+//       return y("Tom");
+//     })
+//     .attr("width", width)
+//     .attr("height", 50)
+//     .attr("style", "fill: rgb(200,200,200)");
 
 var rect = svg.selectAll("rect")
     .data(data);
@@ -109,6 +151,8 @@ var enter = rect.enter().append("rect");
 enter.attr("x", function(d) {
   return x(d.zeit);
 });
+
+enter.attr("transform", "translate("+ trans_y +",0)");
 
 enter.attr("y", function(d) {
   return y(d.name);
@@ -119,8 +163,8 @@ enter.attr("y", function(d) {
 // });
 
 enter.attr("rx", 5).attr("ry", 5);
-enter.attr("width", 50); 
-enter.attr("height", 50);
+enter.attr("width", 25); 
+enter.attr("height", 30);
 
 enter.attr("style", function(d) {
       if(d.art == "Frühstück") {

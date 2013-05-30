@@ -6,22 +6,18 @@ rect {
   fill: rgb(200,20,20);
 }
 
-circle {
-  fill: rgb(31, 119, 180);
-  fill-opacity: .25;
-  stroke: rgb(31, 119, 180);
-  stroke-width: 1px;
-}
-
-.leaf circle {
-  fill: #ff7f0e;
-  fill-opacity: 1;
-}
-
 text {
   font: 10px sans-serif;
 }
 
+.grid {
+  stroke: rgb(240,240,240);
+  stroke-width: 2;
+}
+
+.dots {
+  fill: rgb(240,240,240);
+}
 .axis path,
 .axis line {
   fill: none;
@@ -53,7 +49,7 @@ var margin = {top: 20, right: 20, bottom: 30, left: 40},
     trans_y = 100;
 
 var start_time = new Date("March 7, 2013 07:00");
-var end_time = new Date("March 7, 2013 23:59");
+var end_time = new Date("March 8, 2013 00:00");
 
 var tickFormat = "%H:%M";
 
@@ -103,11 +99,106 @@ var yAxis = d3.svg.axis()
     .scale(y).orient("left").tickSize(0).tickPadding(10);
 
 var svg = d3.select("body").append("svg")
-    .attr("width", width + 100)
+    .attr("width", width + 20)
     .attr("height", 480)
   .append("g")
     .attr("transform", "translate(2,2)");
 
+svg.append("line")
+      .attr("class", "grid")
+      .attr("x1", 100)
+      .attr("y1", function() {
+        return y("Huong") + height/8 - 2;
+      })
+      .attr("x2", width + trans_y)
+      .attr("y2", function() {
+        return y("Huong") + height/8 - 2;
+      });
+
+//Draw fancy lines...//
+svg.append("line")
+      .attr("class", "grid")
+      .attr("x1", 100)
+      .attr("y1", function() {
+        return y("Martin") + height/8 - 2;
+      })
+      .attr("x2", width + trans_y)
+      .attr("y2", function() {
+        return y("Martin") + height/8 - 2;
+      });
+
+svg.append("line")
+      .attr("class", "grid")
+      .attr("x1", 100)
+      .attr("y1", function() {
+        return y("Tom") + height/8 - 2;
+      })
+      .attr("x2", width + trans_y)
+      .attr("y2", function() {
+        return y("Tom") + height/8 - 2;
+      });
+
+svg.append("line")
+      .attr("class", "grid")
+      .attr("x1", 100)
+      .attr("y1", function() {
+        return y("Thomas") + height/8 - 2;
+      })
+      .attr("x2", width + trans_y)
+      .attr("y2", function() {
+        return y("Thomas") + height/8 - 2;
+      });
+
+//...and dots//
+  for(var i = 1; i < 16; i++) {
+    svg.append ("circle")
+        .attr("class", "dots")
+        .attr("cx", function() {
+          return x_linear(i*60000*60) + trans_y;
+        })
+        .attr("cy", function() {
+        return y("Huong") + height/8 - 2;
+      })
+        .attr("r", 3);
+  }
+
+  for(var i = 1; i < 16; i++) {
+    svg.append ("circle")
+        .attr("class", "dots")
+        .attr("cx", function() {
+          return x_linear(i*60000*60) + trans_y;
+        })
+        .attr("cy", function() {
+        return y("Martin") + height/8 - 2;
+      })
+        .attr("r", 3);
+  }
+
+  for(var i = 1; i < 16; i++) {
+    svg.append ("circle")
+        .attr("class", "dots")
+        .attr("cx", function() {
+          return x_linear(i*60000*60) + trans_y;
+        })
+        .attr("cy", function() {
+        return y("Tom") + height/8 - 2;
+      })
+        .attr("r", 3);
+  }
+
+  for(var i = 1; i < 16; i++) {
+    svg.append ("circle")
+        .attr("class", "dots")
+        .attr("cx", function() {
+          return x_linear(i*60000*60) + trans_y;
+        })
+        .attr("cy", function() {
+        return y("Thomas") + height/8 - 2;
+      })
+        .attr("r", 3);
+  }
+
+//draw axes//
 svg.append("g")
       .attr("class", "x axis")
       .attr("transform", "translate("+ trans_y +"," + height + ")")
@@ -118,39 +209,7 @@ svg.append("g")
       .attr("transform", "translate("+ trans_y +",0)")
       .call(yAxis);
 
-// svg.append("rect")
-//     .attr("x", function(d) {
-//       return x(new Date("March 7, 2013 08:00"));
-//     })
-//     .attr("y", function(d) {
-//       return y("Huong");
-//     })
-//     .attr("width", width)
-//     .attr("height", 50)
-//     .attr("style", "fill: rgb(200,200,200)");
-
-// svg.append("rect")
-//     .attr("x", function(d) {
-//       return x(new Date("March 7, 2013 08:00"));
-//     })
-//     .attr("y", function(d) {
-//       return y("Martin");
-//     })
-//     .attr("width", width)
-//     .attr("height", 50)
-//     .attr("style", "fill: rgb(200,200,200)");
-
-// svg.append("rect")
-//     .attr("x", function(d) {
-//       return x(new Date("March 7, 2013 08:00"));
-//     })
-//     .attr("y", function(d) {
-//       return y("Tom");
-//     })
-//     .attr("width", width)
-//     .attr("height", 50)
-//     .attr("style", "fill: rgb(200,200,200)");
-
+//draw bars//
 var rect = svg.selectAll("rect")
     .data(data);
 var enter = rect.enter().append("rect");
@@ -162,7 +221,7 @@ enter.attr("x", function(d) {
 enter.attr("transform", "translate("+ trans_y +",0)");
 
 enter.attr("y", function(d) {
-  return y(d.name);
+  return y(d.name)  + height/16;
 });
 
 // enter.attr("y", function(d) {
@@ -173,7 +232,7 @@ enter.attr("rx", 5).attr("ry", 5);
 enter.attr("width", function(d) {
   return x_linear(d.duration * 60000);
 }); 
-enter.attr("height", 20);
+enter.attr("height", 15);
 
 enter.attr("style", function(d) {
       if(d.art == "Frühstück") {

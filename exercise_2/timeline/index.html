@@ -12,7 +12,7 @@ text {
 
 .grid {
   stroke: rgb(240,240,240);
-  stroke-width: 2;
+  stroke-width: 1;
 }
 
 .dots {
@@ -26,7 +26,7 @@ text {
 }
 .y.axis text {
         font-family: sans-serif;
-        font-size: 17px;
+        font-size: 15px;
       }
 
 .x.axis text {
@@ -51,7 +51,7 @@ var margin = {top: 20, right: 20, bottom: 30, left: 40},
 var start_time = new Date("March 7, 2013 07:00");
 var end_time = new Date("March 8, 2013 00:00");
 
-var tickFormat = "%H:%M";
+var tickFormat = "%H Uhr";
 
 
 // d3.csv("sample_data", funtion(data){
@@ -99,7 +99,7 @@ var yAxis = d3.svg.axis()
     .scale(y).orient("left").tickSize(0).tickPadding(10);
 
 var svg = d3.select("body").append("svg")
-    .attr("width", width + 20)
+    .attr("width", width + 200)
     .attr("height", 480)
   .append("g")
     .attr("transform", "translate(2,2)");
@@ -108,11 +108,11 @@ svg.append("line")
       .attr("class", "grid")
       .attr("x1", 100)
       .attr("y1", function() {
-        return y("Huong") + height/8 - 2;
+        return y("Huong") + height/8 - 1;
       })
       .attr("x2", width + trans_y)
       .attr("y2", function() {
-        return y("Huong") + height/8 - 2;
+        return y("Huong") + height/8 - 1;
       });
 
 //Draw fancy lines...//
@@ -120,33 +120,33 @@ svg.append("line")
       .attr("class", "grid")
       .attr("x1", 100)
       .attr("y1", function() {
-        return y("Martin") + height/8 - 2;
+        return y("Martin") + height/8 - 1;
       })
       .attr("x2", width + trans_y)
       .attr("y2", function() {
-        return y("Martin") + height/8 - 2;
+        return y("Martin") + height/8 - 1;
       });
 
 svg.append("line")
       .attr("class", "grid")
       .attr("x1", 100)
       .attr("y1", function() {
-        return y("Tom") + height/8 - 2;
+        return y("Tom") + height/8 - 1;
       })
       .attr("x2", width + trans_y)
       .attr("y2", function() {
-        return y("Tom") + height/8 - 2;
+        return y("Tom") + height/8 - 1;
       });
 
 svg.append("line")
       .attr("class", "grid")
       .attr("x1", 100)
       .attr("y1", function() {
-        return y("Thomas") + height/8 - 2;
+        return y("Thomas") + height/8 - 1;
       })
       .attr("x2", width + trans_y)
       .attr("y2", function() {
-        return y("Thomas") + height/8 - 2;
+        return y("Thomas") + height/8 - 1;
       });
 
 //...and dots//
@@ -157,9 +157,9 @@ svg.append("line")
           return x_linear(i*60000*60) + trans_y;
         })
         .attr("cy", function() {
-        return y("Huong") + height/8 - 2;
+        return y("Huong") + height/8 - 1;
       })
-        .attr("r", 3);
+        .attr("r", 2);
   }
 
   for(var i = 1; i < 16; i++) {
@@ -169,9 +169,9 @@ svg.append("line")
           return x_linear(i*60000*60) + trans_y;
         })
         .attr("cy", function() {
-        return y("Martin") + height/8 - 2;
+        return y("Martin") + height/8 - 1;
       })
-        .attr("r", 3);
+        .attr("r", 2);
   }
 
   for(var i = 1; i < 16; i++) {
@@ -181,9 +181,9 @@ svg.append("line")
           return x_linear(i*60000*60) + trans_y;
         })
         .attr("cy", function() {
-        return y("Tom") + height/8 - 2;
+        return y("Tom") + height/8 - 1;
       })
-        .attr("r", 3);
+        .attr("r", 2);
   }
 
   for(var i = 1; i < 16; i++) {
@@ -193,9 +193,9 @@ svg.append("line")
           return x_linear(i*60000*60) + trans_y;
         })
         .attr("cy", function() {
-        return y("Thomas") + height/8 - 2;
+        return y("Thomas") + height/8 - 1;
       })
-        .attr("r", 3);
+        .attr("r", 2);
   }
 
 //draw axes//

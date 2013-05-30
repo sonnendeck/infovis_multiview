@@ -30,9 +30,12 @@ text {
 }
 .y.axis text {
         font-family: sans-serif;
-        font-size: 20px;
-        font-weight: bolder;
-        fill: rgb(100,100,100);
+        font-size: 17px;
+      }
+
+.x.axis text {
+        font-family: sans-serif;
+        font-weight: bold;
       }
 
 .x.axis path {
@@ -48,6 +51,9 @@ var margin = {top: 20, right: 20, bottom: 30, left: 40},
     width = 960 - margin.left - margin.right,
     height = 200 - margin.top - margin.bottom,
     trans_y = 100;
+
+var start_time = new Date("March 7, 2013 07:00");
+var end_time = new Date("March 7, 2013 23:59");
 
 var tickFormat = "%H:%M";
 
@@ -69,25 +75,26 @@ var tickFormat = "%H:%M";
 //   ];
 
 var data = [
-  {"name": "Huong", "zeit": new Date("March 7, 2013 08:15"), "art": "Frühstück"},
-  {"name": "Huong", "zeit": new Date("March 7, 2013 12:30"), "art": "Mittagessen"},
-  {"name": "Huong", "zeit": new Date("March 7, 2013 16:30"), "art": "Snack"},
-  {"name": "Huong", "zeit": new Date("March 7, 2013 20:00"), "art": "Abenbrot"},
-  {"name": "Martin", "zeit": new Date("March 7, 2013 09:30"), "art": "Frühstück"},
-  {"name": "Martin", "zeit": new Date("March 7, 2013 12:45"), "art": "Mittagessen"},
-  {"name": "Martin", "zeit": new Date("March 7, 2013 13:15"), "art": "Snack"},
-  {"name": "Martin", "zeit": new Date("March 7, 2013 18:30"), "art": "Abenbrot"},
-  {"name": "Tom", "zeit": new Date("March 7, 2013 09:00"), "art": "Frühstück"},
-  {"name": "Tom", "zeit": new Date("March 7, 2013 12:30"), "art": "Mittagessen"},
-  {"name": "Tom", "zeit": new Date("March 7, 2013 15:30"), "art": "Snack"},
-  {"name": "Tom", "zeit": new Date("March 7, 2013 21:00"), "art": "Abenbrot"},
-  {"name": "Thomas", "zeit": new Date("March 7, 2013 10:15"), "art": "Frühstück"},
-  {"name": "Thomas", "zeit": new Date("March 7, 2013 14:30"), "art": "Mittagessen"},
-  {"name": "Thomas", "zeit": new Date("March 7, 2013 22:30"), "art": "Snack"},
-  {"name": "Thomas", "zeit": new Date("March 7, 2013 19:00"), "art": "Abenbrot"}
+  {"name": "Huong", "zeit": new Date("March 7, 2013 08:15"), "duration": 15, "art": "Frühstück"},
+  {"name": "Huong", "zeit": new Date("March 7, 2013 12:30"), "duration": 35, "art": "Mittagessen"},
+  {"name": "Huong", "zeit": new Date("March 7, 2013 16:30"), "duration": 5, "art": "Snack"},
+  {"name": "Huong", "zeit": new Date("March 7, 2013 20:00"), "duration": 20, "art": "Abenbrot"},
+  {"name": "Martin", "zeit": new Date("March 7, 2013 09:30"), "duration": 60, "art": "Frühstück"},
+  {"name": "Martin", "zeit": new Date("March 7, 2013 12:45"), "duration": 25, "art": "Mittagessen"},
+  {"name": "Martin", "zeit": new Date("March 7, 2013 14:15"), "duration": 10, "art": "Snack"},
+  {"name": "Martin", "zeit": new Date("March 7, 2013 18:30"), "duration": 30, "art": "Abenbrot"},
+  {"name": "Tom", "zeit": new Date("March 7, 2013 09:00"), "duration": 15, "art": "Frühstück"},
+  {"name": "Tom", "zeit": new Date("March 7, 2013 12:30"), "duration": 40, "art": "Mittagessen"},
+  {"name": "Tom", "zeit": new Date("March 7, 2013 15:30"), "duration": 15, "art": "Snack"},
+  {"name": "Tom", "zeit": new Date("March 7, 2013 21:00"), "duration": 35, "art": "Abenbrot"},
+  {"name": "Thomas", "zeit": new Date("March 7, 2013 10:15"), "duration": 25, "art": "Frühstück"},
+  {"name": "Thomas", "zeit": new Date("March 7, 2013 14:30"), "duration": 25, "art": "Mittagessen"},
+  {"name": "Thomas", "zeit": new Date("March 7, 2013 22:30"), "duration": 10, "art": "Snack"},
+  {"name": "Thomas", "zeit": new Date("March 7, 2013 19:00"), "duration": 45, "art": "Abenbrot"}
   ];
 
-var x = d3.time.scale().domain([new Date("March 7, 2013 07:00"),new Date("March 7, 2013 23:59")]).range([0, width]);
+var x = d3.time.scale().domain([start_time,end_time]).range([0, width]);
+var x_linear = d3.scale.linear().domain([0,end_time.getTime() - start_time.getTime()]).rangeRound([0,width]);
 var y = d3.scale.ordinal().domain(["Huong","Martin","Tom","Thomas"]).rangeRoundBands([0, height], .1);
 
 var xAxis = d3.svg.axis().scale(x).orient("bottom").tickFormat(d3.time.format(tickFormat)).tickSubdivide(1)
@@ -96,7 +103,7 @@ var yAxis = d3.svg.axis()
     .scale(y).orient("left").tickSize(0).tickPadding(10);
 
 var svg = d3.select("body").append("svg")
-    .attr("width", 1200)
+    .attr("width", width + 100)
     .attr("height", 480)
   .append("g")
     .attr("transform", "translate(2,2)");
@@ -163,12 +170,14 @@ enter.attr("y", function(d) {
 // });
 
 enter.attr("rx", 5).attr("ry", 5);
-enter.attr("width", 25); 
-enter.attr("height", 30);
+enter.attr("width", function(d) {
+  return x_linear(d.duration * 60000);
+}); 
+enter.attr("height", 20);
 
 enter.attr("style", function(d) {
       if(d.art == "Frühstück") {
-        return "fill: rgb(200,20,20)";
+        return "fill: rgb(200,50,50)";
       }
       if(d.art == "Mittagessen") {
         return "fill: rgb(140,190,50)";
@@ -180,4 +189,9 @@ enter.attr("style", function(d) {
         return "fill: rgb(255,200,60)";
       }
     })
+
+
+function addMinutes(date, minutes) {
+    return new Date(date.getTime() + minutes*60000);
+}
 </script>

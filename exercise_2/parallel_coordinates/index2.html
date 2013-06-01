@@ -78,33 +78,44 @@
         .attr("transform", "translate(" + m[3] + ", " + m[0] + ")");
 
     var csv_content = [
-            {"time":"06.05.13 09:30", "type":"Frühstück", "occasion":"Daheim", "total_amount":"mittel", "meat_amount":" - ", "faux_meat_amount":" - ", "veggie_amount":"wenig", "pasta_amount":"wenig", "fruit_amount":"wenig"},
-            {"time":"06.05.13 12:45", "type":"Mittagessen", "occasion":"Arbeit", "total_amount":"viel", "meat_amount":"mittel", "faux_meat_amount":"mittel", "veggie_amount":"wenig", "pasta_amount":"viel", "fruit_amount":" - "},
-            {"time":"06.05.13 12:45", "type":"Snack", "occasion":"Imbiss", "total_amount":"mittel", "meat_amount":" - ", "faux_meat_amount":" - ", "veggie_amount":" - ", "pasta_amount":"mittel", "fruit_amount":"wenig"},
-            {"time":"06.05.13 12:45", "type":"Abendessen", "occasion":"Daheim", "total_amount":"viel", "meat_amount":" - ", "faux_meat_amount":" - ", "veggie_amount":"wenig", "pasta_amount":"mittel", "fruit_amount":" - "},
-            {"time":"07.05.13 08:15", "type":"Frühstück", "occasion":"Daheim", "total_amount":"mittel", "meat_amount":" - ", "faux_meat_amount":" - ", "veggie_amount":"mittel", "pasta_amount":"wenig", "fruit_amount":" - "},
-            {"time":"07.05.13 12:30", "type":"Mittagessen", "occasion":"Arbeit", "total_amount":"wenig", "meat_amount":" - ", "faux_meat_amount":" - ", "veggie_amount":"wenig", "pasta_amount":"viel", "fruit_amount":"mittel"},
-            {"time":"07.05.13 16:30", "type":"Snack", "occasion":"Imbiss", "total_amount":"mittel", "meat_amount":" - ", "faux_meat_amount":" - ", "veggie_amount":" - ", "pasta_amount":"viel", "fruit_amount":"wenig"},
-            {"time":"07.05.13 20:00", "type":"Abendessen", "occasion":"Daheim", "total_amount":"viel", "meat_amount":" - ", "faux_meat_amount":" - ", "veggie_amount":"mittel", "pasta_amount":"mittel", "fruit_amount":" - "},
-            {"time":"08.05.13 09:00", "type":"Frühstück", "occasion":"Daheim", "total_amount":"mittel", "meat_amount":" - ", "faux_meat_amount":" - ", "veggie_amount":" - ", "pasta_amount":"wenig", "fruit_amount":"viel"},
-            {"time":"08.05.13 12:30", "type":"Mittagessen", "occasion":"Arbeit", "total_amount":"viel", "meat_amount":"mittel", "faux_meat_amount":"mittel", "veggie_amount":"wenig", "pasta_amount":"viel", "fruit_amount":" - "},
-            {"time":"08.05.13 15:30", "type":"Snack", "occasion":"Imbiss", "total_amount":"mittel", "meat_amount":" - ", "faux_meat_amount":" - ", "veggie_amount":" - ", "pasta_amount":"mittel", "fruit_amount":"wenig"},
-            {"time":"08.05.13 21:00", "type":"Abendessen", "occasion":"Daheim", "total_amount":"viel", "meat_amount":"viel", "faux_meat_amount":"viel", "veggie_amount":"mittel", "pasta_amount":"mittel", "fruit_amount":" - "}];
+            {"time":"09", "type":"Frühstück", "occasion":"Daheim", "total_amount":"mittel","Dauer":"15"},
+            {"time":"12", "type":"Mittagessen", "occasion":"Arbeit", "total_amount":"viel","Dauer":"30"},
+            {"time":"12,5", "type":"Snack", "occasion":"Imbiss", "total_amount":"mittel","Dauer":"10"},
+            {"time":"12,75", "type":"Abendessen", "occasion":"Daheim", "total_amount":"viel","Dauer":"45"},
+            {"time":"08,25", "type":"Frühstück", "occasion":"Daheim", "total_amount":"mittel","Dauer":"10"},
+            {"time":"12,5", "type":"Mittagessen", "occasion":"Arbeit", "total_amount":"wenig","Dauer":"30"},
+            {"time":"16,5", "type":"Snack", "occasion":"Imbiss", "total_amount":"mittel","Dauer":"5"},
+            {"time":"20", "type":"Abendessen", "occasion":"Restaurant", "total_amount":"viel","Dauer":"30"},
+            {"time":"09", "type":"Frühstück", "occasion":"Daheim", "total_amount":"mittel","Dauer":"15"},
+            {"time":"12,5", "type":"Mittagessen", "occasion":"Mensa", "total_amount":"viel","Dauer":"35"},
+            {"time":"15,5", "type":"Snack", "occasion":"Imbiss", "total_amount":"mittel","Dauer":"10"},
+            {"time":"21", "type":"Abendessen", "occasion":"Daheim", "total_amount":"wenig","Dauer":"40"},
+            {"time":"11", "type":"Frühstück", "occasion":"Daheim", "total_amount":"viel","Dauer":"20"},
+            {"time":"13", "type":"Mittagessen", "occasion":"Mensa", "total_amount":"wenig","Dauer":"30"},
+            {"time":"20", "type":"Abendessen", "occasion":"Daheim", "total_amount":"viel","Dauer":"50"},
+            {"time":"09", "type":"Frühstück", "occasion":"Daheim", "total_amount":"mittel","Dauer":"10"},
+            {"time":"12", "type":"Mittagessen", "occasion":"Mensa", "total_amount":"viel","Dauer":"40"},
+            {"time":"19", "type":"Snack", "occasion":"Daheim", "total_amount":"mittel","Dauer":"10"},
+            {"time":"21", "type":"Abendessen", "occasion":"Daheim", "total_amount":"viel","Dauer":"30"},
+            {"time":"07", "type":"Frühstück", "occasion":"Daheim", "total_amount":"mittel","Dauer":"15"}];
     
       // Extract the list of dimensions and create a scale for each.
       x.domain(dimensions = d3.keys(csv_content[0]).filter(function(key) {
 
-        if (key === "time") {
-          return false;
-        } 
-        else {
+        //if (key === "time") {
+          //return false;
+        //} 
+        //else {
           y[key] = d3.scale.ordinal()
             .domain(csv_content.map(function(p) { return p[key]; }))
             .rangePoints([h, 0]);          
-        }
+        //}
 
         return true;
       }));
+
+
+
 
       // Add grey background lines for context.
       background = svg.append("svg:g")

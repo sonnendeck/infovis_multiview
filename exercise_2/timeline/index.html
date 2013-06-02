@@ -41,6 +41,8 @@ text {
 </style>
 <body>
 <script src="http://d3js.org/d3.v3.min.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.2.min.js"></script> 
+<script type="text/javascript" src="jquery.tipsy.js"></script>
 <script>
 
 var margin = {top: 20, right: 20, bottom: 30, left: 40},
@@ -150,7 +152,7 @@ svg.append("line")
       });
 
 //...and dots//
-  for(var i = 1; i < 16; i++) {
+  for(var i = 1; i < 18; i++) {
     svg.append ("circle")
         .attr("class", "dots")
         .attr("cx", function() {
@@ -162,7 +164,7 @@ svg.append("line")
         .attr("r", 2);
   }
 
-  for(var i = 1; i < 16; i++) {
+  for(var i = 1; i < 18; i++) {
     svg.append ("circle")
         .attr("class", "dots")
         .attr("cx", function() {
@@ -174,7 +176,7 @@ svg.append("line")
         .attr("r", 2);
   }
 
-  for(var i = 1; i < 16; i++) {
+  for(var i = 1; i < 18; i++) {
     svg.append ("circle")
         .attr("class", "dots")
         .attr("cx", function() {
@@ -186,7 +188,7 @@ svg.append("line")
         .attr("r", 2);
   }
 
-  for(var i = 1; i < 16; i++) {
+  for(var i = 1; i < 18; i++) {
     svg.append ("circle")
         .attr("class", "dots")
         .attr("cx", function() {
@@ -236,19 +238,26 @@ enter.attr("height", 15);
 
 enter.attr("style", function(d) {
       if(d.art == "Frühstück") {
-        return "fill: rgb(200,50,50)";
-      }
-      if(d.art == "Mittagessen") {
-        return "fill: rgb(140,190,50)";
-      }
-      if(d.art == "Abenbrot") {
         return "fill: rgb(90,180,220)";
       }
-      if(d.art == "Snack") {
+      if(d.art == "Mittagessen") {
         return "fill: rgb(255,200,60)";
+      }
+      if(d.art == "Abenbrot") {
+        return "fill: rgb(200,50,50)";
+      }
+      if(d.art == "Snack") {
+        return "fill: rgb(140,190,50)";
       }
     })
 
+// $("svg rect").tipsy({ 
+//         gravity: "width", 
+//         html: true, 
+//         title: function(d) {
+//           return "Hi there! My color is" + d.name; 
+//         }
+//       });
 
 function addMinutes(date, minutes) {
     return new Date(date.getTime() + minutes*60000);

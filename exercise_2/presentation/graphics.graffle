@@ -46,7 +46,7 @@
 	<key>Creator</key>
 	<string>Martin Schrader</string>
 	<key>DisplayScale</key>
-	<string>1 0/72 in = 1 0/72 in</string>
+	<string>1 0/72 in = 1.0000 in</string>
 	<key>GraphDocumentVersion</key>
 	<integer>8</integer>
 	<key>GraphicsList</key>
@@ -553,7 +553,7 @@ Imbiss}</string>
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc
 
 \f0\fs28 \cf0 \expnd0\expndtw0\kerning0
-Obst}</string>
+Teigwaren}</string>
 					</dict>
 				</dict>
 				<dict>
@@ -1240,7 +1240,7 @@ Zeit}</string>
 	<key>MasterSheets</key>
 	<array/>
 	<key>ModificationDate</key>
-	<string>2013-05-30 22:01:34 +0000</string>
+	<string>2013-06-02 22:31:55 +0000</string>
 	<key>Modifier</key>
 	<string>Martin Schrader</string>
 	<key>NotesVisible</key>
@@ -1330,7 +1330,7 @@ Zeit}</string>
 		<key>SidebarWidth</key>
 		<integer>120</integer>
 		<key>VisibleRegion</key>
-		<string>{{0, 38.57142922829609}, {702.8571548267289, 532.85715193164606}}</string>
+		<string>{{0, 107.14285896748916}, {702.8571548267289, 532.85715193164606}}</string>
 		<key>Zoom</key>
 		<real>1.3999999761581421</real>
 		<key>ZoomValues</key>

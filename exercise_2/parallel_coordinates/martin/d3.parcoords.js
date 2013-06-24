@@ -368,7 +368,9 @@ d3.parcoords = function(config) {
   // highlight an array of data
   pc.highlight = function(data) {
     pc.clear("highlight");
-    d3.select(canvas.foreground).classed("faded", true);
+    d3.select(canvas.foreground).classed("faded", true).on('click', function(d,i){
+        console.log('click');
+      });;
     data.forEach(path_highlight);
     events.highlight.call(this,data);
     return this;

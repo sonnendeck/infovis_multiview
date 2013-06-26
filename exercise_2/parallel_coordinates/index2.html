@@ -78,26 +78,29 @@
         .attr("transform", "translate(" + m[3] + ", " + m[0] + ")");
 
     var csv_content = [
-            {"time":"09", "type":"Frühstück", "occasion":"Daheim", "total_amount":"mittel","Dauer":"15"},
-            {"time":"12", "type":"Mittagessen", "occasion":"Arbeit", "total_amount":"viel","Dauer":"30"},
-            {"time":"12,5", "type":"Snack", "occasion":"Imbiss", "total_amount":"mittel","Dauer":"10"},
-            {"time":"12,75", "type":"Abendessen", "occasion":"Daheim", "total_amount":"viel","Dauer":"45"},
-            {"time":"08,25", "type":"Frühstück", "occasion":"Daheim", "total_amount":"mittel","Dauer":"10"},
-            {"time":"12,5", "type":"Mittagessen", "occasion":"Arbeit", "total_amount":"wenig","Dauer":"30"},
-            {"time":"16,5", "type":"Snack", "occasion":"Imbiss", "total_amount":"mittel","Dauer":"5"},
-            {"time":"20", "type":"Abendessen", "occasion":"Restaurant", "total_amount":"viel","Dauer":"30"},
-            {"time":"09", "type":"Frühstück", "occasion":"Daheim", "total_amount":"mittel","Dauer":"15"},
-            {"time":"12,5", "type":"Mittagessen", "occasion":"Mensa", "total_amount":"viel","Dauer":"35"},
-            {"time":"15,5", "type":"Snack", "occasion":"Imbiss", "total_amount":"mittel","Dauer":"10"},
-            {"time":"21", "type":"Abendessen", "occasion":"Daheim", "total_amount":"wenig","Dauer":"40"},
-            {"time":"11", "type":"Frühstück", "occasion":"Daheim", "total_amount":"viel","Dauer":"20"},
-            {"time":"13", "type":"Mittagessen", "occasion":"Mensa", "total_amount":"wenig","Dauer":"30"},
-            {"time":"20", "type":"Abendessen", "occasion":"Daheim", "total_amount":"viel","Dauer":"50"},
-            {"time":"09", "type":"Frühstück", "occasion":"Daheim", "total_amount":"mittel","Dauer":"10"},
-            {"time":"12", "type":"Mittagessen", "occasion":"Mensa", "total_amount":"viel","Dauer":"40"},
-            {"time":"19", "type":"Snack", "occasion":"Daheim", "total_amount":"mittel","Dauer":"10"},
-            {"time":"21", "type":"Abendessen", "occasion":"Daheim", "total_amount":"viel","Dauer":"30"},
-            {"time":"07", "type":"Frühstück", "occasion":"Daheim", "total_amount":"mittel","Dauer":"15"}];
+            {"time":"09", "type":"Frühstück", "occasion":"Daheim", "total_amount":"mittel","Dauer":"15","name":"Huong"},
+            {"time":"12", "type":"Mittagessen", "occasion":"Arbeit", "total_amount":"viel","Dauer":"30","name":"Huong"},
+            {"time":"12,5", "type":"Snack", "occasion":"Imbiss", "total_amount":"mittel","Dauer":"10","name":"Huong"},
+            {"time":"12,75", "type":"Abendessen", "occasion":"Daheim", "total_amount":"viel","Dauer":"45","name":"Huong"},
+            {"time":"08,25", "type":"Frühstück", "occasion":"Daheim", "total_amount":"mittel","Dauer":"10","name":"Huong"},
+            {"time":"12,5", "type":"Mittagessen", "occasion":"Arbeit", "total_amount":"wenig","Dauer":"30","name":"Tom"},
+            {"time":"16,5", "type":"Snack", "occasion":"Imbiss", "total_amount":"mittel","Dauer":"5","name":"Tom"},
+            {"time":"20", "type":"Abendessen", "occasion":"Restaurant", "total_amount":"viel","Dauer":"30","name":"Tom"},
+            {"time":"09", "type":"Frühstück", "occasion":"Daheim", "total_amount":"mittel","Dauer":"15","name":"Tom"},
+            {"time":"12,5", "type":"Mittagessen", "occasion":"Mensa", "total_amount":"viel","Dauer":"35","name":"Tom"},
+            {"time":"15,5", "type":"Snack", "occasion":"Imbiss", "total_amount":"mittel","Dauer":"10","name":"Thomas"},
+            {"time":"21", "type":"Abendessen", "occasion":"Daheim", "total_amount":"wenig","Dauer":"40","name":"Thomas"},
+            {"time":"11", "type":"Frühstück", "occasion":"Daheim", "total_amount":"viel","Dauer":"20","name":"Thomas"},
+            {"time":"13", "type":"Mittagessen", "occasion":"Mensa", "total_amount":"wenig","Dauer":"30","name":"Thomas"},
+            {"time":"20", "type":"Abendessen", "occasion":"Daheim", "total_amount":"viel","Dauer":"50","name":"Thomas"},
+            {"time":"09", "type":"Frühstück", "occasion":"Daheim", "total_amount":"mittel","Dauer":"10","name":"Martin"},
+            {"time":"12", "type":"Mittagessen", "occasion":"Mensa", "total_amount":"viel","Dauer":"40","name":"Martin"},
+            {"time":"19", "type":"Snack", "occasion":"Daheim", "total_amount":"mittel","Dauer":"10","name":"Martin"},
+            {"time":"21", "type":"Abendessen", "occasion":"Daheim", "total_amount":"viel","Dauer":"30","name":"Martin"},
+            {"time":"07", "type":"Frühstück", "occasion":"Daheim", "total_amount":"mittel","Dauer":"15","name":"Martin"}];
+
+      var name = ["Martin", "Tom", "Thomas", "Huong"],
+          traits = ["time", "type", "occasion", "total_amount", "Dauer"];
     
       // Extract the list of dimensions and create a scale for each.
       x.domain(dimensions = d3.keys(csv_content[0]).filter(function(key) {

@@ -1,34 +1,21 @@
 <!DOCTYPE html>
-<meta charset="utf-8">
-<style>
+<html lang="en">
+  <head>
 
-body {
-  font: 10px sans-serif;
-}
+    <meta charset="utf-8">
+    
+    <script type="text/javascript" src="d3/d3.v3.min.js"></script>
+    <script type="text/javascript" src="chart.functions.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
 
-.axis path,
-.axis line {
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
-}
+  </head>
+  <body id="content">
 
-.bar {
-  fill: hotpink;
-}
+    <script>
 
-.x.axis path {
-  display: none;
-}
+      drawAreaChart(300, 300, null);
 
-</style>
-<body>
-<script src="d3\d3.v3.min.js"></script>
-<script src=".\chart.functions.js"></script>
-<script>
+    </script>
 
-drawAreaChart(300, 300, null);
-
-</script>
-</body>
+  </body>
 </html>

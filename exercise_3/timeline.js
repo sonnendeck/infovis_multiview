@@ -216,19 +216,25 @@ function drawTimeline(xPos, yPos, dataArray) {
                            // .each("end" construct here.
    });});*/
 
-/*rect.on("mouseover", function(d) { svg.append("rect").
-	.attr("x", function(d) { return d3.select(this).x; })
-	.attr("y", function(d) { return d3.select(this).y; })
+rect.on("mouseover", function(d) { 
+
+	var rectX = d3.select(this).attr("x");
+
+	svg.append("rect")
+	.attr("x", d3.select(this).attr("x"))
+	.attr("y", d3.select(this).attr("y") + trans_y)
+	.attr("width", d3.select(this).attr("width"))
+	.attr("height", d3.select(this).attr("height"))
 	.transition()
   	.attr("width",150)
   	.attr("height", 100)
-  	.attr()
+  	.style("opacity",0)
   	.each("end",function() { // as seen above
     d3.select(this).       // this is the object 
       transition()         // a new transition!
         .attr("y",180);    // we could have had another
                            // .each("end" construct here.
-   });});*/
+   });});
 
 	var bleu = svg.selectAll("text").on("click", function(d) { d3.select(this).attr("style", "text-shadow:black 0 0 5px, red 5px 5px 3px")});
 

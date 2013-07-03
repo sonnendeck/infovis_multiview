@@ -206,6 +206,9 @@ enter.attr("style", function(d) {
       }
     })
 
+rect.on("click", function(d) { d3.select(this).attr("style", "stroke: rgb(70,70,0)")});
+var bleu = svg.selectAll("text").on("click", function(d) { d3.select(this).attr("style", "text-shadow:black 0 0 5px, red 5px 5px 3px")});
+
 // $("svg rect").tipsy({ 
 //         gravity: "width", 
 //         html: true, 

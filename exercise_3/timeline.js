@@ -222,8 +222,6 @@ enter.style("fill", function(d) {
 
 rect.on("click", function(d) { 
 
-	var rectX = d3.select(this).attr("x");
-
 	svg.append("rect")
 	.attr("x", d3.select(this).attr("x"))
 	.attr("y", d3.select(this).attr("y"))
@@ -243,7 +241,15 @@ rect.on("click", function(d) {
       transition()         // a new transition!
         .attr("y",180);    // we could have had another
                            // .each("end" construct here.
-   });});
+   });
+
+  	if (d3.select(this).style("stroke") == "#000000") {
+  			d3.select(this).style("stroke", "none");
+  	}
+  	else {
+  		d3.select(this).style("stroke", "black");
+  	}
+  });
 
 	var selectedName;
 

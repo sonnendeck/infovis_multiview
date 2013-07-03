@@ -3,7 +3,7 @@ function drawTimeline(svg_base, xPos, yPos, dataArray) {
 	var margin = {top: yPos, right: 20, bottom: 30, left: xPos},
     width = 960 - margin.left - margin.right + xPos,
     height = 200 - margin.top - margin.bottom + yPos,
-    trans_y = 100;
+    trans_y = 50;
 
 	var start_time = new Date("March 7, 2013 07:00");
 	var end_time = new Date("March 8, 2013 00:00");
@@ -67,7 +67,7 @@ function drawTimeline(svg_base, xPos, yPos, dataArray) {
 
 	svg.append("line")
 		  .attr("class", "grid")
-		  .attr("x1", 100)
+		  .attr("x1", trans_y)
 		  .attr("y1", function() {
 			return y("Huong") + height/8 - 1;
 		  })
@@ -79,7 +79,7 @@ function drawTimeline(svg_base, xPos, yPos, dataArray) {
 	//Draw fancy lines...//
 	svg.append("line")
 		  .attr("class", "grid")
-		  .attr("x1", 100)
+		  .attr("x1", trans_y)
 		  .attr("y1", function() {
 			return y("Martin") + height/8 - 1;
 		  })
@@ -90,7 +90,7 @@ function drawTimeline(svg_base, xPos, yPos, dataArray) {
 
 	svg.append("line")
 		  .attr("class", "grid")
-		  .attr("x1", 100)
+		  .attr("x1", trans_y)
 		  .attr("y1", function() {
 			return y("Tom") + height/8 - 1;
 		  })
@@ -101,7 +101,7 @@ function drawTimeline(svg_base, xPos, yPos, dataArray) {
 
 	svg.append("line")
 		  .attr("class", "grid")
-		  .attr("x1", 100)
+		  .attr("x1", trans_y)
 		  .attr("y1", function() {
 			return y("Thomas") + height/8 - 1;
 		  })
@@ -195,18 +195,18 @@ function drawTimeline(svg_base, xPos, yPos, dataArray) {
 	}); 
 	enter.attr("height", 15);
 
-	enter.attr("style", function(d) {
+enter.style("fill", function(d) {
 		  if(d.art == "Frühstück") {
-			return "fill: rgb(90,180,220)";
+			return "rgb(90,180,220)";
 		  }
 		  if(d.art == "Mittagessen") {
-			return "fill: rgb(255,200,60)";
+			return "rgb(255,200,60)";
 		  }
 		  if(d.art == "Abenbrot") {
-			return "fill: rgb(200,50,50)";
+			return "rgb(200,50,50)";
 		  }
 		  if(d.art == "Snack") {
-			return "fill: rgb(140,190,50)";
+			return "rgb(140,190,50)";
 		  }
 		})
 
@@ -245,15 +245,9 @@ rect.on("click", function(d) {
                            // .each("end" construct here.
    });});
 
-	var bleu = svg.selectAll("text").on("click", function(d) { d3.select(this).attr("style", "text-shadow:black 0 0 5px, red 5px 5px 3px")});
+	var selectedName;
 
-	// $("svg rect").tipsy({ 
-	//         gravity: "width", 
-	//         html: true, 
-	//         title: function(d) {
-	//           return "Hi there! My color is" + d.name; 
-	//         }
-	//       });
+	svg.selectAll("text").on("click", function(d) { d3.select(this).style("fill", "rgb(120,120,120)"); selectedName = d3.select(this).text(); d3.select(this).text("selected");});
 
 	function addMinutes(date, minutes) {
 		return new Date(date.getTime() + minutes*60000);

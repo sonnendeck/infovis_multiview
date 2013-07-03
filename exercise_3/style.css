@@ -30,12 +30,12 @@ text {
 }
 
 .grid {
-  stroke: rgb(240,240,240);
+  stroke: rgb(230,230,230);
   stroke-width: 1;
 }
 
 .dots {
-  fill: rgb(240,240,240);
+  fill: rgb(230,230,230);
 }
 .axis path,
 .axis line {

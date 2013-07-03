@@ -235,6 +235,8 @@ rect.on("click", function(d) {
 	.transition()
   	.attr("width",d3.select(this).attr("width") * 2)
   	.attr("height", d3.select(this).attr("height") * 2)
+  	.attr("x", d3.select(this).attr("x") - (d3.select(this).attr("width")) / 2)
+  	.attr("y", d3.select(this).attr("y") - (d3.select(this).attr("height")) / 2)
   	.style("opacity",0)
   	.each("end",function() { // as seen above
     d3.select(this).       // this is the object 

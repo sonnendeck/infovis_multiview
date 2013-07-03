@@ -4,7 +4,7 @@
 //                      AREA CHART
 ///////////////////////////////////////////////////////////
 
-function drawAreaChart(xPos, yPos, dataArray) {
+function drawAreaChart(svg_base, xPos, yPos, dataArray) {
 	var margin = {top: yPos + 20, right: 20, bottom: 30, left: xPos + 40},
     width = 960 - margin.left - margin.right + xPos,
     height = 500 - margin.top - margin.bottom + yPos;
@@ -30,11 +30,15 @@ function drawAreaChart(xPos, yPos, dataArray) {
 		.ticks(0)
 		.tickSize(10);
 
-	var svg = d3.select("body").append("svg")
-		.attr("width", width + margin.left + margin.right)
-		.attr("height", height + margin.top + margin.bottom)
-	  .append("g")
-		.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+  // var svg = d3.select("body").append("svg")
+  // svg.attr("width", width + margin.left + margin.right)
+  //   .attr("height", height + margin.top + margin.bottom)
+  //   .append("g")
+  //   .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+  var svg = svg_base.append("g")
+            .attr("class","context")
+            .attr("transform", "translate(" + xPos + "," + yPos + ")");
 
 	// Parse the .csv
 
@@ -85,6 +89,14 @@ function drawAreaChart(xPos, yPos, dataArray) {
 		  .attr("class", "area")
 		  .attr("d", function(d) { return area(d.values); })
 		  .style("fill", function(d) { return color(d.name); });
+		  
+		  
+		  
+	  //rect.on("click", function(d) { d3.select(this).attr("style", "stroke: rgb(70,70,0)")});
+	  // TODO: Expand into actual clicking behaviour
+	  meal.on("click", function(d) {
+		console.log(d3.select(this).attr("transform"));
+	  });
 
 	  svg.append("g")
 		  .attr("class", "y axis")

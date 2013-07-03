@@ -3,6 +3,11 @@ function drawParallel(x,y,dataArray){
 
 // load csv file and create the chart
 d3.csv('sample_data_pc.csv', function(data) {
+
+  var parseTime = d3.time.format("%H:%M").parse;
+  data.forEach(function(d) {d.Zeit = parseTime(d.Zeit);});
+
+
   // var colorgen = d3.scale.category20();
   var colors = {};
   var default_colors = ["#5AB4DC", "#FFC83C", "#8CBE32", "#C83232"]

@@ -1,6 +1,6 @@
-function drawTimeline(xPos, yPos, dataArray) {
+function drawTimeline(svg_base, xPos, yPos, dataArray) {
 
-	var margin = {top: yPos + 20, right: 20, bottom: 30, left: xPos + 40},
+	var margin = {top: yPos, right: 20, bottom: 30, left: xPos},
     width = 960 - margin.left - margin.right + xPos,
     height = 200 - margin.top - margin.bottom + yPos,
     trans_y = 100;
@@ -55,11 +55,15 @@ function drawTimeline(xPos, yPos, dataArray) {
 	var yAxis = d3.svg.axis()
 		.scale(y).orient("left").tickSize(0).tickPadding(10);
 
-	var svg = d3.select("body").append("svg")
-		.attr("width", width + margin.left + margin.right)
-		.attr("height", height + margin.top + margin.bottom)
-	  .append("g")
-		.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+  // var svg = d3.select("body").append("svg")
+  //   .attr("width", width + margin.left + margin.right)
+  //   .attr("height", height + margin.top + margin.bottom)
+  //   .append("g")
+  //   .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+  var svg = svg_base.append("g")
+          .attr("class","context")
+          .attr("transform", "translate(" + xPos + "," + yPos + ")");
 
 	svg.append("line")
 		  .attr("class", "grid")

@@ -1,3 +1,9 @@
+/***************/
+/* Central CSS */
+/***************/
+
+/* Area Chart */
+
 body {
   font: 10px sans-serif;
 }
@@ -12,6 +18,44 @@ body {
 .bar {
   fill: hotpink;
 }
+
+.x.axis path {
+  display: none;
+}
+
+/* Timeline */
+
+rect {
+  fill: rgb(200,20,20);
+}
+
+text {
+  font: 10px sans-serif;
+}
+
+.grid {
+  stroke: rgb(240,240,240);
+  stroke-width: 1;
+}
+
+.dots {
+  fill: rgb(240,240,240);
+}
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+.y.axis text {
+        font-family: sans-serif;
+        font-size: 15px;
+      }
+
+.x.axis text {
+        font-family: sans-serif;
+        font-weight: bold;
+      }
 
 .x.axis path {
   display: none;

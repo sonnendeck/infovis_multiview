@@ -210,7 +210,30 @@ function drawTimeline(svg_base, xPos, yPos, dataArray) {
 		  }
 		})
 
-	rect.on("click", function(d) { d3.select(this).attr("style", "stroke: rgb(70,70,0)")});
+	//rect.on("click", function(d) { d3.select(this).attr("style", "stroke: rgb(70,70,0)")});
+/*rect.on("mouseover", function(d) { d3.select(this).transition()
+  .attr("x",320)
+  .each("end",function() { // as seen above
+    d3.select(this).       // this is the object 
+      transition()         // a new transition!
+        .attr("y",180);    // we could have had another
+                           // .each("end" construct here.
+   });});*/
+
+/*rect.on("mouseover", function(d) { svg.append("rect").
+	.attr("x", function(d) { return d3.select(this).x; })
+	.attr("y", function(d) { return d3.select(this).y; })
+	.transition()
+  	.attr("width",150)
+  	.attr("height", 100)
+  	.attr()
+  	.each("end",function() { // as seen above
+    d3.select(this).       // this is the object 
+      transition()         // a new transition!
+        .attr("y",180);    // we could have had another
+                           // .each("end" construct here.
+   });});*/
+
 	var bleu = svg.selectAll("text").on("click", function(d) { d3.select(this).attr("style", "text-shadow:black 0 0 5px, red 5px 5px 3px")});
 
 	// $("svg rect").tipsy({ 

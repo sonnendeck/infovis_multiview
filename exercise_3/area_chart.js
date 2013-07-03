@@ -89,6 +89,14 @@ function drawAreaChart(svg_base, xPos, yPos, dataArray) {
 		  .attr("class", "area")
 		  .attr("d", function(d) { return area(d.values); })
 		  .style("fill", function(d) { return color(d.name); });
+		  
+		  
+		  
+	  //rect.on("click", function(d) { d3.select(this).attr("style", "stroke: rgb(70,70,0)")});
+	  // TODO: Expand into actual clicking behaviour
+	  meal.on("click", function(d) {
+		console.log(d3.select(this).attr("transform"));
+	  });
 
 	  svg.append("g")
 		  .attr("class", "y axis")

@@ -2,11 +2,10 @@ function drawParallel(x,y,dataArray){
   var pc_progressive;
 
 // load csv file and create the chart
-d3.csv('sample_data_pc.csv', function(data) {
+d3.csv('parallel_data.csv', function(data) {
 
   var parseTime = d3.time.format("%H:%M").parse;
   data.forEach(function(d) {d.Zeit = parseTime(d.Zeit);});
-
 
   // var colorgen = d3.scale.category20();
   var colors = {};
@@ -32,6 +31,7 @@ d3.csv('sample_data_pc.csv', function(data) {
     .brushable()  // enable brushing
     .interactive()  // command line mode
     .reorderable()
+    .on(data,brushing)
 
   pc_progressive.svg.selectAll("text")
     .style("font", "10px sans-serif");

@@ -220,18 +220,21 @@ function drawTimeline(svg_base, xPos, yPos, dataArray) {
                            // .each("end" construct here.
    });});*/
 
-rect.on("mouseover", function(d) { 
+rect.on("click", function(d) { 
 
 	var rectX = d3.select(this).attr("x");
 
 	svg.append("rect")
 	.attr("x", d3.select(this).attr("x"))
-	.attr("y", d3.select(this).attr("y") + trans_y)
+	.attr("y", d3.select(this).attr("y"))
 	.attr("width", d3.select(this).attr("width"))
 	.attr("height", d3.select(this).attr("height"))
+	.attr("rx", 5).attr("ry", 5)
+	.attr("transform", "translate("+ trans_y +",0)")
+	.style("fill", d3.select(this).style("fill"))
 	.transition()
-  	.attr("width",150)
-  	.attr("height", 100)
+  	.attr("width",d3.select(this).attr("width") * 2)
+  	.attr("height", d3.select(this).attr("height") * 2)
   	.style("opacity",0)
   	.each("end",function() { // as seen above
     d3.select(this).       // this is the object 

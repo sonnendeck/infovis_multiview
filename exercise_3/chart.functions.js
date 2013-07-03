@@ -185,10 +185,10 @@ var yAxis = d3.svg.axis()
     .scale(y).orient("left").tickSize(0).tickPadding(10);
 
 var svg = d3.select("body").append("svg")
-    .attr("width", width + 200)
-    .attr("height", 480)
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
   .append("g")
-    .attr("transform", "translate(2,2)");
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 svg.append("line")
       .attr("class", "grid")

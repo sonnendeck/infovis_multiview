@@ -95,6 +95,10 @@ function drawAreaChart(svg_base, xPos, yPos, dataArray) {
 	  // TODO: Expand into actual clicking behaviour
 	  meal.on("mouseover", function(d) {
 		d3.select(this).style("opacity", "0.5");
+		d3.selectAll("rect").style("opacity", "0.3");
+		//d3.selectAll("rect").style("fill", function(d) {
+			//if(this.style("fill") == this.style("fill")) {}
+		//})
 	  });
 	  
 	  meal.on("mouseout", function(d) {

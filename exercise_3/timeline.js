@@ -268,16 +268,21 @@ rect.on("click", function(d) {
 	.attr("transform", "translate("+ trans_y +",0)")
 	.style("fill", d3.select(this).style("fill"))
 	.transition()
+	/* 
+	*	TODO: Play around with flashing duration and delay!
+	.duration(2000)
+	.delay(-1000)
+	*/
   	.attr("width",d3.select(this).attr("width") * 2)
   	.attr("height", d3.select(this).attr("height") * 2)
   	.attr("x", d3.select(this).attr("x") - (d3.select(this).attr("width")) / 2)
   	.attr("y", d3.select(this).attr("y") - (d3.select(this).attr("height")) / 2)
   	.style("opacity",0)
-  	.each("end",function() { // as seen above
-    d3.select(this).       // this is the object 
-      transition()         // a new transition!
-        .attr("y",180);    // we could have had another
-                           // .each("end" construct here.
+  	.each("end",function() {
+    d3.select(this).
+      transition()
+        .attr("y",180);
+                           
    });
 
   	if (d3.select(this).style("stroke") == "#555555") {

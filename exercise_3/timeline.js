@@ -220,7 +220,8 @@ enter.style("fill", function(d) {
                            // .each("end" construct here.
    });});*/
 
-// mouseover the meals //
+
+// mouseover for the meals //
 rect.on("mouseover", function() {
 	d3.select(this).style("fill", function(d) {
 		  if(d.art == "Frühstück") {
@@ -287,6 +288,17 @@ rect.on("click", function(d) {
   		d3.select(this).style("stroke-width", 2);
   	}
   });
+
+
+
+//mouseover for the names //
+svg.selectAll("text").on("mouseover", function() {
+	d3.select(this).style("font-weight", "bold");
+});
+
+svg.selectAll("text").on("mouseout", function() {
+	d3.select(this).style("font-weight", "normal");
+});
 
 	var selectedName;
 

@@ -1,5 +1,4 @@
 
-
 ///////////////////////////////////////////////////////////
 //                      AREA CHART
 ///////////////////////////////////////////////////////////
@@ -94,8 +93,12 @@ function drawAreaChart(svg_base, xPos, yPos, dataArray) {
 		  
 	  //rect.on("click", function(d) { d3.select(this).attr("style", "stroke: rgb(70,70,0)")});
 	  // TODO: Expand into actual clicking behaviour
-	  meal.on("click", function(d) {
-		console.log(d3.select(this).attr("transform"));
+	  meal.on("mouseover", function(d) {
+		d3.select(this).style("opacity", "0.5");
+	  });
+	  
+	  meal.on("mouseout", function(d) {
+		d3.select(this).style("opacity", "1");
 	  });
 
 	  svg.append("g")

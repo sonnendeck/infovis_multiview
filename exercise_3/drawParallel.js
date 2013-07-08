@@ -1,9 +1,10 @@
-function drawParallel(svg_base,x,y,dataArray){
+function drawParallel(svg_base,xPos, yPos, dataArray){
   var pc_progressive;
 
-/*var svg = svg_base.append("g")
+
+  var svg = svg_base.append("g")
           .attr("class","context")
-          .attr("transform", "translate(" + xPos + "," + yPos + ")");*/
+          .attr("transform", "translate(" + xPos + "," + yPos + ")");
 
 // load csv file and create the chart
 d3.csv('parallel_data.csv', function(data) {
@@ -29,7 +30,7 @@ d3.csv('parallel_data.csv', function(data) {
     .data(data)
     .color(color)
     .alpha(0.8)
-    .margin({ top: y+24, left: x+50, bottom: 12, right: 0 })
+    .margin({ top: yPos+24, left: xPos+50, bottom: 12, right: 0 })
     .mode("queue")
     .render()
     .brushable()  // enable brushing

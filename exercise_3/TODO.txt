@@ -2,6 +2,11 @@
 *	Probleme und ausstehende Aufgaben	*
 /***************************************\
 
+/* Dokumentation *\
+
+Muss erstellt werden
+	- Möglichst bald
+
 /* General *\
 
 Klassen zum CSS-Stylen vergeben

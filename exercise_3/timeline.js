@@ -210,6 +210,21 @@ enter.style("fill", function(d) {
 		  }
 		})
 
+enter.attr("class", function(d) {
+		  if(d.art == "Frühstück") {
+			return "breakfast";
+		  }
+		  if(d.art == "Mittagessen") {
+			return "lunch";
+		  }
+		  if(d.art == "Abenbrot") {
+			return "dinner";
+		  }
+		  if(d.art == "Snack") {
+			return "snack";
+		  }
+		})
+
 	//rect.on("click", function(d) { d3.select(this).attr("style", "stroke: rgb(70,70,0)")});
 /*rect.on("mouseover", function(d) { d3.select(this).transition()
   .attr("x",320)
@@ -222,19 +237,36 @@ enter.style("fill", function(d) {
 
 
 // mouseover for the meals //
+// rect.on("mouseover", function() {
+// 	d3.select(this).style("fill", function(d) {
+// 		  if(d.art == "Frühstück") {
+// 			return "rgb(120,210,250)";
+// 		  }
+// 		  if(d.art == "Mittagessen") {
+// 			return "rgb(255,230,90)";
+// 		  }
+// 		  if(d.art == "Abenbrot") {
+// 			return "rgb(230,80,80)";
+// 		  }
+// 		  if(d.art == "Snack") {
+// 			return "rgb(170,220,80)";
+// 		  }
+// 		})
+// });
+
 rect.on("mouseover", function() {
 	d3.select(this).style("fill", function(d) {
 		  if(d.art == "Frühstück") {
-			return "rgb(120,210,250)";
+			return "rgb(90,150,190)";
 		  }
 		  if(d.art == "Mittagessen") {
-			return "rgb(255,230,90)";
+			return "rgb(255,170,30)";
 		  }
 		  if(d.art == "Abenbrot") {
-			return "rgb(230,80,80)";
+			return "rgb(200,20,20)";
 		  }
 		  if(d.art == "Snack") {
-			return "rgb(170,220,80)";
+			return "rgb(140,160,20)";
 		  }
 		})
 });
@@ -279,9 +311,7 @@ rect.on("click", function(d) {
   	.attr("y", d3.select(this).attr("y") - (d3.select(this).attr("height")) / 2)
   	.style("opacity",0)
   	.each("end",function() {
-    d3.select(this).
-      transition()
-        .attr("y",180);
+    d3.select(this).remove();
                            
    });
 

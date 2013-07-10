@@ -88,18 +88,6 @@ function drawAreaChart(svg_base, xPos, yPos, dataArray) {
 		  .attr("class", "area")
 		  .attr("d", function(d) { return area(d.values); })
 		  .style("fill", function(d) { return color(d.name); });
-		  
-		  
-		  
-	  //rect.on("click", function(d) { d3.select(this).attr("style", "stroke: rgb(70,70,0)")});
-	  // TODO: Expand into actual clicking behaviour
-	  meal.on("mouseover", function(d) {
-		d3.select(this).style("opacity", "0.5");
-		d3.selectAll("rect").style("opacity", "0.3");
-		//d3.selectAll("rect").style("fill", function(d) {
-			//if(this.style("fill") == this.style("fill")) {}
-		//})
-	  });
 	  
 	  meal.on("mouseout", function(d) {
 		d3.select(this).style("opacity", "1");
@@ -148,6 +136,19 @@ function drawAreaChart(svg_base, xPos, yPos, dataArray) {
 		  .attr("dy", ".35em")
 		  .style("text-anchor", "beginning")
 		  .text(function(d) { return d; });
+		  
+	  //rect.on("click", function(d) { d3.select(this).attr("style", "stroke: rgb(70,70,0)")});
+	  // TODO: Expand into actual clicking behaviour
+	  meal.on("mouseover", function(d) {
+		d3.select(this).style("opacity", "0.5");
+		d3.selectAll("rect").style("opacity", "0.3");
+		/*if(d.art == "Frühstück") {
+			d3.selectAll(".breakfast").style("opacity", "0.3");
+		}*/
+		/*d3.selectAll("rect").style("fill", function(d) {
+			if(this.style("fill") == this.style("fill")) {}
+		})*/
+	  });
 
 	});
 }

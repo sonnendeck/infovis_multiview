@@ -1,0 +1,29 @@
+\***************************************/
+*	Probleme und ausstehende Aufgaben	*
+/***************************************\
+
+/* General *\
+
+Klassen zum CSS-Stylen vergeben
+	- Nur allgemeine Sachen gleich stylen, sonst auf
+	  diagrammspezifische Klassen zugreifen
+Update-Funktion für's Neuzeichnen der Diagramme?:
+	- Neues Datenarray übergeben und damit das Diagramm neu zeichnen (Ursprüngliche Idee!)
+--> Animationen beim Neuzeichnen von Diagrammen
+	- Pulsierende Balken, reinfliegende Scheisse, etc.
+
+/*	Area Chart	*\
+
+Einzelne Tage auswählen:
+	- Extra Fläche drüberlegen?
+CSV parsen verbessern:
+	- Array übergeben bekommen!
+	
+/* Timeline *\
+
+Namen accessable machen:
+	- Eigene Textobjekte erstellen und Klassen zuweisen
+Rechtecke liegen nicht auf Mitte der Linien
+	- Am besten keine Hack-mäßigen Lösungen
+Flashing-Effekt vergrößern/ausbauen
+	- Scaled rectangles von der Mitte aus wachsen lassen

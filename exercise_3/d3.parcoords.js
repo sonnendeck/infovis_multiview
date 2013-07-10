@@ -83,7 +83,6 @@ d3.parcoords = function(config) {
   pc.state = __;
   pc.flags = flags;
 
-
   // create getter/setters
   getset(pc, __, events);
 
@@ -384,7 +383,6 @@ d3.parcoords = function(config) {
     return this;
   };
 
-  // selected single data line is possible???? use this function????
   // draw single polyline
   function color_path(d, ctx) {
     ctx.strokeStyle = d3.functor(__.color)(d);
@@ -398,19 +396,6 @@ d3.parcoords = function(config) {
     });
     ctx.stroke();
   };
-
-
-
-  // highlight row in chart
-  /*grid.onMouseEnter.subscribe(function(e,args) {
-    var i = grid.getCellFromEvent(e).row;
-    var d = parcoords.brushed() || data;
-    parcoords.highlight([d[i]]);
-  });
-  grid.onMouseLeave.subscribe(function(e,args) {
-    parcoords.unhighlight();
-  });*/
-
 
   // draw many polylines of the same color
   function paths(data, ctx) {

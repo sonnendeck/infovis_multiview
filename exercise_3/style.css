@@ -29,6 +29,12 @@ text {
   font: 10px sans-serif;
 }
 
+.t_names {
+  font-family: sans-serif;
+  font-size: 15px;
+  text-align: right;
+}
+
 .grid {
   stroke: rgb(230,230,230);
   stroke-width: 1;
@@ -37,23 +43,28 @@ text {
 .dots {
   fill: rgb(230,230,230);
 }
-.axis path,
-.axis line {
+.yAxis path,
+.yAxis line {
   fill: none;
   stroke: #000;
   shape-rendering: crispEdges;
 }
-.y.axis text {
-        font-family: sans-serif;
-        font-size: 15px;
+.xAxis path,
+.xAxis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+.yAxis text {
+        display: none;
       }
 
-.x.axis text {
+.xAxis text {
         font-family: sans-serif;
         font-weight: bold;
       }
 
-.x.axis path {
+.xAxis path {
   display: none;
 }
 

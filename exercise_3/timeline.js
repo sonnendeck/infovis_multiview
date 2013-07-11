@@ -3,7 +3,7 @@ function drawTimeline(svg_base, xPos, yPos, dataArray) {
 	var margin = {top: yPos, right: 20, bottom: 30, left: xPos},
     width = 960 - margin.left - margin.right + xPos,
     height = 200 - margin.top - margin.bottom + yPos,
-    trans_y = 50;
+    trans_y = 60;
 
 	var start_time = new Date("March 7, 2013 07:00");
 	var end_time = new Date("March 8, 2013 00:00");
@@ -65,6 +65,8 @@ function drawTimeline(svg_base, xPos, yPos, dataArray) {
           .attr("class","context")
           .attr("transform", "translate(" + xPos + "," + yPos + ")");
 
+	// Draw fancy lines...//
+
 	svg.append("line")
 		  .attr("class", "grid")
 		  .attr("x1", trans_y)
@@ -76,7 +78,6 @@ function drawTimeline(svg_base, xPos, yPos, dataArray) {
 			return y("Huong") + height/8 - 1;
 		  });
 
-	//Draw fancy lines...//
 	svg.append("line")
 		  .attr("class", "grid")
 		  .attr("x1", trans_y)
@@ -161,14 +162,47 @@ function drawTimeline(svg_base, xPos, yPos, dataArray) {
 
 	//draw axes//
 	svg.append("g")
-		  .attr("class", "x axis")
+		  .attr("class", "xAxis")
 		  .attr("transform", "translate("+ trans_y +"," + height + ")")
 		  .call(xAxis);
 
 	svg.append("g")
-		  .attr("class", "y axis")
+		  .attr("class", "yAxis")
 		  .attr("transform", "translate("+ trans_y +",0)")
 		  .call(yAxis);
+
+
+	svg.append("text")
+			.text("Huong")
+			.attr("class", "t_names")
+			.attr("y", function() {
+				return y(d3.select(this).text()) + height/8;
+			})
+			.attr("x", 0);
+
+	svg.append("text")
+			.text("Martin")
+				.attr("class", "t_names")
+			.attr("y", function() {
+				return y(d3.select(this).text()) + height/8;
+			})
+			.attr("x", 0);
+
+	svg.append("text")
+			.text("Tom")
+			.attr("class", "t_names")
+			.attr("y", function() {
+				return y(d3.select(this).text()) + height/8;
+			})
+			.attr("x", 0);
+
+	svg.append("text")
+			.text("Thomas")
+				.attr("class", "t_names")
+			.attr("y", function() {
+				return y(d3.select(this).text()) + height/8;
+			})
+			.attr("x", 0);
 
 	//draw bars//
 	var rect = svg.selectAll("rect")
@@ -327,17 +361,17 @@ rect.on("click", function(d) {
 
 
 //mouseover for the names //
-svg.selectAll("text").on("mouseover", function() {
+svg.selectAll(".t_names").on("mouseover", function() {
 	d3.select(this).style("font-weight", "bold");
 });
 
-svg.selectAll("text").on("mouseout", function() {
+svg.selectAll(".t_names").on("mouseout", function() {
 	d3.select(this).style("font-weight", "normal");
 });
 
 	var selectedName;
 
-	svg.selectAll("text").on("click", function(d) { d3.select(this).style("fill", "rgb(120,120,120)"); selectedName = d3.select(this).text(); d3.select(this).text("selected");});
+	svg.selectAll(".t_names").on("click", function(d) { d3.select(this).style("fill", "rgb(120,120,120)"); selectedName = d3.select(this).text(); d3.select(this).text("selected");});
 
 	function addMinutes(date, minutes) {
 		return new Date(date.getTime() + minutes*60000);

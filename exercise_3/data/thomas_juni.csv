@@ -1,84 +1,84 @@
-Datum,Start,Ende,Art,Rahmen,Menge,Fleisch,Gemüse,Teigwaren,Obst,Fleischersatz,Milchprodukte
-01.06.13,12:00:00,20,Mittagessen ,Freund,mittel,-,mittel,-,wenig,mittel,-
-01.06.13,15:15:00,15,Snack,Freund,mittel,-,-,viel,-,-,-
-01.06.13,18:15:00,20,Abendbrot,Freund,mittel,-,-,viel,-,-,wenig
-02.06.13,13:45:00,15,Mittagessen ,zuhause,mittel,-,mittel,-,wenig,mittel,-
-02.06.13,17:15:00,5,Snack,zuhause,wenig,-,-,viel,-,-,-
-02.06.13,12:30:00,25,Abenbrot,zuhause,mittel,-,-,mittel,-,wenig,wenig
-03.06.13,01:15:00,5,Snack,zuhause,wenig,-,-,-,wenig,-,-
-03.06.13,12:30:00,55,Mittagessen ,Mensa,mittel,-,-,viel,wenig,-,-
-03.06.13,21:00:00,5,Snack,zuhause,wenig,-,-,-,-,-,viel
-03.06.13,23:15:00,15,Abendbrot,zuhause,mittel,-,-,viel,-,-,wenig
-04.06.13,13:30:00,20,Frühstück,zuhause,mittel,-,-,mittel,mittel,-,mittel
-04.06.13,16:45:00,10,Snack,zuhause ,wenig,-,-,-,-,-,viel
-04.06.13,20:00:00,25,Abendbrot,zuhause ,mittel,-,wenig,viel,-,wenig,wenig
-05.06.13,14:30:00,25,Mittagessen ,Restaurant,mittel,-,mittel,viel,-,mittel,-
-05.06.13,22:15:00,20,Abendbrot,zuhause,mittel,-,wenig,viel,-,wenig,wenig
-06.06.13,13:15:00,30,Mittagessen,Mensa,mittel,-,mittel,-,-,-,wenig
-06.06.13,15:00:00,10,Snack,zuhause,wenig,-,-,-,viel,-,-
-07.06.13,12:15:00,20,Frühstück,zuhause,mittel,-,-,mittel,mittel,-,mittel
-07.06.13,17:00:00,20,Snack,zuhause ,mittel,-,-,viel,-,-,-
-08.06.13,14:00:00,30,Frühstück,zuhause,mittel,-,-,viel,-,-,-
-08.06.13,15:45:00,5,Snack,zuhause ,mittel,-,-,viel,-,-,-
-08.06.13,20:30:00,20,Abendbrot,Restaurant,mittel,-,wenig,mittel,-,wenig,-
-08.06.13,23:30:00,10,Snack,zuhause,wenig,-,-,-,viel,-,-
-09.06.13,12:15:00,30,Mittagessen ,Freund,mittel,-,mittel,-,-,wenig,-
-09.06.13,15:00:00,10,Snack,Freund,wenig,-,-,viel,-,-,wenig
-09.06.13,18:15:00,25,Abendbrot,Freund,mittel,-,wenig,mittel,wenig,wenig,-
-09.06.13,22:15:00,5,Snack,zuhause ,wenig,-,-,-,-,-,viel
-10.06.13,01:30:00,5,Snack,zuhause ,wenig,-,-,-,-,-,viel
-10.06.13,12:45:00,20,Frühstück,zuhause ,mittel,-,-,viel,-,-,-
-10.06.13,19:10:00,20,Abendbrot,zuhause,mittel,-,-,viel-,,-,wenig
-11.06.13,03:15:00,5,Snack,zuhause,wenig,-,-,-,-,-,viel
-11.06.13,16:00:00,25,Mittagessen,zuhause,mittel,-,-,viel,wenig,-,-
-11.06.13,22:30:00,25,Abendbrot,zuhause,mittel,-,wenig,mittel,-,wenig,-
-12.06.13,13:45:00,25,Frühstück,zuhause,mittel,-,-,viel,-,-,-
-12.06.13,20:45:00,30,Abendbrot,zuhause ,mittel,-,-,viel,wenig,wenig,-
-13.06.13,12:15:00,25,Mittagessen ,Mensa,mittel,-,wenig,viel,-,-,wenig
-13.06.13,16:00:00,5,Snack,zuhause,wenig,-,-,viel,-,-,-
-13.06.13,23:00:00,15,Abendbrot,zuhause,mittel,-,wenig,viel,-,-,wenig
-14.06.13,12:15:00,10,Frühstück,zuhause ,wenig,-,-,mittel,mittel,-,-
-14.06.13,15:45:00,35,Mittagessen,zuhause,viel,-,wenig,viel,-,-,wenig
-15.06.13,09:15:00,35,Frühstück,zuhause,mittel,-,-,mittel,mittel,-,mittel
-15.06.13,16:00:00,15,Snack,Freund,wenig,-,-,viel,-,-,-
-15.06.13,18:45:00,20,Abendbrot,Freund,mittel,-,-,mittel,-,mittel,-
-15.06.13,22:30:00,10,Snack,Freund,wenig,-,-,-,-,-,viel
-16.06.13,12:00:00,25,Mittagessen ,Freund,mittel,-,wenig,viel,wenig,-,-
-16.06.13,15:15:00,5,Snack,Freund,wenig,-,-,viel,wenig,-,-
-16.06.13,20:15:00,20,Abendbrot,zuhause ,mittel,-,wenig,viel,wenig,-,-
-17.06.13,11:30:00,30,Mittagessen,Mensa,mittel,-,mittel,-,-,mittel,wenig
-17.06.13,15:15:00,5,Snack,zuhause ,wenig,-,-,-,viel,-,-
-17.06.13,21:30:00,20,Abendbrot,zuhause ,mittel,-,wenig,mittel,-,-,wenig
-18.06.13,01:00:00,5,Snack,zuhause ,wenig,-,-,-,-,-,viel
-19.06.13,12:30:00,30,Mittagessen,Restaurant,mittel,-,mittel,mittel,-,-,-
-19.06.13,20:45:00,15,Abendbrot,zuhause ,mittel,-,wenig,viel,-,-,wenig
-20.06.13,14:00:00,20,Mittagessen,zuhause,mittel,-,-,viel,wenig,-,-
-20.06.13,19:30:00,20,Abendbrot,zuhause,mittel,-,-,viel,wenig,-,-
-21.06.13,12:15:00,5,Snack,zuhause,wenig,-,-,viel,-,-,-
-21.06.13,16:30:00,15,Snack,zuhause,mittel,-,-,-,viel,-,-
-21.06.13,23:15:00,15,Abenbrot,zuhause,wenig,-,-,mittel,-,-,mittel
-22.06.13,18:15:00,25,Abendbrot,zuhause,mittel,-,wenig,viel,-,wenig,wenig
-23.06.13,11:00:00,5,Frühstück,zuhause,wenig,-,-,viel,-,-,-
-23.06.13,15:45:00,20,Mittagessen,zuhause,mittel,-,wenig,viel,-,wenig,wenig
-24.06.13,13:15:00,20,Mittagessen,Mensa,mittel,-,wenig,mittel,-,mittel,-
-24.06.13,16:45:00,10,Snack,Restaurant,wenig,-,-,-,-,-,viel
-24.06.13,19:00:00,20,Abendbrot,Restaurant,mittel,-,mittel,mittel,-,-,-
-25.06.13,12:00:00,20,Mittagessen,zuhause,mittel,-,wenig,viel,-,-,wenig
-25.06.13,16:30:00,10,Snack,Restaurant,wenig,-,-,-,-,-,viel
-25.06.13,19:45:00,20,Abendbrot,Restaurant,mittel,-,mittel,mittel,-,-,-
-25.06.13,22:00:00,5,Snack,zuhause,wenig,-,-,-,-,-,viel
-26.06.13,12:00:00,35,Mittagessen,Restaurant,mittel,-,wenig,viel,-,-,wenig
-26.06.13,18:30:00,15,Abendbrot,zuhause,mittel,-,wenig,viel,-,-,wenig
-26.06.13,22:30:00,10,Snack,zuhause,wenig,-,-,-,-,-,-
-27.06.13,12:15:00,20,Frühstück,zuhause,mittel,-,-,viel,-,-,-
-27.06.13,19:30:00,30,Abendbrot,zuhause,mittel,-,wenig,mittel,-,-,mittel
-27.06.13,23:45:00,20,Snack,zuhause,mittel,-,-,-,viel,-,-
-28.06.13,12:00:00,20,Frühstück,zuhause,mittel,-,-,viel,-,-,-
-28.06.13,19:00:00,25,Abenbrot,zuhause,mittel,-,wenig,mittel,-,-,wenig
-28.06.13,22:30:00,5,Snack,zuhause,wenig,-,-,-,-,-,-
-29.06.13,12:00:00,20,Mittagessen,Freund,mittel,-,viel,-,-,-,wenig
-29.06.13,15:00:00,10,Snack,Freund,mittel,-,-,mittel,mittel,-,wenig
-29.06.13,18:45:00,20,Abendbrot,Freund,mittel,-,viel,-,-,-,wenig
-29.06.13,23:30:00,10,Snack,zuhause,wenig,-,-,-,-,-,-
-30.06.13,13:45:00,15,Mittagessen,zuhause,mittel,-,viel,-,-,-,wenig
-30.06.13,15:45:00,5,Snack,zuhause,wenig,-,-,viel,-,-,-
+Nutzer,Zeit,Dauer,Art,Rahmen,Gesamtmenge,Fleisch,Fleischersatz,Gemüse,Teigwaren,Obst,Milchprodukte,
+Thomas,01.06.2013 12:00,20,Mittagessen,Freunde,2,0,2,2,0,1,0,
+Thomas,01.06.2013 15:15,15,Snack,Freunde,2,0,0,0,3,0,0,
+Thomas,01.06.2013 18:15,20,Abendessen,Freunde,2,0,0,0,3,0,1,
+Thomas,02.06.2013 13:45,15,Mittagessen,Daheim,2,0,2,2,0,1,0,
+Thomas,02.06.2013 17:15,5,Snack,Daheim,1,0,0,0,3,0,0,
+Thomas,02.06.2013 12:30,25,Abenbrot,Daheim,2,0,1,0,2,0,1,
+Thomas,03.06.2013 01:15,5,Snack,Daheim,1,0,0,0,0,1,0,
+Thomas,03.06.2013 12:30,55,Mittagessen,Mensa,2,0,0,0,3,1,0,
+Thomas,03.06.2013 21:00,5,Snack,Daheim,1,0,0,0,0,0,3,
+Thomas,03.06.2013 23:15,15,Abendessen,Daheim,2,0,0,0,3,0,1,
+Thomas,04.06.2013 13:30,20,Frühstück,Daheim,2,0,0,0,2,2,2,
+Thomas,04.06.2013 16:45,10,Snack,Daheim,1,0,0,0,0,0,3,
+Thomas,04.06.2013 20:00,25,Abendessen,Daheim,2,0,1,1,3,0,1,
+Thomas,05.06.2013 14:30,25,Mittagessen,Restaurant,2,0,2,2,3,0,0,
+Thomas,05.06.2013 22:15,20,Abendessen,Daheim,2,0,1,1,3,0,1,
+Thomas,06.06.2013 13:15,30,Mittagessen,Mensa,2,0,0,2,0,0,1,
+Thomas,06.06.2013 15:00,10,Snack,Daheim,1,0,0,0,0,3,0,
+Thomas,07.06.2013 12:15,20,Frühstück,Daheim,2,0,0,0,2,2,2,
+Thomas,07.06.2013 17:00,20,Snack,Daheim,2,0,0,0,3,0,0,
+Thomas,08.06.2013 14:00,30,Frühstück,Daheim,2,0,0,0,3,0,0,
+Thomas,08.06.2013 15:45,5,Snack,Daheim,2,0,0,0,3,0,0,
+Thomas,08.06.2013 20:30,20,Abendessen,Restaurant,2,0,1,1,2,0,0,
+Thomas,08.06.2013 23:30,10,Snack,Daheim,1,0,0,0,0,3,0,
+Thomas,09.06.2013 12:15,30,Mittagessen,Freunde,2,0,1,2,0,0,0,
+Thomas,09.06.2013 15:00,10,Snack,Freunde,1,0,0,0,3,0,1,
+Thomas,09.06.2013 18:15,25,Abendessen,Freunde,2,0,1,1,2,1,0,
+Thomas,09.06.2013 22:15,5,Snack,Daheim,1,0,0,0,0,0,3,
+Thomas,10.06.2013 01:30,5,Snack,Daheim,1,0,0,0,0,0,3,
+Thomas,10.06.2013 12:45,20,Frühstück,Daheim,2,0,0,0,3,0,0,
+Thomas,10.06.2013 19:10,20,Abendessen,Daheim,2,0,0,0,3,0,1,
+Thomas,11.06.2013 03:15,5,Snack,Daheim,1,0,0,0,0,0,3,
+Thomas,11.06.2013 16:00,25,Mittagessen,Daheim,2,0,0,0,3,1,0,
+Thomas,11.06.2013 22:30,25,Abendessen,Daheim,2,0,1,1,2,0,0,
+Thomas,12.06.2013 13:45,25,Frühstück,Daheim,2,0,0,0,3,0,0,
+Thomas,12.06.2013 20:45,30,Abendessen,Daheim,2,0,1,0,3,1,0,
+Thomas,13.06.2013 12:15,25,Mittagessen,Mensa,2,0,0,1,3,0,1,
+Thomas,13.06.2013 16:00,5,Snack,Daheim,1,0,0,0,3,0,0,
+Thomas,13.06.2013 23:00,15,Abendessen,Daheim,2,0,0,1,3,0,1,
+Thomas,14.06.2013 12:15,10,Frühstück,Daheim,1,0,0,0,2,2,0,
+Thomas,14.06.2013 15:45,35,Mittagessen,Daheim,3,0,0,1,3,0,1,
+Thomas,15.06.2013 09:15,35,Frühstück,Daheim,2,0,0,0,2,2,2,
+Thomas,15.06.2013 16:00,15,Snack,Freunde,1,0,0,0,3,0,0,
+Thomas,15.06.2013 18:45,20,Abendessen,Freunde,2,0,2,0,2,0,0,
+Thomas,15.06.2013 22:30,10,Snack,Freunde,1,0,0,0,0,0,3,
+Thomas,16.06.2013 12:00,25,Mittagessen,Freunde,2,0,0,1,3,1,0,
+Thomas,16.06.2013 15:15,5,Snack,Freunde,1,0,0,0,3,1,0,
+Thomas,16.06.2013 20:15,20,Abendessen,Daheim,2,0,0,1,3,1,0,
+Thomas,17.06.2013 11:30,30,Mittagessen,Mensa,2,0,2,2,0,0,1,
+Thomas,17.06.2013 15:15,5,Snack,Daheim,1,0,0,0,0,3,0,
+Thomas,17.06.2013 21:30,20,Abendessen,Daheim,2,0,0,1,2,0,1,
+Thomas,18.06.2013 01:00,5,Snack,Daheim,1,0,0,0,0,0,3,
+Thomas,19.06.2013 12:30,30,Mittagessen,Restaurant,2,0,0,2,2,0,0,
+Thomas,19.06.2013 20:45,15,Abendessen,Daheim,2,0,0,1,3,0,1,
+Thomas,20.06.2013 14:00,20,Mittagessen,Daheim,2,0,0,0,3,1,0,
+Thomas,20.06.2013 19:30,20,Abendessen,Daheim,2,0,0,0,3,1,0,
+Thomas,21.06.2013 12:15,5,Snack,Daheim,1,0,0,0,3,0,0,
+Thomas,21.06.2013 16:30,15,Snack,Daheim,2,0,0,0,0,3,0,
+Thomas,21.06.2013 23:15,15,Abenbrot,Daheim,1,0,0,0,2,0,2,
+Thomas,22.06.2013 18:15,25,Abendessen,Daheim,2,0,1,1,3,0,1,
+Thomas,23.06.2013 11:00,5,Frühstück,Daheim,1,0,0,0,3,0,0,
+Thomas,23.06.2013 15:45,20,Mittagessen,Daheim,2,0,1,1,3,0,1,
+Thomas,24.06.2013 13:15,20,Mittagessen,Mensa,2,0,2,1,2,0,0,
+Thomas,24.06.2013 16:45,10,Snack,Restaurant,1,0,0,0,0,0,3,
+Thomas,24.06.2013 19:00,20,Abendessen,Restaurant,2,0,0,2,2,0,0,
+Thomas,25.06.2013 12:00,20,Mittagessen,Daheim,2,0,0,1,3,0,1,
+Thomas,25.06.2013 16:30,10,Snack,Restaurant,1,0,0,0,0,0,3,
+Thomas,25.06.2013 19:45,20,Abendessen,Restaurant,2,0,0,2,2,0,0,
+Thomas,25.06.2013 22:00,5,Snack,Daheim,1,0,0,0,0,0,3,
+Thomas,26.06.2013 12:00,35,Mittagessen,Restaurant,2,0,0,1,3,0,1,
+Thomas,26.06.2013 18:30,15,Abendessen,Daheim,2,0,0,1,3,0,1,
+Thomas,26.06.2013 22:30,10,Snack,Daheim,1,0,0,0,0,0,0,
+Thomas,27.06.2013 12:15,20,Frühstück,Daheim,2,0,0,0,3,0,0,
+Thomas,27.06.2013 19:30,30,Abendessen,Daheim,2,0,0,1,2,0,2,
+Thomas,27.06.2013 23:45,20,Snack,Daheim,2,0,0,0,0,3,0,
+Thomas,28.06.2013 12:00,20,Frühstück,Daheim,2,0,0,0,3,0,0,
+Thomas,28.06.2013 19:00,25,Abenbrot,Daheim,2,0,0,1,2,0,1,
+Thomas,28.06.2013 22:30,5,Snack,Daheim,1,0,0,0,0,0,0,
+Thomas,29.06.2013 12:00,20,Mittagessen,Freunde,2,0,0,3,0,0,1,
+Thomas,29.06.2013 15:00,10,Snack,Freunde,2,0,0,0,2,2,1,
+Thomas,29.06.2013 18:45,20,Abendessen,Freunde,2,0,0,3,0,0,1,
+Thomas,29.06.2013 23:30,10,Snack,Daheim,1,0,0,0,0,0,0,
+Thomas,30.06.2013 13:45,15,Mittagessen,Daheim,2,0,0,3,0,0,1,
+Thomas,30.06.2013 15:45,5,Snack,Daheim,1,0,0,0,3,0,0,

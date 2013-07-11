@@ -51,7 +51,7 @@ function parseCSVData() {
         
         // Generiert AreaChart relevante CSV Daten und zeichnet das Diagramm
         area_data     = getAreaChartData(csv_data);
-    	  drawAreaChart(svg, 50, 300, null);
+    	  drawAreaChart(svg, 50, 300, area_data);
         
       } else {
         console.log("Fehler beim Lesen der CSV: " + error);

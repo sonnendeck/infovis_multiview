@@ -1,7 +1,7 @@
 function drawParallel(svg_base,x,y,dataArray){
   var pc_progressive;
 
-/*var svg = svg_base.append("g")
+  /*var svg = svg_base.append("g")
           .attr("class","context")
           .attr("transform", "translate(" + xPos + "," + yPos + ")");*/
 
@@ -35,8 +35,9 @@ d3.csv('parallel_data.csv', function(data) {
     .brushable()  // enable brushing
     .interactive()  // command line mode
     .reorderable()
-    .on(data,brushing)
+    .on(data,brushing);
 
+    
   pc_progressive.svg.selectAll("text")
     .style("font", "10px sans-serif");
 });

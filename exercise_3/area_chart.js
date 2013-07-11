@@ -38,13 +38,24 @@ function drawAreaChart(svg_base, xPos, yPos, dataArray) {
   var svg = svg_base.append("g")
             .attr("class","context")
             .attr("transform", "translate(" + xPos + "," + yPos + ")");
-
-	// Parse the .csv
-
-	d3.csv("area_char_data.csv", function(error, data) {
-	  color.domain(d3.keys(data[0]).filter(function(key) { return key !== "Tag"; }));
-
-	  data.forEach(function(d) {
+			
+	// Get the data, and display it
+	
+	var workingData = [];
+	
+	for(var k in dataArray) {
+		tempObj = new Object();
+		tempObj.Tag = k;
+		tempObj.Frühstück = dataArray[k].breakfast.toString();
+		tempObj.Mittagessen = dataArray[k].lunch.toString();
+		tempObj.Snack = dataArray[k].snack.toString();
+		tempObj.Abendessen = dataArray[k].dinner.toString();
+		workingData.push(tempObj);
+	}
+	
+	color.domain(["Frühstück", "Mittagessen", "Snack", "Abendessen"]);
+	  
+	  workingData.forEach(function(d) {
 		var y0 = 0;
 		d.amount = color.domain().map(function(name) { return {name: name, y0: y0, y1: y0 += +d[name]}; });
 
@@ -54,13 +65,13 @@ function drawAreaChart(svg_base, xPos, yPos, dataArray) {
 	  var area = d3.svg.area()
 		.interpolate("basis")
 		.x(function(d) { return x(d.Tag); })
-		.y0(function(d) {console.log(d); return y(d.y0); })
+		.y0(function(d) {return y(d.y0); })
 		.y1(function(d) { return y(d.y0 + d.y); });
 
 	  // data.sort(function(a, b) { return b.total - a.total; });
 
-	  x.domain(data.map(function(d) { return d.Tag; }));
-	  y.domain([0, d3.max(data, function(d) { return d.total; })]);
+	  x.domain(workingData.map(function(d) { return d.Tag; }));
+	  y.domain([0, d3.max(workingData, function(d) { return d.total; })]);
 
 	  svg.append("g")
 		  .attr("class", "x axis")
@@ -73,7 +84,7 @@ function drawAreaChart(svg_base, xPos, yPos, dataArray) {
 	  var meals = stack(color.domain().map(function(name) {
 		return {
 		  name: name,
-		  values: data.map(function(d) {
+		  values: workingData.map(function(d) {
 			return {Tag: d.Tag, y: +d[name]};
 		  })
 		};
@@ -105,7 +116,7 @@ function drawAreaChart(svg_base, xPos, yPos, dataArray) {
 		  .text("Menge");
 
 	  var days = svg.selectAll(".days")
-		  .data(data)
+		  .data(workingData)
 		.enter().append("g")
 		  .attr("class", "g")
 		  .attr("transform", function(d) { return "translate(" + x(d.Tag) + ",0)"; });
@@ -140,7 +151,7 @@ function drawAreaChart(svg_base, xPos, yPos, dataArray) {
 	  //rect.on("click", function(d) { d3.select(this).attr("style", "stroke: rgb(70,70,0)")});
 	  // TODO: Expand into actual clicking behaviour
 	  meal.on("mouseover", function(d) {
-		d3.select(this).style("opacity", "0.5");
+		d3.select(this).style("opacity", "0.3");
 		d3.selectAll("rect").style("opacity", "0.3");
 		/*if(d.art == "Frühstück") {
 			d3.selectAll(".breakfast").style("opacity", "0.3");
@@ -150,5 +161,5 @@ function drawAreaChart(svg_base, xPos, yPos, dataArray) {
 		})*/
 	  });
 
-	});
+	//});
 }

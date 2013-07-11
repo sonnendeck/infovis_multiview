@@ -21,8 +21,6 @@ Update-Funktion für's Neuzeichnen der Diagramme?:
 
 Einzelne Tage auswählen:
 	- Extra Fläche drüberlegen?
-CSV parsen verbessern:
-	- Array übergeben bekommen!
 	
 /* Timeline *\
 

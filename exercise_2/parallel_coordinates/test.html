@@ -13,6 +13,8 @@ svg {
   fill: none;
   stroke-opacity: .5;
   stroke-width: 1.5px;
+  outline-color: black;
+  border-color: yellow;
 }
 
 .foreground path.fade {
@@ -73,18 +75,21 @@ svg {
     <script type="text/javascript">
 
 var name = ["Martin", "Tom", "Thomas", "Huong"],
-    traits = ["Zeit", "Art", "Rahmen", "Menge", "Dauer"];
+    fields = ["Art", "Rahmen", "Gesamtmenge", "Dauer"],
+    art = {'Frühstück': 0, 'Mittagessen': 1, 'Abendessen': 2, 'Snack': 3},
+    rahmen = {'Daheim': 0, 'Arbeit': 1, 'Imbiss': 2, 'Restaurant':3, 'Mensa':4};
 
 var m = [80, 160, 200, 160],
     w = 1280 - m[1] - m[3],
     h = 800 - m[0] - m[2];
 
-var x = d3.scale.ordinal().domain(traits).rangePoints([0, w]),
+var x = d3.scale.ordinal().domain(fields).rangePoints([0, w]),
     y = {};
 
-var line = d3.svg.line(),
-    axis = d3.svg.axis().orient("left"),
-    foreground;
+var line = d3.svg.line();
+var axes = {};
+
+var foreground;
 
 var svg = d3.select("body").append("svg:svg")
     .attr("width", w + m[1] + m[3])
@@ -92,21 +97,41 @@ var svg = d3.select("body").append("svg:svg")
   .append("svg:g")
     .attr("transform", "translate(" + m[3] + "," + m[0] + ")");
 
-d3.csv("data.csv", function(essen) {
+d3.csv("sample_data.csv", function(essen) {
+
+  // AXES
+  axes = {
+    default: d3.svg.axis()
+      .orient("left"),
+    art: d3.svg.axis()
+      .ticks(art.length)
+      .orient("left"),
+    rahmen: d3.svg.axis()
+      .ticks(rahmen.length)
+      .orient("left"),
+    menge: d3.svg.axis()
+      .ticks(d3.max(essen, function(d) { return parseInt(d['Gesamtmenge']); }))
+      .orient("left")
+  }
 
   // Create a scale and brush for each trait.
-  traits.forEach(function(d) {
+  fields.forEach(function(f) {
     // Coerce values to numbers.
-    essen.forEach(function(p) { p[d] = +p[d]; });
-
-    y[d] = d3.scale.linear()
-        .domain(d3.extent(essen, function(p) { return p[d]; }))
+    // essen.forEach(function(d) { d[f] = +d[f]; });
+    if(f == 'Art'){
+      essen.forEach(function(d) { d[f] = art[d[f]]; });
+    } else if(f == 'Rahmen'){
+      essen.forEach(function(d) { d[f] = rahmen[d[f]]; });
+    }
+    y[f] = d3.scale.linear()
+        .domain([0, d3.max(essen, function(d) { return parseInt(d[f]); })])
         .range([h, 0]);
 
-    y[d].brush = d3.svg.brush()
-        .y(y[d])
+    y[f].brush = d3.svg.brush()
+        .y(y[f])
         .on("brush", brush);
  });
+  console.debug(y);
 
   // Add a legend.
   var legend = svg.selectAll("g.legend")
@@ -131,14 +156,21 @@ d3.csv("data.csv", function(essen) {
       .data(essen)
     .enter().append("svg:path")
       .attr("d", path)
-      .attr("class", function(d) { return d.name; })
+      .attr("class", function(d) { return d.Nutzer; })
       .on('click', function(d,i){
-        console.log('click');
+        // console.log(this);
+        d3.select(this).style('stroke-width', '5px');
+        d3.select(this).style('stroke', 'blue');
+      })
+      .on('mouseout', function(d,i){
+        // console.log(this);
+        d3.select(this).style('stroke-width', '1.5px');
+
       });
 
   // Add a group element for each trait.
   var g = svg.selectAll(".trait")
-      .data(traits)
+      .data(fields)
     .enter().append("svg:g")
       .attr("class", "trait")
       .attr("transform", function(d) { return "translate(" + x(d) + ")"; })
@@ -151,7 +183,21 @@ d3.csv("data.csv", function(essen) {
   // Add an axis and title.
   g.append("svg:g")
       .attr("class", "axis")
-      .each(function(d) { d3.select(this).call(axis.scale(y[d])); })
+      .each(function(d) { 
+        switch(d) {
+          case 'Art':
+            d3.select(this).call(axes.art.scale(y[d]));
+            break;
+          case 'Gesamtmenge':
+            d3.select(this).call(axes.menge.scale(y[d]));
+            break;
+          case 'Rahmen':
+            d3.select(this).call(axes.rahmen.scale(y[d]));
+            break;
+          default:
+            d3.select(this).call(axes.default.scale(y[d]));
+        }
+      })
     .append("svg:text")
       .attr("text-anchor", "middle")
       .attr("y", -9)
@@ -166,18 +212,18 @@ d3.csv("data.csv", function(essen) {
       .attr("width", 16);
 
   function dragstart(d) {
-    i = traits.indexOf(d);
+    i = fields.indexOf(d);
   }
 
   function drag(d) {
     x.range()[i] = d3.event.x;
-    traits.sort(function(a, b) { return x(a) - x(b); });
+    fields.sort(function(a, b) { return x(a) - x(b); });
     g.attr("transform", function(d) { return "translate(" + x(d) + ")"; });
     foreground.attr("d", path);
   }
 
   function dragend(d) {
-    x.domain(traits).rangePoints([0, w]);
+    x.domain(fields).rangePoints([0, w]);
     var t = d3.transition().duration(500);
     t.selectAll(".trait").attr("transform", function(d) { return "translate(" + x(d) + ")"; });
     t.selectAll(".foreground path").attr("d", path);
@@ -186,12 +232,12 @@ d3.csv("data.csv", function(essen) {
 
 // Returns the path for a given data point.
 function path(d) {
-  return line(traits.map(function(p) { return [x(p), y[p](d[p])]; }));
+  return line(fields.map(function(p) { return [x(p), y[p](d[p])]; }));
 }
 
 // Handles a brush event, toggling the display of foreground lines.
 function brush() {
-  var actives = traits.filter(function(p) { return !y[p].brush.empty(); }),
+  var actives = fields.filter(function(p) { return !y[p].brush.empty(); }),
       extents = actives.map(function(p) { return y[p].brush.extent(); });
   foreground.classed("fade", function(d) {
     return !actives.every(function(p, i) {

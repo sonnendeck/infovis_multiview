@@ -47,7 +47,7 @@ function parseCSVData() {
         
         // Generiert Timeline relevante CSV Daten und zeichnet das Diagramm
         timeline_data = getTimelineChartData(csv_data);
-    	  drawTimeline(svg, 50, 50, null);
+    	  drawTimeline(svg, 50, 50, timeline_data);
         
         // Generiert AreaChart relevante CSV Daten und zeichnet das Diagramm
         area_data     = getAreaChartData(csv_data);

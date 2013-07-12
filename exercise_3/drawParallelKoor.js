@@ -32,10 +32,12 @@ d3.csv("data/sample_data.csv", function(essen) {
     default: d3.svg.axis()
       .orient("left"),
     art: d3.svg.axis()
-      .ticks(art.length)
+      //.ticks(art.length)
+      .ticks(4)
       .orient("left"),
     rahmen: d3.svg.axis()
-      .ticks(rahmen.length)
+      //.ticks(rahmen.length)
+      .ticks(5)
       .orient("left"),
     menge: d3.svg.axis()
       .ticks(d3.max(essen, function(d) { return parseInt(d['Gesamtmenge']); }))

@@ -1,11 +1,16 @@
+// simply access via amount value: AMOUNT_NAMES[data.snack_amount]
+var AMOUNT_NAMES = ["nichts","wenig","mittel","viel"];
+var TYPE_NAMES = ["Frühstück","Mittagessen","Snack","Abendessen"];
+var OCCASION_NAMES = ["Arbeit", "Daheim", "Imbiss", "Mensa", "Restaurant"];
+
 function drawParallelKoor(xPos, yPos, dataArray){
 	
 
 
 var name = ["Martin", "Tom", "Thomas", "Huong"],
     fields = ["Art", "Rahmen", "Gesamtmenge", "Dauer"],
-    //art = {'Frühstück': 0, 'Mittagessen': 1, 'Abendessen': 2, 'Snack': 3},
-    //rahmen = {'Daheim': 0, 'Arbeit': 1, 'Imbiss': 2, 'Restaurant':3, 'Mensa':4};
+    art = {'Frühstück': 0, 'Mittagessen': 1, 'Abendessen': 3, 'Snack': 2},
+    rahmen = {'Daheim': 1, 'Arbeit': 0, 'Imbiss': 2, 'Restaurant':4, 'Mensa':3};
 
 var m = [yPos+80, 160, 200, xPos+160],
     w = 1280 - m[1] - m[3],
@@ -30,17 +35,19 @@ d3.csv("data/sample_data.csv", function(essen) {
   // AXES
   axes = {
     default: d3.svg.axis()
+	  .ticks(6)
       .orient("left"),
     art: d3.svg.axis()
-      //.ticks(art.length)
-      .ticks(4)
+      .ticks(d3.keys(art).length)
+	  .tickFormat(function(d, i){ return TYPE_NAMES[d]})
       .orient("left"),
     rahmen: d3.svg.axis()
-      //.ticks(rahmen.length)
-      .ticks(5)
+      .ticks(d3.keys(rahmen).length)
+	  .tickFormat(function(d, i){ return OCCASION_NAMES[d]})
       .orient("left"),
     menge: d3.svg.axis()
-      .ticks(d3.max(essen, function(d) { return parseInt(d['Gesamtmenge']); }))
+      .ticks(d3.max(essen, function(d) { return +d['Gesamtmenge']; }))
+	  .tickFormat(function(d, i){ return AMOUNT_NAMES[d]})
       .orient("left")
   }
 
@@ -61,7 +68,7 @@ d3.csv("data/sample_data.csv", function(essen) {
         .y(y[f])
         .on("brush", brush);
  });
-  console.debug(y);
+  //console.debug(y);
 
   // Add a legend.
   var legend = svg.selectAll("g.legend")

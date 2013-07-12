@@ -90,7 +90,7 @@ d3.csv("data/sample_data.csv", function(essen) {
       .on('click', function(d,i){
         // console.log(this);
         d3.select(this).style('stroke-width', '5px');
-        d3.select(this).style('stroke', 'black');
+        d3.select(this).style('stroke', 'yellow');
       })
       .on('mouseout', function(d,i){
         // console.log(this);

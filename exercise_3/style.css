@@ -65,51 +65,159 @@ text {
 
 /* Parallel Coordinates */
 body {
-  font-size: 14px;
-  font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
-  margin: 24px;
-  background: #fcfcfc;
-  line-height: 1.45em;
+  font: 300 36px "Helvetica Neue";
+  height: 640px;
+  margin: 80px 160px 80px 160px;
+  overflow: hidden;
+  position: relative;
+  width: 960px;
 }
-a {
-  color: #555;
+
+a:link, a:visited {
+  color: #777;
+  text-decoration: none;
 }
+
 a:hover {
-  color: #000;
+  color: #666;
 }
-ul {
-  margin: 0 20px;
+
+blockquote {
+  margin: 0;
+}
+
+blockquote:before {
+  content: "â€œ";
+  position: absolute;
+  left: -.4em;
+}
+
+blockquote:after {
+  content: "â€";
+  position: absolute;
+}
+
+body > ul {
+  margin: 0;
   padding: 0;
 }
-.dark {
-  background: #222;
+
+h1 {
+  font-size: 64px;
 }
-p {
-  width: 560px;
+
+h1, h2, h3 {
+  font-weight: inherit;
+  margin: 0;
 }
-pre {
-  color: #444;
-  font-family: Ubuntu Mono, Monaco, monospace;
-  padding: 4px 8px;
-  background: #f2f2f2;
-  border: 1px solid #ccc;
+
+h2, h3 {
+  text-align: right;
+  font-size: inherit;
+  position: absolute;
+  bottom: 0;
+  right: 0;
 }
-h1 small {
-  font-weight: normal;
-  font-size: 0.5em;
+
+h2 {
+  font-size: 24px;
+  position: absolute;
 }
+
 h3 {
-  margin-top: 40px;
+  bottom: -20px;
+  font-size: 18px;
 }
-.float {
-  float: left;
+
+.invert {
+  background: #1f1f1f;
+  color: #dcdccc;
 }
-.centered {
-  text-align: center;
+
+.invert h2, .invert h3 {
+  color: #7f9f7f;
 }
-.hide {
-  display: none;
+
+.string, .regexp {
+  color: #f39;
 }
-input {
-  font-size: 16px;
+
+.keyword {
+  color: #00c;
+}
+
+.comment {
+  color: #777;
+  font-style: oblique;
+}
+
+.number {
+  color: #369;
+}
+
+.class, .special {
+  color: #1181B8;
+}
+
+body > svg {
+  position: absolute;
+  top: -80px;
+  left: -160px;
+}
+
+svg {
+ font-size: 14px;
+}
+
+.foreground path {
+fill: none;
+stroke-opacity: .5;
+stroke-width: 1.5px;
+}
+
+.foreground path.fade {
+stroke: #000;
+stroke-opacity: .00;
+}
+
+.legend {
+font-size: 18px;
+font-style: oblique;
+}
+
+.legend line {
+ stroke-width: 2px;
+}
+
+.Tom {
+stroke: #ff7f0e;
+}
+
+.Huong {
+stroke: #d62728;
+}
+
+.Thomas {
+stroke: #1f77b4;
+}
+
+.Martin {
+stroke: #2ca02c;
+}
+
+.brush .extent {
+fill-opacity: .3;
+stroke: #fff;
+shape-rendering: crispEdges;
+}
+
+.axis line, .axis path {
+fill: none;
+stroke: #000;
+shape-rendering: crispEdges;
+}
+
+.axis text {
+text-shadow: 0 1px 0 #fff;
+cursor: move;
 }

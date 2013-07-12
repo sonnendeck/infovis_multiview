@@ -3,18 +3,23 @@ var AMOUNT_NAMES = ["nichts","wenig","mittel","viel"];
 var TYPE_NAMES = ["Frühstück","Mittagessen","Snack","Abendessen"];
 var OCCASION_NAMES = ["Arbeit", "Daheim", "Imbiss", "Mensa", "Restaurant"];
 
-function drawParallelKoor(xPos, yPos, dataArray){
+function drawParallelKoor(svg_base, xPos, yPos, dataArray){
 	
 
 
 var name = ["Martin", "Tom", "Thomas", "Huong"],
-    fields = ["Art", "Rahmen", "Gesamtmenge", "Dauer"],
+    fields = ["Art", "Dauer", "Gesamtmenge", "Rahmen"],
     art = {'Frühstück': 0, 'Mittagessen': 1, 'Abendessen': 3, 'Snack': 2},
     rahmen = {'Daheim': 1, 'Arbeit': 0, 'Imbiss': 2, 'Restaurant':4, 'Mensa':3};
 
+/**	
+var margin = {top: yPos + 20, right: 20, bottom: 30, left: xPos + 40},
+    width = 600 - margin.left - margin.right + xPos,
+    height = 400 - margin.top - margin.bottom + yPos;
+**/
 var m = [yPos+80, 160, 200, xPos+160],
-    w = 1280 - m[1] - m[3],
-    h = 800 - m[0] - m[2];
+    w = 800 - m[1] - m[3] + xPos,
+    h = 600 - m[0] - m[2] + yPos;
 
 var x = d3.scale.ordinal().domain(fields).rangePoints([0, w]),
     y = {};

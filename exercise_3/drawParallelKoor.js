@@ -87,14 +87,17 @@ d3.csv("data/sample_data.csv", function(essen) {
     .enter().append("svg:path")
       .attr("d", path)
       .attr("class", function(d) { return d.Nutzer; })
-      .on('click', function(d,i){
+      .on('mouseover', function(d,i){
         // console.log(this);
         d3.select(this).style('stroke-width', '5px');
         //d3.select(this).style('stroke', 'yellow');
       })
-      .on('click', function(d,i){
+      .on('mouseout', function(d,i){
         // console.log(this);
         d3.select(this).style('stroke-width', '1.5px');
+      .on('click', function(d,i){
+        // console.log(this);
+        d3.select(this).style('stroke-width', '5px');
 
       });
 

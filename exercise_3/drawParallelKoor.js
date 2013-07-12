@@ -118,7 +118,7 @@ d3.csv("data/sample_data.csv", function(essen) {
           case 'Art':
             d3.select(this).call(axes.art.scale(y[d]));
             {
-            	switch(art){
+            	switch(axes.art.text){
             		case '0': "Frühstück";
             		case '1': "Mittagessen";
             		case '2': "Abendessen";

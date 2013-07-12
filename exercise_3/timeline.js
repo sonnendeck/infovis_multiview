@@ -52,7 +52,6 @@ function drawTimeline(svg_base, xPos, yPos, dataArray) {
 	var start_time = new Date("June" + data[0].time.getDate() + ", 2013 06:00");
 	var end_time = new Date("June" + (data[0].time.getDate() + 1) + ", 2013 00:00");
 
-	  console.log(dataArray);
 
 	var x = d3.time.scale().domain([start_time,end_time]).range([0, width]);
 	var x_linear = d3.scale.linear().domain([0,end_time.getTime() - start_time.getTime()]).rangeRound([0,width]);
@@ -173,39 +172,6 @@ function drawTimeline(svg_base, xPos, yPos, dataArray) {
 		  .attr("class", "yAxis")
 		  .attr("transform", "translate("+ trans_y +",0)")
 		  .call(yAxis);
-
-
-	svg.append("text")
-			.text("Huong")
-			.attr("class", "t_names")
-			.attr("y", function() {
-				return y(d3.select(this).text()) + height/8;
-			})
-			.attr("x", 0);
-
-	svg.append("text")
-			.text("Martin")
-				.attr("class", "t_names")
-			.attr("y", function() {
-				return y(d3.select(this).text()) + height/8;
-			})
-			.attr("x", 0);
-
-	svg.append("text")
-			.text("Tom")
-			.attr("class", "t_names")
-			.attr("y", function() {
-				return y(d3.select(this).text()) + height/8;
-			})
-			.attr("x", 0);
-
-	svg.append("text")
-			.text("Thomas")
-				.attr("class", "t_names")
-			.attr("y", function() {
-				return y(d3.select(this).text()) + height/8;
-			})
-			.attr("x", 0);
 
 	//draw bars//
 
@@ -365,17 +331,17 @@ rect.on("click", function(d) {
 
 
 //mouseover for the names //
-svg.selectAll(".t_names").on("mouseover", function() {
+svg.selectAll(".yAxis text").on("mouseover", function() {
 	d3.select(this).style("font-weight", "bold");
 });
 
-svg.selectAll(".t_names").on("mouseout", function() {
+svg.selectAll(".yAxis text").on("mouseout", function() {
 	d3.select(this).style("font-weight", "normal");
 });
 
 	var selectedName;
 
-	svg.selectAll(".t_names").on("click", function(d) { d3.select(this).style("fill", "rgb(120,120,120)"); selectedName = d3.select(this).text(); d3.select(this).text("selected");});
+	svg.selectAll(".yAxis text").on("click", function(d) { d3.select(this).style("fill", "rgb(120,120,120)"); selectedName = d3.select(this).text(); d3.select(this).text("selected");});
 
 	// function addMinutes(date, minutes) {
 	// 	return new Date(date.getTime() + minutes*60000);

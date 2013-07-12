@@ -29,12 +29,6 @@ text {
   font: 10px sans-serif;
 }
 
-.t_names {
-  font-family: sans-serif;
-  font-size: 15px;
-  text-align: right;
-}
-
 .grid {
   stroke: rgb(230,230,230);
   stroke-width: 1;
@@ -56,7 +50,8 @@ text {
   shape-rendering: crispEdges;
 }
 .yAxis text {
-        display: none;
+        font-family: sans-serif;
+        font-size: 15px;;
       }
 
 .xAxis text {

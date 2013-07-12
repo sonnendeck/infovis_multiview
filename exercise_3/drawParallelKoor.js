@@ -40,8 +40,7 @@ d3.csv("data/sample_data.csv", function(essen) {
       .ticks(5)
       .orient("left"),
     menge: d3.svg.axis()
-      //.ticks(d3.max(essen, function(d) { return parseInt(d['Gesamtmenge']); }))
-      .ticks(3)
+      .ticks(d3.max(essen, function(d) { return parseInt(d['Gesamtmenge']); }))
       .orient("left")
   }
 

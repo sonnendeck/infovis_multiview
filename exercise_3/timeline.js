@@ -7,12 +7,9 @@ function drawTimeline(svg_base, xPos, yPos, dataArray) {
 
 	var rect_height = 16;
 
-	var start_time = new Date("June 1, 2013 00:00");
-	var end_time = new Date("June 30, 2013 23:00");
-
 	var tickFormat = "%H Uhr";
 
-	var current_day = new  Date("June 1, 2013 00:00");
+	var current_day = new  Date("June 6, 2013 00:00");
 
 
 	// d3.csv("sample_data", funtion(data){
@@ -32,25 +29,28 @@ function drawTimeline(svg_base, xPos, yPos, dataArray) {
 	//   ];
 
 	/*var data = [
-	  {"name": "Huong", "zeit": new Date("March 7, 2013 08:15"), "duration": 15, "art": "Frühstück"},
-	  {"name": "Huong", "zeit": new Date("March 7, 2013 12:30"), "duration": 35, "art": "Mittagessen"},
-	  {"name": "Huong", "zeit": new Date("March 7, 2013 16:30"), "duration": 5, "art": "Snack"},
-	  {"name": "Huong", "zeit": new Date("March 7, 2013 20:00"), "duration": 20, "art": "Abenbrot"},
-	  {"name": "Martin", "zeit": new Date("March 7, 2013 09:30"), "duration": 60, "art": "Frühstück"},
-	  {"name": "Martin", "zeit": new Date("March 7, 2013 12:45"), "duration": 25, "art": "Mittagessen"},
-	  {"name": "Martin", "zeit": new Date("March 7, 2013 14:15"), "duration": 10, "art": "Snack"},
-	  {"name": "Martin", "zeit": new Date("March 7, 2013 18:30"), "duration": 30, "art": "Abenbrot"},
-	  {"name": "Tom", "zeit": new Date("March 7, 2013 09:00"), "duration": 15, "art": "Frühstück"},
-	  {"name": "Tom", "zeit": new Date("March 7, 2013 12:30"), "duration": 40, "art": "Mittagessen"},
-	  {"name": "Tom", "zeit": new Date("March 7, 2013 15:30"), "duration": 15, "art": "Snack"},
-	  {"name": "Tom", "zeit": new Date("March 7, 2013 21:00"), "duration": 35, "art": "Abenbrot"},
-	  {"name": "Thomas", "zeit": new Date("March 7, 2013 10:15"), "duration": 25, "art": "Frühstück"},
-	  {"name": "Thomas", "zeit": new Date("March 7, 2013 14:30"), "duration": 25, "art": "Mittagessen"},
-	  {"name": "Thomas", "zeit": new Date("March 7, 2013 22:30"), "duration": 10, "art": "Snack"},
-	  {"name": "Thomas", "zeit": new Date("March 7, 2013 19:00"), "duration": 45, "art": "Abenbrot"}
+	  {"name": "Huong", "time": new Date("March 7, 2013 08:15"), "duration": 15, "type": "Frühstück"},
+	  {"name": "Huong", "time": new Date("March 7, 2013 12:30"), "duration": 35, "type": "Mittagessen"},
+	  {"name": "Huong", "time": new Date("March 7, 2013 16:30"), "duration": 5, "type": "Snack"},
+	  {"name": "Huong", "time": new Date("March 7, 2013 20:00"), "duration": 20, "type": "Abendbrot"},
+	  {"name": "Martin", "time": new Date("March 7, 2013 09:30"), "duration": 60, "type": "Frühstück"},
+	  {"name": "Martin", "time": new Date("March 7, 2013 12:45"), "duration": 25, "type": "Mittagessen"},
+	  {"name": "Martin", "time": new Date("March 7, 2013 14:15"), "duration": 10, "type": "Snack"},
+	  {"name": "Martin", "time": new Date("March 7, 2013 18:30"), "duration": 30, "type": "Abendbrot"},
+	  {"name": "Tom", "time": new Date("March 7, 2013 09:00"), "duration": 15, "type": "Frühstück"},
+	  {"name": "Tom", "time": new Date("March 7, 2013 12:30"), "duration": 40, "type": "Mittagessen"},
+	  {"name": "Tom", "time": new Date("March 7, 2013 15:30"), "duration": 15, "type": "Snack"},
+	  {"name": "Tom", "time": new Date("March 7, 2013 21:00"), "duration": 35, "type": "Abendbrot"},
+	  {"name": "Thomas", "time": new Date("March 7, 2013 10:15"), "duration": 25, "type": "Frühstück"},
+	  {"name": "Thomas", "time": new Date("March 7, 2013 14:30"), "duration": 25, "type": "Mittagessen"},
+	  {"name": "Thomas", "time": new Date("March 7, 2013 22:30"), "duration": 10, "type": "Snack"},
+	  {"name": "Thomas", "time": new Date("March 7, 2013 19:00"), "duration": 45, "type": "Abendbrot"}
 	  ];*/
 
-	  var data = dataArray;
+	var data = dataArray;
+
+	var start_time = new Date("June" + data[0].time.getDate() + ", 2013 06:00");
+	var end_time = new Date("June" + (data[0].time.getDate() + 1) + ", 2013 00:00");
 
 	  console.log(dataArray);
 
@@ -59,7 +59,7 @@ function drawTimeline(svg_base, xPos, yPos, dataArray) {
 	var y = d3.scale.ordinal().domain(["Huong","Martin","Tom","Thomas"]).rangeRoundBands([0, height], .1);
 
 	var xAxis = d3.svg.axis().scale(x).orient("bottom").tickFormat(d3.time.format(tickFormat)).tickSubdivide(1)
-		.tickSize(6,3,0).tickPadding(10).ticks(d3.time.minutes, 60);
+		.tickSize(6,3,0).tickPadding(10).ticks(d3.time.hours, 1);
 	var yAxis = d3.svg.axis()
 		.scale(y).orient("left").tickSize(0).tickPadding(10);
 
@@ -115,7 +115,7 @@ function drawTimeline(svg_base, xPos, yPos, dataArray) {
 		  });
 
 	//...and dots//
-	  for(var i = 1; i < 18; i++) {
+	  for(var i = 1; i < 24; i++) {
 		svg.append ("circle")
 			.attr("class", "dots")
 			.attr("cx", function() {
@@ -127,7 +127,7 @@ function drawTimeline(svg_base, xPos, yPos, dataArray) {
 			.attr("r", 3);
 	  }
 
-	  for(var i = 1; i < 18; i++) {
+	  for(var i = 1; i < 24; i++) {
 		svg.append ("circle")
 			.attr("class", "dots")
 			.attr("cx", function() {
@@ -139,7 +139,7 @@ function drawTimeline(svg_base, xPos, yPos, dataArray) {
 			.attr("r", 3);
 	  }
 
-	  for(var i = 1; i < 18; i++) {
+	  for(var i = 1; i < 24; i++) {
 		svg.append ("circle")
 			.attr("class", "dots")
 			.attr("cx", function() {
@@ -151,7 +151,7 @@ function drawTimeline(svg_base, xPos, yPos, dataArray) {
 			.attr("r", 3);
 	  }
 
-	  for(var i = 1; i < 18; i++) {
+	  for(var i = 1; i < 24; i++) {
 		svg.append ("circle")
 			.attr("class", "dots")
 			.attr("cx", function() {
@@ -208,6 +208,7 @@ function drawTimeline(svg_base, xPos, yPos, dataArray) {
 			.attr("x", 0);
 
 	//draw bars//
+
 	var rect = svg.selectAll("rect")
 		.data(data);
 	var enter = rect.enter().append("rect");
@@ -233,31 +234,31 @@ function drawTimeline(svg_base, xPos, yPos, dataArray) {
 	enter.attr("height", rect_height);
 
 enter.style("fill", function(d) {
-		  if(d.typeart == "Frühstück") {
+		  if(d.type == "Frühstück") {
 			return "rgb(90,180,220)";
 		  }
-		  if(d.typeart == "Mittagessen") {
+		  if(d.type == "Mittagessen") {
 			return "rgb(255,200,60)";
 		  }
-		  if(d.typeart == "Abendessen") {
+		  if(d.type == "Abendessen") {
 			return "rgb(200,50,50)";
 		  }
-		  if(d.typeart == "Snack") {
+		  if(d.type == "Snack") {
 			return "rgb(140,190,50)";
 		  }
 		})
 
 enter.attr("class", function(d) {
-		  if(d.typeart == "Frühstück") {
+		  if(d.type == "Frühstück") {
 			return "breakfast";
 		  }
-		  if(d.typeart == "Mittagessen") {
+		  if(d.type == "Mittagessen") {
 			return "lunch";
 		  }
-		  if(d.typeart == "Abendessen") {
+		  if(d.type == "Abendessen") {
 			return "dinner";
 		  }
-		  if(d.typeart == "Snack") {
+		  if(d.type == "Snack") {
 			return "snack";
 		  }
 		})
@@ -293,16 +294,16 @@ enter.attr("class", function(d) {
 
 rect.on("mouseover", function() {
 	d3.select(this).style("fill", function(d) {
-		  if(d.art == "Frühstück") {
+		  if(d.type == "Frühstück") {
 			return "rgb(90,150,190)";
 		  }
-		  if(d.art == "Mittagessen") {
+		  if(d.type == "Mittagessen") {
 			return "rgb(255,170,30)";
 		  }
-		  if(d.art == "Abendessen") {
+		  if(d.type == "Abendessen") {
 			return "rgb(200,20,20)";
 		  }
-		  if(d.art == "Snack") {
+		  if(d.type == "Snack") {
 			return "rgb(140,160,20)";
 		  }
 		})
@@ -310,16 +311,16 @@ rect.on("mouseover", function() {
 
 rect.on("mouseout", function() {
 	d3.select(this).style("fill", function(d) {
-		  if(d.art == "Frühstück") {
+		  if(d.type == "Frühstück") {
 			return "rgb(90,180,220)";
 		  }
-		  if(d.art == "Mittagessen") {
+		  if(d.type == "Mittagessen") {
 			return "rgb(255,200,60)";
 		  }
-		  if(d.art == "Abendessen") {
+		  if(d.type == "Abendessen") {
 			return "rgb(200,50,50)";
 		  }
-		  if(d.art == "Snack") {
+		  if(d.type == "Snack") {
 			return "rgb(140,190,50)";
 		  }
 		})
@@ -352,7 +353,7 @@ rect.on("click", function(d) {
                            
    });
 
-  	if (d3.select(this).style("stroke") == "#555555") {
+  	if (d3.select(this).style("stroke") != "none") {
   			d3.select(this).style("stroke", "none");
   	}
   	else {
@@ -376,7 +377,7 @@ svg.selectAll(".t_names").on("mouseout", function() {
 
 	svg.selectAll(".t_names").on("click", function(d) { d3.select(this).style("fill", "rgb(120,120,120)"); selectedName = d3.select(this).text(); d3.select(this).text("selected");});
 
-	function addMinutes(date, minutes) {
-		return new Date(date.getTime() + minutes*60000);
-	}
+	// function addMinutes(date, minutes) {
+	// 	return new Date(date.getTime() + minutes*60000);
+	// }
 }

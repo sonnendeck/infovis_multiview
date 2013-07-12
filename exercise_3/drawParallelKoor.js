@@ -4,8 +4,8 @@ function drawParallelKoor(xPos, yPos, dataArray){
 
 var name = ["Martin", "Tom", "Thomas", "Huong"],
     fields = ["Art", "Rahmen", "Gesamtmenge", "Dauer"],
-    art = {'Frühstück': 0, 'Mittagessen': 1, 'Abendessen': 2, 'Snack': 3},
-    rahmen = {'Daheim': 0, 'Arbeit': 1, 'Imbiss': 2, 'Restaurant':3, 'Mensa':4};
+    //art = {'Frühstück': 0, 'Mittagessen': 1, 'Abendessen': 2, 'Snack': 3},
+    //rahmen = {'Daheim': 0, 'Arbeit': 1, 'Imbiss': 2, 'Restaurant':3, 'Mensa':4};
 
 var m = [yPos+80, 160, 200, xPos+160],
     w = 1280 - m[1] - m[3],

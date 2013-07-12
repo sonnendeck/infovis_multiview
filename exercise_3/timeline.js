@@ -5,10 +5,14 @@ function drawTimeline(svg_base, xPos, yPos, dataArray) {
     height = 200 - margin.top - margin.bottom + yPos,
     trans_y = 60;
 
-	var start_time = new Date("March 7, 2013 07:00");
-	var end_time = new Date("March 8, 2013 00:00");
+	var rect_height = 16;
+
+	var start_time = new Date("June 1, 2013 00:00");
+	var end_time = new Date("June 30, 2013 23:00");
 
 	var tickFormat = "%H Uhr";
+
+	var current_day = new  Date("June 1, 2013 00:00");
 
 
 	// d3.csv("sample_data", funtion(data){
@@ -27,7 +31,7 @@ function drawTimeline(svg_base, xPos, yPos, dataArray) {
 	//   {"zeit": new Date("March 6, 2013 12:45"), "art": "Abenbrot"}
 	//   ];
 
-	var data = [
+	/*var data = [
 	  {"name": "Huong", "zeit": new Date("March 7, 2013 08:15"), "duration": 15, "art": "Frühstück"},
 	  {"name": "Huong", "zeit": new Date("March 7, 2013 12:30"), "duration": 35, "art": "Mittagessen"},
 	  {"name": "Huong", "zeit": new Date("March 7, 2013 16:30"), "duration": 5, "art": "Snack"},
@@ -44,7 +48,11 @@ function drawTimeline(svg_base, xPos, yPos, dataArray) {
 	  {"name": "Thomas", "zeit": new Date("March 7, 2013 14:30"), "duration": 25, "art": "Mittagessen"},
 	  {"name": "Thomas", "zeit": new Date("March 7, 2013 22:30"), "duration": 10, "art": "Snack"},
 	  {"name": "Thomas", "zeit": new Date("March 7, 2013 19:00"), "duration": 45, "art": "Abenbrot"}
-	  ];
+	  ];*/
+
+	  var data = dataArray;
+
+	  console.log(dataArray);
 
 	var x = d3.time.scale().domain([start_time,end_time]).range([0, width]);
 	var x_linear = d3.scale.linear().domain([0,end_time.getTime() - start_time.getTime()]).rangeRound([0,width]);
@@ -55,11 +63,6 @@ function drawTimeline(svg_base, xPos, yPos, dataArray) {
 	var yAxis = d3.svg.axis()
 		.scale(y).orient("left").tickSize(0).tickPadding(10);
 
-  // var svg = d3.select("body").append("svg")
-  //   .attr("width", width + margin.left + margin.right)
-  //   .attr("height", height + margin.top + margin.bottom)
-  //   .append("g")
-  //   .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
   var svg = svg_base.append("g")
           .attr("class","context")
@@ -71,44 +74,44 @@ function drawTimeline(svg_base, xPos, yPos, dataArray) {
 		  .attr("class", "grid")
 		  .attr("x1", trans_y)
 		  .attr("y1", function() {
-			return y("Huong") + height/8 - 1;
+			return y("Huong") + height/16 + rect_height / 2;
 		  })
 		  .attr("x2", width + trans_y)
 		  .attr("y2", function() {
-			return y("Huong") + height/8 - 1;
+			return y("Huong") + height/16 + rect_height / 2;
 		  });
 
 	svg.append("line")
 		  .attr("class", "grid")
 		  .attr("x1", trans_y)
 		  .attr("y1", function() {
-			return y("Martin") + height/8 - 1;
+			return y("Martin") + height/16 + rect_height / 2;
 		  })
 		  .attr("x2", width + trans_y)
 		  .attr("y2", function() {
-			return y("Martin") + height/8 - 1;
+			return y("Martin") + height/16 + rect_height / 2;
 		  });
 
 	svg.append("line")
 		  .attr("class", "grid")
 		  .attr("x1", trans_y)
 		  .attr("y1", function() {
-			return y("Tom") + height/8 - 1;
+			return y("Tom") + height/16 + rect_height / 2;
 		  })
 		  .attr("x2", width + trans_y)
 		  .attr("y2", function() {
-			return y("Tom") + height/8 - 1;
+			return y("Tom") + height/16 + rect_height / 2;
 		  });
 
 	svg.append("line")
 		  .attr("class", "grid")
 		  .attr("x1", trans_y)
 		  .attr("y1", function() {
-			return y("Thomas") + height/8 - 1;
+			return y("Thomas") + height/16 + rect_height / 2;
 		  })
 		  .attr("x2", width + trans_y)
 		  .attr("y2", function() {
-			return y("Thomas") + height/8 - 1;
+			return y("Thomas") + height/16 + rect_height / 2;
 		  });
 
 	//...and dots//
@@ -119,9 +122,9 @@ function drawTimeline(svg_base, xPos, yPos, dataArray) {
 			  return x_linear(i*60000*60) + trans_y;
 			})
 			.attr("cy", function() {
-			return y("Huong") + height/8 - 1;
+			return y("Huong") + height/16 + rect_height / 2;
 		  })
-			.attr("r", 2);
+			.attr("r", 3);
 	  }
 
 	  for(var i = 1; i < 18; i++) {
@@ -131,9 +134,9 @@ function drawTimeline(svg_base, xPos, yPos, dataArray) {
 			  return x_linear(i*60000*60) + trans_y;
 			})
 			.attr("cy", function() {
-			return y("Martin") + height/8 - 1;
+			return y("Martin") + height/16 + rect_height / 2;
 		  })
-			.attr("r", 2);
+			.attr("r", 3);
 	  }
 
 	  for(var i = 1; i < 18; i++) {
@@ -143,9 +146,9 @@ function drawTimeline(svg_base, xPos, yPos, dataArray) {
 			  return x_linear(i*60000*60) + trans_y;
 			})
 			.attr("cy", function() {
-			return y("Tom") + height/8 - 1;
+			return y("Tom") + height/16 + rect_height / 2;
 		  })
-			.attr("r", 2);
+			.attr("r", 3);
 	  }
 
 	  for(var i = 1; i < 18; i++) {
@@ -155,9 +158,9 @@ function drawTimeline(svg_base, xPos, yPos, dataArray) {
 			  return x_linear(i*60000*60) + trans_y;
 			})
 			.attr("cy", function() {
-			return y("Thomas") + height/8 - 1;
+			return y("Thomas") + height/16 + rect_height / 2;
 		  })
-			.attr("r", 2);
+			.attr("r", 3);
 	  }
 
 	//draw axes//
@@ -210,7 +213,7 @@ function drawTimeline(svg_base, xPos, yPos, dataArray) {
 	var enter = rect.enter().append("rect");
 
 	enter.attr("x", function(d) {
-	  return x(d.zeit);
+	  return x(d.time);
 	});
 
 	enter.attr("transform", "translate("+ trans_y +",0)");
@@ -227,34 +230,34 @@ function drawTimeline(svg_base, xPos, yPos, dataArray) {
 	enter.attr("width", function(d) {
 	  return x_linear(d.duration * 60000);
 	}); 
-	enter.attr("height", 15);
+	enter.attr("height", rect_height);
 
 enter.style("fill", function(d) {
-		  if(d.art == "Frühstück") {
+		  if(d.typeart == "Frühstück") {
 			return "rgb(90,180,220)";
 		  }
-		  if(d.art == "Mittagessen") {
+		  if(d.typeart == "Mittagessen") {
 			return "rgb(255,200,60)";
 		  }
-		  if(d.art == "Abenbrot") {
+		  if(d.typeart == "Abendessen") {
 			return "rgb(200,50,50)";
 		  }
-		  if(d.art == "Snack") {
+		  if(d.typeart == "Snack") {
 			return "rgb(140,190,50)";
 		  }
 		})
 
 enter.attr("class", function(d) {
-		  if(d.art == "Frühstück") {
+		  if(d.typeart == "Frühstück") {
 			return "breakfast";
 		  }
-		  if(d.art == "Mittagessen") {
+		  if(d.typeart == "Mittagessen") {
 			return "lunch";
 		  }
-		  if(d.art == "Abenbrot") {
+		  if(d.typeart == "Abendessen") {
 			return "dinner";
 		  }
-		  if(d.art == "Snack") {
+		  if(d.typeart == "Snack") {
 			return "snack";
 		  }
 		})
@@ -296,7 +299,7 @@ rect.on("mouseover", function() {
 		  if(d.art == "Mittagessen") {
 			return "rgb(255,170,30)";
 		  }
-		  if(d.art == "Abenbrot") {
+		  if(d.art == "Abendessen") {
 			return "rgb(200,20,20)";
 		  }
 		  if(d.art == "Snack") {
@@ -313,7 +316,7 @@ rect.on("mouseout", function() {
 		  if(d.art == "Mittagessen") {
 			return "rgb(255,200,60)";
 		  }
-		  if(d.art == "Abenbrot") {
+		  if(d.art == "Abendessen") {
 			return "rgb(200,50,50)";
 		  }
 		  if(d.art == "Snack") {

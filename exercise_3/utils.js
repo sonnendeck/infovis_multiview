@@ -36,6 +36,7 @@ function parseCSVData() {
     })
     .get(function(error, rows) {
       if (error == null) {
+
         /****************************************************************************************
           Dieser Code wird erst nach dem Laden des gesamten JS Codes ausgeführt.
           Daher müssen wir die intialien Aktionen, wie das erste Zeichnen der Diagramme,
@@ -44,13 +45,14 @@ function parseCSVData() {
         
         // Schreibt den Inhalt der CSV Datei in eine globale Variable
         csv_data      = rows;
+        csv_data_2    = organizeCSVData(csv_data);
         
-        // Generiert Timeline relevante CSV Daten und zeichnet das Diagramm
-        timeline_data = getTimelineChartData(csv_data);
+        // Generiert Timeline relevante CSV Daten und zeichnet das Diagramm        
+        timeline_data = getTimelineChartData(csv_data_2);
     	  drawTimeline(svg, 50, 50, timeline_data);
         
         // Generiert AreaChart relevante CSV Daten und zeichnet das Diagramm
-        area_data     = getAreaChartData(csv_data);
+        area_data     = getAreaChartData(csv_data_2);
     	  drawAreaChart(svg, 50, 300, area_data);
         
       } else {
@@ -71,25 +73,17 @@ function getAreaChartData(data) {
   if (data.length == 0) {
     console.log("Leave getAreaChartData: data.length = " + data.length);
     return [];
-  }
+  }  
   
   var result_data = {};
   
-  for (var i = 0; i < data.length; i++) {
+  d3.keys(data).forEach(function (key) {
     
-    var element = data[i];  
-    
-    var d = generateDateFromString(element.time);
-    
-    var curr_day     = leadingZeroForDate(d.getDate());
-    var curr_month   = leadingZeroForDate(d.getMonth());
-    var curr_year    = d.getFullYear();
-    
-    var element_date = curr_day + "." + curr_month + "." + curr_year;
+    var meal_entries = data[key];
 
     // Wenn es das Element noch nicht gibt, dann füge einfach einen Eintrag hinzu
-    if (d3.keys(result_data).indexOf(element_date) == -1) {
-      result_data[element_date] = {
+    if (d3.keys(result_data).indexOf(key) == -1) {
+      result_data[key] = {
           breakfast: 0,
           lunch: 0,
           snack: 0,
@@ -97,23 +91,27 @@ function getAreaChartData(data) {
       };
     }
     
-    switch (element.type) {
-    case "Frühstück":
-      result_data[element_date].breakfast += +element.total_amount;
-      break;
-    case "Mittagessen":
-      result_data[element_date].lunch     += +element.total_amount;
-      break;
-    case "Snack":
-      result_data[element_date].snack     += +element.total_amount;
-      break;
-    case "Abendessen":
-      result_data[element_date].dinner    += +element.total_amount;
-      break;
-    default:
-
+    // Über alle Einträge eines Tages iterieren und Durchschnittswerte berechnen
+    for (var i = 0; i < meal_entries.length; i++) {
+      element = meal_entries[i];
+      
+      switch (element.type) {
+        case "Frühstück":
+          result_data[key].breakfast += +element.total_amount;
+          break;
+        case "Mittagessen":
+          result_data[key].lunch     += +element.total_amount;
+          break;
+        case "Snack":
+          result_data[key].snack     += +element.total_amount;
+          break;
+        case "Abendessen":
+          result_data[key].dinner    += +element.total_amount;
+          break;
+        default:
+      }
     }
-    };
+  });
 
   return result_data;
 }
@@ -127,20 +125,23 @@ function getAreaChartData(data) {
 // ];
 function getTimelineChartData(data) {
   if (data.length == 0) {
-    console.log("Leave getAreaChartData: data.length = " + data.length);
     return [];
   }
   
+  var date = d3.keys(data)[0];
+  var day_data = data[date];
+  
+  
   var result_data = [];
   
-  for (var i = 0; i < data.length; i++) {
-    var element = data[i];  
-    var curr_date = generateDateFromString(element.time);
+  for (var i = 0; i < day_data.length; i++) {
+    var meal_data = day_data[i];  
+    var curr_date = generateDateFromString(meal_data.time);
     result_data.push({
-        name: element.user,
+        name: meal_data.user,
         time: curr_date,
-        duration: element.duration,
-        type: element.type
+        duration: meal_data.duration,
+        type: meal_data.type
     });
   };
 
@@ -165,8 +166,11 @@ function generateDateFromString(date_string) {
   var parts = date_parts.split('.');
   parts.push(time_parts[0], time_parts[1]);
   
+  // ["06", "05", "2013", "09", "30"]
+  var year = parts[2], month = +parts[1]-1, day = parts[0], hours = +parts[3], minutes = +parts[4];
   
   return new Date(parts[2], parts[1], parts[0], +parts[3], +parts[4], 0);
+  // return new Date(year, month, minutes, hours, minutes, 0);
 }
 
 function leadingZeroForDate(value) {
@@ -176,3 +180,35 @@ function leadingZeroForDate(value) {
   }
   return result;
 }
+
+function organizeCSVData(data) {
+  if (data.length == 0) {
+    return {};
+  }
+  
+  var result_data = {};
+  
+  for (var i = 0; i < data.length; i++) {
+    
+    var element = data[i];  
+    
+    var d = generateDateFromString(element.time);
+    
+    var curr_day     = leadingZeroForDate(d.getDate());
+    var curr_month   = leadingZeroForDate(d.getMonth());
+    var curr_year    = d.getFullYear();
+    
+    var element_date = curr_day + "." + curr_month + "." + curr_year;
+
+    // Wenn es das Element noch nicht gibt, dann füge einfach einen Eintrag hinzu
+    if (d3.keys(result_data).indexOf(element_date) == -1) {
+      result_data[element_date] = [];
+    }
+    
+    result_data[element_date].push(element);
+  };
+
+  return result_data;
+}
+
+

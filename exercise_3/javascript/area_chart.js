@@ -68,7 +68,7 @@ var svg = svg_base.append("g")
 	});
 
 	var area = d3.svg.area()
-		// .interpolate("basis")
+		.interpolate("basis")
 		.x(function(d) { return x(d.Tag); })
 		.y0(function(d) {return y(d.y0); })
 		.y1(function(d) { return y(d.y0 + d.y); });
@@ -155,40 +155,51 @@ var svg = svg_base.append("g")
 		
 	//rect.on("click", function(d) { d3.select(this).attr("style", "stroke: rgb(70,70,0)")});
 	// TODO: Expand into actual clicking behaviour
-	meal.on("mouseover", function(d) {
-		d3.select(this).style("opacity", "0.3");
-		//d3.selectAll("rect").style("opacity", "0.3");
-		console.log(d.values[0]);
-		if(d.name == "Frühstück") {
-			d3.selectAll(".t_breakfast").style("opacity", "0.3");
-		}
-		if(d.name == "Mittagessen") {
-			d3.selectAll(".t_lunch").style("opacity", "0.3");
-		}
-		if(d.name == "Snack") {
-			d3.selectAll(".t_snack").style("opacity", "0.3");
-		}
-		if(d.name == "Abendessen") {
-			d3.selectAll(".t_dinner").style("opacity", "0.3");
-		}
-		/*d3.selectAll("rect").style("fill", function(d) {
-			if(this.style("fill") == this.style("fill")) {}
-		})*/
-	});
+	// meal.on("mouseover", function(d) {
+	// 	d3.select(this).style("opacity", "0.3");
+	// 	//d3.selectAll("rect").style("opacity", "0.3");
+	// 	if(d.name == "Frühstück") {
+	// 		d3.selectAll(".t_breakfast").style("opacity", "0.3");
+	// 	}
+	// 	if(d.name == "Mittagessen") {
+	// 		d3.selectAll(".t_lunch").style("opacity", "0.3");
+	// 	}
+	// 	if(d.name == "Snack") {
+	// 		d3.selectAll(".t_snack").style("opacity", "0.3");
+	// 	}
+	// 	if(d.name == "Abendessen") {
+	// 		d3.selectAll(".t_dinner").style("opacity", "0.3");
+	// 	}
+	// 	/*d3.selectAll("rect").style("fill", function(d) {
+	// 		if(this.style("fill") == this.style("fill")) {}
+	// 	})*/
+	// });
 
-	meal.on("mousemove", function(d) {
+	meal.on("mousemove", function(outerD) {
 
 		var curDay = Math.floor((d3.mouse(this)[0] - 10) / 695 * 29);
-		console.log(curDay);
+		// console.log(d3.mouse(this)[0]);
+		
+		d3.selectAll(".selectedDay").remove();
 
-		var newValues = d.values.slice(curDay, curDay + 2);
+		svg.append("rect")
+			.attr("class", "selectedDay")
+			.attr("x", 10 + curDay * 24)
+			.attr("y", 0)
+			.attr("width", 24)
+			.attr("height", 450)
+			.style("fill", "lightgrey")
+			.style("opacity", "0.5");
 
-		meal.append("path")
-			.attr("class", "area")
-			.attr("d", function(d) { console.log(newValues); return area(newValues); })
-			.style("fill", function(d) { return "#000000"; });
+		var newValues = outerD.values.slice(curDay, curDay + 2);
 
-		// console.log(curDay);
+		// meal.append("path")
+		// 	.attr("class", "area")
+		// 	// .attr("d", function(d) { console.log(outerD); return area(newValues); })
+		// 	// .attr("d", function(d) { return area(d.values.slice(curDay, curDay + 2)); })
+		// 	.attr("d", function(d) { return area(d.values.slice(curDay, curDay + 2)); })
+		// 	.style("fill", "white")
+		// 	.style("opacity", "0.1");
 	});
 
 	// meal.append("path")

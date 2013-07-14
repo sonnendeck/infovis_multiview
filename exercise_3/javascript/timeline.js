@@ -71,6 +71,16 @@ function drawTimeline(svg_base, xPos, yPos, dataArray) {
           .attr("class","context")
           .attr("transform", "translate(" + xPos + "," + yPos + ")");
 
+
+    // Date //
+
+    svg.append("text")
+    	.text("" + current_day.getDate() + ". Juni 2013")
+    	.attr("x", 60)
+    	.attr("y", 0)
+    	.style("font-size", 20)
+    	.style("font-weight", "normal");
+
 	// Draw fancy lines...//
 
 	svg.append("line")

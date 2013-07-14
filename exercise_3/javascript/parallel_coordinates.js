@@ -114,8 +114,13 @@ var margin = {top: yPos + 20, right: 20, bottom: 30, left: xPos + 40},
     .append("svg:g")
     .attr("class", "legend")
     .attr("transform", function(d, i) {
-    return "translate(0," + (i * 20 + 584) + ")";
-  });
+      console.log(i);
+      if (i<2) {
+        return "translate(0," + (i * 20 + 340) + ")";
+      } else {
+        return "translate(50," + ((i * 20 - 40) + 340) + ")";
+      }
+    });
 
   legend.append("svg:line")
     .attr("class", String)

@@ -42,21 +42,20 @@ function parseCSVData() {
           Dieser Code wird erst nach dem Laden des gesamten JS Codes ausgeführt.
           Daher müssen wir die intialien Aktionen, wie das erste Zeichnen der Diagramme,
           von hier aus triggern.
-        *****************************************************************************************/
+      *****************************************************************************************/
 
       // Schreibt den Inhalt der CSV Datei in eine globale Variable
-      csv_data = rows;
-      csv_data_2 = organizeCSVData(csv_data);
+      csv_data = organizeCSVData(rows);
 
       // Generiert Timeline relevante CSV Daten und zeichnet das Diagramm        
-      timeline_data = getTimelineChartData(csv_data_2);
+      timeline_data = getTimelineChartData(csv_data);
       drawTimeline(svg, 50, 50, timeline_data);
 
       // Generiert AreaChart relevante CSV Daten und zeichnet das Diagramm
-      area_data = getAreaChartData(csv_data_2);
+      area_data = getAreaChartData(csv_data);
       drawAreaChart(svg, 100, 300, area_data);
 
-      var pc_data = getParallelCoordinatesData(csv_data_2);
+      var pc_data = getParallelCoordinatesData(csv_data);
       // drawParallelKoor(svg, 700, 300, pc_data);
       
       // Maus Events
@@ -261,6 +260,36 @@ function getParallelCoordinatesData(data) {
   return result_data;
 }
 
+
+function getMealDataFor(names, data) {
+  if (data.length == 0) {
+    return [];
+  }
+
+  var result_data = {};
+  var tmp_meals = [];
+
+  d3.keys(data).forEach(function(key) {
+    var meal_entries = data[key];
+    tmp_meals = [];
+
+    // Über alle Einträge eines Tages iterieren und Durchschnittswerte berechnen
+    for (var i = 0; i < meal_entries.length; i++) {
+      element = meal_entries[i];
+
+      // Ist der Benutzer ausgewählt?
+      if (names.indexOf(element.user) > -1) {
+        tmp_meals.push(element);
+      }
+    }
+    
+    // Füge nur die Tage hinzu, für die auch Daten vorhanden sind.
+    if (tmp_meals.length > 0) {
+      result_data[key] = tmp_meals;
+    }
+  });
+  return result_data;
+}
 
 /******************************************************************
 

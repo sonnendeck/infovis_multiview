@@ -8,7 +8,7 @@ function drawAreaChart(svg_base, xPos, yPos, dataArray) {
     width = 960 - margin.left - margin.right + xPos,
     height = 500 - margin.top - margin.bottom + yPos;
 
-	var x = d3.scale.linear()
+	var x = d3.scale.ordinal()
 		.rangeRoundBands([0, width], .033);
 
 	var y = d3.scale.linear()

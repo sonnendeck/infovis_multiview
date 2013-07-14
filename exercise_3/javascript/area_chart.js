@@ -5,10 +5,10 @@
 
 function drawAreaChart(svg_base, xPos, yPos, dataArray) {
 	var margin = {top: yPos + 20, right: 20, bottom: 30, left: xPos + 40},
-    width = 800 - margin.left - margin.right + xPos,
+    width = 960 - margin.left - margin.right + xPos,
     height = 500 - margin.top - margin.bottom + yPos;
 
-	var x = d3.scale.ordinal()
+	var x = d3.scale.linear()
 		.rangeRoundBands([0, width], .033);
 
 	var y = d3.scale.linear()

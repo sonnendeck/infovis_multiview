@@ -3,7 +3,7 @@ function drawTimeline(svg_base, xPos, yPos, dataArray) {
 	var margin = {top: yPos, right: 20, bottom: 30, left: xPos},
     width = 960 - margin.left - margin.right + xPos,
     height = 200 - margin.top - margin.bottom + yPos,
-    trans_y = 60;
+    trans_y = 50;
 
 	var rect_height = 16;
 

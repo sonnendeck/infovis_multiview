@@ -18,7 +18,7 @@ var timeline_data = {};
 
 function parseCSVData() {
 
-  csv_content = d3.csv("data/sample_data.csv")
+  csv_content = d3.csv("data/data.csv")
     .row(function(d){
       return {
         user: d.Nutzer,

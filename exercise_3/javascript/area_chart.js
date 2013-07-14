@@ -5,8 +5,8 @@
 
 function drawAreaChart(svg_base, xPos, yPos, dataArray) {
 	var margin = {top: yPos + 20, right: 20, bottom: 30, left: xPos + 40},
-    width = 960 - margin.left - margin.right + xPos,
-    height = 500 - margin.top - margin.bottom + yPos;
+	width = 800 - margin.left - margin.right + xPos,
+	height = 500 - margin.top - margin.bottom + yPos;
 
 	var x = d3.scale.ordinal()
 		.rangeRoundBands([0, width], .033);
@@ -21,6 +21,10 @@ function drawAreaChart(svg_base, xPos, yPos, dataArray) {
 
 	var xAxis = d3.svg.axis()
 		.scale(x)
+		.tickFormat(function(d) {
+			var tickDate = new Date(d);
+			return tickDate.getDate();
+		})
 		.orient("bottom");
 
 	var yAxis = d3.svg.axis()
@@ -36,8 +40,8 @@ function drawAreaChart(svg_base, xPos, yPos, dataArray) {
   //   .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
   var svg = svg_base.append("g")
-            .attr("class","context")
-            .attr("transform", "translate(" + xPos + "," + yPos + ")");
+			.attr("class","context")
+			.attr("transform", "translate(" + xPos + "," + yPos + ")");
 			
 	// Get the data, and display it
 	
@@ -46,6 +50,7 @@ function drawAreaChart(svg_base, xPos, yPos, dataArray) {
 	for(var k in dataArray) {
 		tempObj = new Object();
 		tempObj.Tag = k;
+		// console.log(k);
 		tempObj.Frühstück = dataArray[k].breakfast.toString();
 		tempObj.Mittagessen = dataArray[k].lunch.toString();
 		tempObj.Snack = dataArray[k].snack.toString();

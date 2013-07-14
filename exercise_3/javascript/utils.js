@@ -112,7 +112,7 @@ function manageTimelineMouseEvents(rect) {
     }
     
     // Update Charts
-    drawAreaChart(svg, 200, 500, area_data);
+    // drawAreaChart(svg, 200, 500, area_data);
   });
 }
 

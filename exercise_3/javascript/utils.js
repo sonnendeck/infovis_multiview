@@ -54,9 +54,8 @@ function parseCSVData() {
         
         // Generiert AreaChart relevante CSV Daten und zeichnet das Diagramm
         area_data     = getAreaChartData(csv_data_2);
-    	  drawAreaChart(svg, 50, 300, area_data);
-		  
-        
+    	  drawAreaChart(svg, 100, 300, area_data);
+
         var pc_data = getParallelCoordinatesData(csv_data_2);
         // drawParallelKoor(svg, 700, 300, pc_data);
         

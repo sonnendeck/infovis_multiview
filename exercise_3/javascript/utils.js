@@ -56,7 +56,7 @@ function parseCSVData() {
       drawAreaChart(svg, 100, 300, area_data);
 
       var pc_data = getParallelCoordinatesData(csv_data);
-      // drawParallelKoor(svg, 700, 300, pc_data);
+      drawParallelKoor(svg, 750, 300, pc_data);
       
       // Maus Events
       manageMouseEvents();

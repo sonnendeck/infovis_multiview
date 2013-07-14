@@ -55,7 +55,7 @@ function parseCSVData() {
         area_data     = getAreaChartData(csv_data_2);
     	  drawAreaChart(svg, 50, 300, area_data);
 		  
-        drawParallelKoor(svg, 700, 300, null);
+        // drawParallelKoor(svg, 700, 300, null);
         
       } else {
         console.log("Fehler beim Lesen der CSV: " + error);
@@ -132,19 +132,20 @@ function getTimelineChartData(data) {
   
   var date = d3.keys(data)[0];
   var day_data = data[date];
-  
-  
+
   var result_data = [];
   
   for (var i = 0; i < day_data.length; i++) {
     var meal_data = day_data[i];  
     var curr_date = generateDateFromString(meal_data.time);
-    result_data.push({
-        name: meal_data.user,
-        time: curr_date,
-        duration: meal_data.duration,
-        type: meal_data.type
-    });
+    var new_data  = clone(meal_data);
+
+    // Set correct keys
+    delete new_data.user;
+    new_data.name = meal_data.user;
+    new_data.time = curr_date;
+    
+    result_data.push(new_data);
   };
 
   return result_data;
@@ -214,3 +215,12 @@ function organizeCSVData(data) {
 }
 
 
+// Returns the clone of an given object.
+function clone(obj) {
+    if (null == obj || "object" != typeof obj) return obj;
+    var copy = obj.constructor();
+    for (var attr in obj) {
+        if (obj.hasOwnProperty(attr)) copy[attr] = obj[attr];
+    }
+    return copy;
+}

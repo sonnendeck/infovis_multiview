@@ -159,16 +159,16 @@ function drawAreaChart(svg_base, xPos, yPos, dataArray) {
 		d3.select(this).style("opacity", "0.3");
 		//d3.selectAll("rect").style("opacity", "0.3");
 		if(d.name == "Frühstück") {
-			d3.selectAll(".breakfast").style("opacity", "0.3");
+			d3.selectAll(".t_breakfast").style("opacity", "0.3");
 		}
 		if(d.name == "Mittagessen") {
-			d3.selectAll(".lunch").style("opacity", "0.3");
+			d3.selectAll(".t_lunch").style("opacity", "0.3");
 		}
 		if(d.name == "Snack") {
-			d3.selectAll(".snack").style("opacity", "0.3");
+			d3.selectAll(".t_snack").style("opacity", "0.3");
 		}
 		if(d.name == "Abendessen") {
-			d3.selectAll(".dinner").style("opacity", "0.3");
+			d3.selectAll(".t_dinner").style("opacity", "0.3");
 		}
 		/*d3.selectAll("rect").style("fill", function(d) {
 			if(this.style("fill") == this.style("fill")) {}
@@ -179,16 +179,16 @@ function drawAreaChart(svg_base, xPos, yPos, dataArray) {
 		d3.select(this).style("opacity", "1");
 		//d3.selectAll("rect").style("opacity", "0.3");
 		if(d.name == "Frühstück") {
-			d3.selectAll(".breakfast").style("opacity", "1");
+			d3.selectAll(".t_breakfast").style("opacity", "1");
 		}
 		if(d.name == "Mittagessen") {
-			d3.selectAll(".lunch").style("opacity", "1");
+			d3.selectAll(".t_lunch").style("opacity", "1");
 		}
 		if(d.name == "Snack") {
-			d3.selectAll(".snack").style("opacity", "1");
+			d3.selectAll(".t_snack").style("opacity", "1");
 		}
 		if(d.name == "Abendessen") {
-			d3.selectAll(".dinner").style("opacity", "1");
+			d3.selectAll(".t_dinner").style("opacity", "1");
 		}
 		/*d3.selectAll("rect").style("fill", function(d) {
 			if(this.style("fill") == this.style("fill")) {}

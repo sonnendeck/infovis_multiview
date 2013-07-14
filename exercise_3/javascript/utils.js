@@ -31,7 +31,8 @@ function parseCSVData() {
         faux_meat_amount: d.Fleisch,
         veggie_amount: d.Gemüse,
         pasta_amount: d.Teigwaren,
-        fruit_amount: d.Obst
+        fruit_amount: d.Obst,
+        milk_products_amount: d.Milchprodukte,
       };
     })
     .get(function(error, rows) {
@@ -56,7 +57,8 @@ function parseCSVData() {
     	  drawAreaChart(svg, 50, 300, area_data);
 		  
         
-        drawParallelKoor(svg, 700, 300, null);
+        var pc_data = getParallelCoordinatesData(csv_data_2);
+        // drawParallelKoor(svg, 700, 300, pc_data);
         
       } else {
         console.log("Fehler beim Lesen der CSV: " + error);
@@ -150,6 +152,44 @@ function getTimelineChartData(data) {
     result_data.push(new_data);
   };
 
+  return result_data;
+}
+
+
+function getParallelCoordinatesData(data) {
+  if (data.length == 0) {
+    return [];
+  }
+  
+  var result_data = [];
+  
+  d3.keys(data).forEach(function (key) {
+    var meal_entries = data[key];
+    var current_date = generateDateFromString(key);
+    var current_meal = {};
+
+    // Über alle Einträge eines Tages iterieren und Durchschnittswerte berechnen
+    for (var i = 0; i < meal_entries.length; i++) {
+      element = meal_entries[i];
+      
+      current_meal = {};
+      current_meal['Nutzer']        = element.user;
+      current_meal['Zeit']          = element.time;
+      current_meal['Dauer']         = element.duration;
+      current_meal['Art']           = element.type;
+      current_meal['Rahmen']        = element.occasion;
+      current_meal['Gesamtmenge']   = element.total_amount;
+      current_meal['Fleisch']       = element.meat_amount;
+      current_meal['Fleischersatz'] = element.faux_meat_amount;
+      current_meal['Gemüse']        = element.veggie_amount;
+      current_meal['Teigwaren']     = element.pasta_amount;
+      current_meal['Obst']          = element.fruit_amount;
+      current_meal['Milchprodukte'] = element.milk_products_amount;
+      
+      result_data.push(current_meal);
+    }
+  });
+  
   return result_data;
 }
 

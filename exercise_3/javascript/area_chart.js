@@ -8,7 +8,7 @@ function drawAreaChart(svg_base, xPos, yPos, dataArray) {
 	width = 800 - margin.left - margin.right + xPos,
 	height = 500 - margin.top - margin.bottom + yPos;
 
-	var selectedDay = null;
+  selectedDay = null;
 
 	var x = d3.scale.ordinal()
 		.rangeRoundBands([0, width], .033);
@@ -173,58 +173,6 @@ var svg = svg_base.append("g")
 	// 		if(this.style("fill") == this.style("fill")) {}
 	// 	})*/
 	// });
-
-	meal.on("mousemove", function(outerD) {
-
-		var curDay = Math.floor((d3.mouse(this)[0] - 10) / 695 * 29);
-		
-		d3.selectAll(".selectedDay").remove();
-
-		if(selectedDay != outerD.values[curDay].Tag) {
-			svg.append("rect")
-			.attr("class", "selectedDay")
-			.attr("x", 10 + curDay * 24)
-			.attr("y", 0)
-			.attr("width", 24)
-			.attr("height", 450)
-			.style("pointer-events", "none")
-			.style("fill", "lightgrey")
-			.style("opacity", "0.5");
-		}
-
-		// var newValues = outerD.values.slice(curDay, curDay + 2);
-
-		// meal.append("path")
-		// 	.attr("class", "area")
-		// 	// .attr("d", function(d) { console.log(outerD); return area(newValues); })
-		// 	// .attr("d", function(d) { return area(d.values.slice(curDay, curDay + 2)); })
-		// 	.attr("d", function(d) { return area(d.values.slice(curDay, curDay + 2)); })
-		// 	.style("fill", "white")
-		// 	.style("opacity", "0.1");
-	});
-	
-	meal.on("click", function(d) {
-		var curDay = Math.floor((d3.mouse(this)[0] - 10) / 695 * 29);
-
-		d3.selectAll(".clickedDay").remove();
-
-		if(selectedDay != d.values[curDay].Tag) {
-			svg.append("rect")
-			.attr("class", "clickedDay")
-			.attr("x", 10 + curDay * 24)
-			.attr("y", 0)
-			.attr("width", 24)
-			.attr("height", 450)
-			.style("pointer-events", "none")
-			.style("fill", "grey")
-			.style("opacity", "0.5");
-
-			selectedDay = d.values[curDay].Tag;
-		}
-		else {
-			selectedDay = null;
-		}
-	});
 
 	// meal.append("path")
 	// 	.attr("class", "area")

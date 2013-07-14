@@ -16,6 +16,10 @@ var csv_data = [];
 var area_data = {};
 var timeline_data = {};
 
+var xAreaChart = 100, yAreaChart = 300;
+var xTimeline = 50, yTimeline = 50;
+var xPC = 750, yPC = 300;
+
 function parseCSVData() {
 
   csv_content = d3.csv("data/data.csv")
@@ -49,16 +53,16 @@ function parseCSVData() {
 
       // Generiert Timeline relevante CSV Daten und zeichnet das Diagramm        
       timeline_data = getTimelineChartData(csv_data);
-      drawTimeline(svg, 50, 50, timeline_data);
+      drawTimeline(svg, xTimeline, yTimeline, timeline_data);
 
       // Generiert AreaChart relevante CSV Daten und zeichnet das Diagramm
       // area_data = getAreaChartData(getMealDataFor(["Thomas"], csv_data));
       area_data = getAreaChartData(csv_data);
-      drawAreaChart(svg, 100, 300, area_data);
+      drawAreaChart(svg, xAreaChart, yAreaChart, area_data);
 
       // var pc_data = getParallelCoordinatesData(getMealDataFor(["Thomas"], csv_data));
       var pc_data = getParallelCoordinatesData(csv_data);
-      drawParallelKoor(svg, 750, 300, pc_data);
+      drawParallelKoor(svg, xPC, yPC, pc_data);
       
       // Maus Events
       manageMouseEvents();
@@ -81,6 +85,53 @@ function parseCSVData() {
 function manageMouseEvents() {
   var rect = svg.selectAll("rect");
   manageTimelineMouseEvents(rect);
+  manageAreaChartMouseEvents();
+}
+
+function manageAreaChartMouseEvents() {
+  var meal = svg.selectAll(".meal");
+  
+	meal.on("click", function(d) {
+		var curDay = Math.floor((d3.mouse(this)[0] - 10) / 695 * 29);
+
+		d3.selectAll(".clickedDay").remove();
+
+		if(selectedDay != d.values[curDay].Tag) {
+			svg.append("rect")
+			.attr("class", "clickedDay")
+			.attr("x", 10 + curDay * 24 + xAreaChart)
+			.attr("y", 0 + yAreaChart)
+			.attr("width", 24)
+			.attr("height", 450)
+			.style("pointer-events", "none")
+			.style("fill", "white")
+			.style("opacity", "0.5");
+
+			selectedDay = d.values[curDay].Tag;
+		}
+		else {
+			selectedDay = null;
+		}
+	});
+  
+	meal.on("mousemove", function(outerD) {
+
+		var curDay = Math.floor((d3.mouse(this)[0] - 10) / 695 * 29);
+		
+		d3.selectAll(".selectedDay").remove();
+
+		if(selectedDay != outerD.values[curDay].Tag) {
+			svg.append("rect")
+			.attr("class", "selectedDay")
+			.attr("x", 10 + curDay * 24 + xAreaChart)
+			.attr("y", 0 + yAreaChart)
+			.attr("width", 24)
+			.attr("height", 450)
+			.style("pointer-events", "none")
+			.style("fill", "white")
+			.style("opacity", "0.25");
+		}
+	});
 }
 
 function manageTimelineMouseEvents(rect) {
@@ -292,6 +343,38 @@ function getMealDataFor(names, data) {
   });
   return result_data;
 }
+
+
+function getMealDataAt(names, data) {
+  // if (data.length == 0) {
+  //   return [];
+  // }
+  // 
+  // var result_data = {};
+  // var tmp_meals = [];
+  // 
+  // d3.keys(data).forEach(function(key) {
+  //   var meal_entries = data[key];
+  //   tmp_meals = [];
+  // 
+  //   // Über alle Einträge eines Tages iterieren und Durchschnittswerte berechnen
+  //   for (var i = 0; i < meal_entries.length; i++) {
+  //     element = meal_entries[i];
+  // 
+  //     // Ist der Benutzer ausgewählt?
+  //     if (names.indexOf(element.user) > -1) {
+  //       tmp_meals.push(element);
+  //     }
+  //   }
+  //   
+  //   // Füge nur die Tage hinzu, für die auch Daten vorhanden sind.
+  //   if (tmp_meals.length > 0) {
+  //     result_data[key] = tmp_meals;
+  //   }
+  // });
+  // return result_data;
+}
+
 
 /******************************************************************
 

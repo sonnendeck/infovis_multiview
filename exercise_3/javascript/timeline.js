@@ -219,6 +219,8 @@ function drawTimeline(svg_base, xPos, yPos, dataArray) {
   var enter = rect.enter()
     .append("rect");
 
+  enter.attr("class", "t_rect");
+
   enter.attr("x", function(d) {
     return x(d.time);
   });

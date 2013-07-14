@@ -56,7 +56,7 @@ function parseCSVData() {
       drawAreaChart(svg, 100, 300, area_data);
 
       var pc_data = getParallelCoordinatesData(csv_data);
-      drawParallelKoor(svg, 750, 300, pc_data);
+      // drawParallelKoor(svg, 750, 300, pc_data);
       
       // Maus Events
       manageMouseEvents();
@@ -77,7 +77,8 @@ function parseCSVData() {
 
 
 function manageMouseEvents() {
-  var rect = svg.selectAll("rect");
+  var rect = svg.selectAll(".t_dinner, .t_snack, .t_lunch, .t_breakfast");
+  console.log(rect);
   manageTimelineMouseEvents(rect);
 }
 
@@ -118,8 +119,54 @@ function manageTimelineMouseEvents(rect) {
       d3.select(this).style("fill", "#100000");
     }
     
+
     // Update Charts
     // drawAreaChart(svg, 200, 500, area_data);
+  });
+
+// Select names
+
+    var NAMES = ["Huong", "Martin", "Tom", "Thomas"]
+    var selectedNames = new Array(0, 0, 0, 0);
+    var selectedNamesAsString;
+
+    svg.selectAll(".yAxis text")
+    .on("click", function(d) {
+    if (selectedNames[NAMES.indexOf(d3.select(this)
+      .text())] == 0) {
+      selectedNames[NAMES.indexOf(d3.select(this)
+        .text())] = 1;
+
+      d3.select(this)
+        .style("fill", "rgb(120,120,120)");
+    } else {
+      selectedNames[NAMES.indexOf(d3.select(this)
+        .text())] = 0;
+
+      d3.select(this)
+        .style("fill", "rgb(0,0,0)");
+    }
+
+    console.log(selectedNames[0]);
+    console.log(selectedNames[1]);
+    console.log(selectedNames[2]);
+    console.log(selectedNames[3]);
+
+    selectedNamesAsString = new Array();
+    for (var i = 0; i < 4; i++) {
+      if (selectedNames[i] == 1) {
+        selectedNamesAsString.push(NAMES[i]);
+      }
+    }
+
+    timeline_data = getTimelineChartData(getMealDataFor(selectedNamesAsString,csv_data));
+    // drawTimeline(svg, 50, 50, timeline_data);
+    rect.data(timeline_data);
+
+    console.log(rect.data(timeline_data));
+
+
+    console.log("Array:" + selectedNamesAsString[0] + "," + selectedNamesAsString[1] + "," + selectedNamesAsString[2] + "," + selectedNamesAsString[3]);
   });
 }
 

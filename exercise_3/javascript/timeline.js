@@ -300,6 +300,8 @@ function drawTimeline(svg_base, xPos, yPos, dataArray) {
   // 		})
   // });
 
+svg.selectAll(".dinner").style("fill", "#000000");
+
   rect.on("mouseover", function() {
     d3.select(this)
       .style("fill", function(d) {
@@ -411,29 +413,29 @@ function drawTimeline(svg_base, xPos, yPos, dataArray) {
       .style("font-weight", "normal");
   });
 
-  svg.selectAll(".yAxis text")
-    .on("click", function(d) {
-    if (selectedNames[NAMES.indexOf(d3.select(this)
-      .text())] == 0) {
-      selectedNames[NAMES.indexOf(d3.select(this)
-        .text())] = 1;
+  // svg.selectAll(".yAxis text")
+  //   .on("click", function(d) {
+  //   if (selectedNames[NAMES.indexOf(d3.select(this)
+  //     .text())] == 0) {
+  //     selectedNames[NAMES.indexOf(d3.select(this)
+  //       .text())] = 1;
 
-      d3.select(this)
-        .style("fill", "rgb(120,120,120)");
-    } else {
-      selectedNames[NAMES.indexOf(d3.select(this)
-        .text())] = 0;
+  //     d3.select(this)
+  //       .style("fill", "rgb(120,120,120)");
+  //   } else {
+  //     selectedNames[NAMES.indexOf(d3.select(this)
+  //       .text())] = 0;
 
-      d3.select(this)
-        .style("fill", "rgb(0,0,0)");
-    }
+  //     d3.select(this)
+  //       .style("fill", "rgb(0,0,0)");
+  //   }
 
-    console.log(selectedNames[0]);
-    console.log(selectedNames[1]);
-    console.log(selectedNames[2]);
-    console.log(selectedNames[3]);
+  //   console.log(selectedNames[0]);
+  //   console.log(selectedNames[1]);
+  //   console.log(selectedNames[2]);
+  //   console.log(selectedNames[3]);
 
-  });
+  // });
   // function addMinutes(date, minutes) {
   // 	return new Date(date.getTime() + minutes*60000);
   // }

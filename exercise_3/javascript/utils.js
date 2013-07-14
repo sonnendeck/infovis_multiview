@@ -58,6 +58,9 @@ function parseCSVData() {
 
       var pc_data = getParallelCoordinatesData(csv_data_2);
       // drawParallelKoor(svg, 700, 300, pc_data);
+      
+      // Maus Events
+      manageMouseEvents();
 
     } else {
       console.log("Fehler beim Lesen der CSV: " + error);
@@ -66,6 +69,52 @@ function parseCSVData() {
   return csv_content;
 }
 
+function manageMouseEvents() {
+  var rect = svg.selectAll("rect");
+  manageTimelineMouseEvents(rect);
+}
+
+function manageTimelineMouseEvents(rect) {
+  var trans_y = 50;
+  // Click on the meals //
+  rect.on("click", function(data) {
+    svg.append("rect")
+    .attr("x", d3.select(this).attr("x")+50)
+    .attr("y", d3.select(this).attr("y")+50)
+    .attr("width", d3.select(this).attr("width"))
+    .attr("height", d3.select(this).attr("height"))
+    //.attr("rx", 5).attr("ry", 5)
+    .attr("transform", "translate(" + (trans_y + 50) + ",50)")
+    .style("fill", d3.select(this)
+    .style("fill", "red"))
+    .transition()
+    /* 
+  *	TODO: Play around with flashing duration and delay!
+  .duration(2000)
+  .delay(-1000)
+  */
+    .attr("width", d3.select(this).attr("width") * 2)
+    .attr("height", d3.select(this).attr("height") * 2)
+    .attr("x", d3.select(this).attr("x") - (d3.select(this).attr("width")) / 2)
+    .attr("y", d3.select(this).attr("y") - (d3.select(this).attr("height")) / 2)
+    .style("opacity", 0)
+    .each("end", function() {
+      d3.select(this).remove();
+    });
+
+    // Deselect rect //
+    if (d3.select(this).style("stroke") != "none") {
+      d3.select(this).style("stroke", "none");
+    } else {
+      d3.select(this).style("stroke", "#555555");
+      d3.select(this).style("stroke-width", 2);
+      d3.select(this).style("fill", "#100000");
+    }
+    
+    // Update Charts
+    drawAreaChart(svg, 200, 500, area_data);
+  });
+}
 
 // returns an object providing the following data:
 // [ 

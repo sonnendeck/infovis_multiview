@@ -342,56 +342,55 @@ function drawTimeline(svg_base, xPos, yPos, dataArray) {
     })
   });
 
-  // Click on the meals //
-  rect.on("click", function(d) {
-
-    svg.append("rect")
-      .attr("x", d3.select(this)
-      .attr("x"))
-      .attr("y", d3.select(this)
-      .attr("y"))
-      .attr("width", d3.select(this)
-      .attr("width"))
-      .attr("height", d3.select(this)
-      .attr("height"))
-    //.attr("rx", 5).attr("ry", 5)
-    .attr("transform", "translate(" + trans_y + ",0)")
-      .style("fill", d3.select(this)
-      .style("fill"))
-      .transition()
-    /* 
-	*	TODO: Play around with flashing duration and delay!
-	.duration(2000)
-	.delay(-1000)
-	*/
-    .attr("width", d3.select(this)
-      .attr("width") * 2)
-      .attr("height", d3.select(this)
-      .attr("height") * 2)
-      .attr("x", d3.select(this)
-      .attr("x") - (d3.select(this)
-      .attr("width")) / 2)
-      .attr("y", d3.select(this)
-      .attr("y") - (d3.select(this)
-      .attr("height")) / 2)
-      .style("opacity", 0)
-      .each("end", function() {
-      d3.select(this)
-        .remove();
-
-    });
-
-    if (d3.select(this)
-      .style("stroke") != "none") {
-      d3.select(this)
-        .style("stroke", "none");
-    } else {
-      d3.select(this)
-        .style("stroke", "#555555");
-      d3.select(this)
-        .style("stroke-width", 2);
-    }
-  });
+  // // Click on the meals //
+//   rect.on("click", function(d) {
+// 
+//     svg.append("rect")
+//       .attr("x", d3.select(this)
+//       .attr("x"))
+//       .attr("y", d3.select(this)
+//       .attr("y"))
+//       .attr("width", d3.select(this)
+//       .attr("width"))
+//       .attr("height", d3.select(this)
+//       .attr("height"))
+//     //.attr("rx", 5).attr("ry", 5)
+//     .attr("transform", "translate(" + trans_y + ",0)")
+//       .style("fill", d3.select(this)
+//       .style("fill"))
+//       .transition()
+//     /* 
+//   *  TODO: Play around with flashing duration and delay!
+//   .duration(2000)
+//   .delay(-1000)
+//   */
+//     .attr("width", d3.select(this)
+//       .attr("width") * 2)
+//       .attr("height", d3.select(this)
+//       .attr("height") * 2)
+//       .attr("x", d3.select(this)
+//       .attr("x") - (d3.select(this)
+//       .attr("width")) / 2)
+//       .attr("y", d3.select(this)
+//       .attr("y") - (d3.select(this)
+//       .attr("height")) / 2)
+//       .style("opacity", 0)
+//       .each("end", function() {
+//         d3.select(this)
+//           .remove();
+//       });
+// 
+//     if (d3.select(this)
+//       .style("stroke") != "none") {
+//       d3.select(this)
+//         .style("stroke", "none");
+//     } else {
+//       d3.select(this)
+//         .style("stroke", "#555555");
+//       d3.select(this)
+//         .style("stroke-width", 2);
+//     }
+//   });
 
 
 

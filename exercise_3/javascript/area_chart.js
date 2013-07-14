@@ -8,6 +8,8 @@ function drawAreaChart(svg_base, xPos, yPos, dataArray) {
 	width = 800 - margin.left - margin.right + xPos,
 	height = 500 - margin.top - margin.bottom + yPos;
 
+	var selectedDay = null;
+
 	var x = d3.scale.ordinal()
 		.rangeRoundBands([0, width], .033);
 
@@ -104,10 +106,6 @@ var svg = svg_base.append("g")
 		.attr("class", "area")
 		.attr("d", function(d) { return area(d.values); })
 		.style("fill", function(d) { return color(d.name); });
-	
-	meal.on("mouseout", function(d) {
-		d3.select(this).style("opacity", "1");
-	});
 
 	svg.append("g")
 		.attr("class", "y axis")
@@ -115,7 +113,7 @@ var svg = svg_base.append("g")
 		.append("text")
 		.attr("transform", "rotate(-90)")
 		.attr("y", -13)
-		.attr("x", -5)
+		.attr("x", -415)
 		.attr("dy", ".75em")
 		.style("text-anchor", "end")
 		.text("Menge");
@@ -141,16 +139,17 @@ var svg = svg_base.append("g")
 		.attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
 
 	legend.append("rect")
-		.attr("x", 10)
+		.attr("x", -20)
+		.attr("y", 3)
 		.attr("width", 18)
 		.attr("height", 18)
 		.style("fill", color);
 
 	legend.append("text")
-		.attr("x", 33)
-		.attr("y", 9)
+		.attr("x", -25)
+		.attr("y", 10)
 		.attr("dy", ".35em")
-		.style("text-anchor", "beginning")
+		.style("text-anchor", "end")
 		.text(function(d) { return d; });
 		
 	//rect.on("click", function(d) { d3.select(this).attr("style", "stroke: rgb(70,70,0)")});
@@ -178,20 +177,22 @@ var svg = svg_base.append("g")
 	meal.on("mousemove", function(outerD) {
 
 		var curDay = Math.floor((d3.mouse(this)[0] - 10) / 695 * 29);
-		// console.log(d3.mouse(this)[0]);
 		
 		d3.selectAll(".selectedDay").remove();
 
-		svg.append("rect")
+		if(selectedDay != outerD.values[curDay].Tag) {
+			svg.append("rect")
 			.attr("class", "selectedDay")
 			.attr("x", 10 + curDay * 24)
 			.attr("y", 0)
 			.attr("width", 24)
 			.attr("height", 450)
+			.style("pointer-events", "none")
 			.style("fill", "lightgrey")
 			.style("opacity", "0.5");
+		}
 
-		var newValues = outerD.values.slice(curDay, curDay + 2);
+		// var newValues = outerD.values.slice(curDay, curDay + 2);
 
 		// meal.append("path")
 		// 	.attr("class", "area")
@@ -201,31 +202,54 @@ var svg = svg_base.append("g")
 		// 	.style("fill", "white")
 		// 	.style("opacity", "0.1");
 	});
+	
+	meal.on("click", function(d) {
+		var curDay = Math.floor((d3.mouse(this)[0] - 10) / 695 * 29);
+
+		d3.selectAll(".clickedDay").remove();
+
+		if(selectedDay != d.values[curDay].Tag) {
+			svg.append("rect")
+			.attr("class", "clickedDay")
+			.attr("x", 10 + curDay * 24)
+			.attr("y", 0)
+			.attr("width", 24)
+			.attr("height", 450)
+			.style("pointer-events", "none")
+			.style("fill", "grey")
+			.style("opacity", "0.5");
+
+			selectedDay = d.values[curDay].Tag;
+		}
+		else {
+			selectedDay = null;
+		}
+	});
 
 	// meal.append("path")
 	// 	.attr("class", "area")
 	// 	.attr("d", function(d) { return area(d.values); })
 	// 	.style("fill", function(d) { return color(d.name); });
 
-	meal.on("mouseout", function(d) {
-		d3.select(this).style("opacity", "1");
-		//d3.selectAll("rect").style("opacity", "0.3");
-		if(d.name == "Frühstück") {
-			d3.selectAll(".t_breakfast").style("opacity", "1");
-		}
-		if(d.name == "Mittagessen") {
-			d3.selectAll(".t_lunch").style("opacity", "1");
-		}
-		if(d.name == "Snack") {
-			d3.selectAll(".t_snack").style("opacity", "1");
-		}
-		if(d.name == "Abendessen") {
-			d3.selectAll(".t_dinner").style("opacity", "1");
-		}
-		/*d3.selectAll("rect").style("fill", function(d) {
-			if(this.style("fill") == this.style("fill")) {}
-		})*/
-	});
+	// meal.on("mouseout", function(d) {
+	// 	d3.select(this).style("opacity", "1");
+	// 	//d3.selectAll("rect").style("opacity", "0.3");
+	// 	if(d.name == "Frühstück") {
+	// 		d3.selectAll(".t_breakfast").style("opacity", "1");
+	// 	}
+	// 	if(d.name == "Mittagessen") {
+	// 		d3.selectAll(".t_lunch").style("opacity", "1");
+	// 	}
+	// 	if(d.name == "Snack") {
+	// 		d3.selectAll(".t_snack").style("opacity", "1");
+	// 	}
+	// 	if(d.name == "Abendessen") {
+	// 		d3.selectAll(".t_dinner").style("opacity", "1");
+	// 	}
+	// 	/*d3.selectAll("rect").style("fill", function(d) {
+	// 		if(this.style("fill") == this.style("fill")) {}
+	// 	})*/
+	// });
 
 
 	//});

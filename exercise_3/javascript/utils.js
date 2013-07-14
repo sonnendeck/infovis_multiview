@@ -69,6 +69,14 @@ function parseCSVData() {
   return csv_content;
 }
 
+
+/******************************************************************
+
+                            Mouse Events
+
+*******************************************************************/
+
+
 function manageMouseEvents() {
   var rect = svg.selectAll("rect");
   manageTimelineMouseEvents(rect);
@@ -116,13 +124,21 @@ function manageTimelineMouseEvents(rect) {
   });
 }
 
+
+/******************************************************************
+
+                      Manage data for diagramms
+
+*******************************************************************/
+
+
+
 // returns an object providing the following data:
 // [ 
 //   { "01.06.2013": { breakfast: 0, lunch: 1, snack: 2, dinner: 3 } },
 //   { "02.06.2013": { breakfast: 3, lunch: 0, snack: 1, dinner: 1 } },
 //   …
 // ]
-
 function getAreaChartData(data) {
   if (data.length == 0) {
     console.log("Leave getAreaChartData: data.length = " + data.length);
@@ -180,7 +196,6 @@ function getAreaChartData(data) {
 //   {"name": "Huong", "time": <Date-Object>, "duration": 35, "type": "Mittagessen"},
 //   {"name": "Huong", "time": <Date-Object>, "duration": 5, "type": "Snack"}
 // ];
-
 function getTimelineChartData(data) {
   if (data.length == 0) {
     return [];
@@ -247,8 +262,13 @@ function getParallelCoordinatesData(data) {
 }
 
 
-// date_string muss in dem Format 'DD.MM.YYYY HH:MM' vorliegen
+/******************************************************************
 
+                          Helper Methods
+
+*******************************************************************/
+
+// date_string muss in dem Format 'DD.MM.YYYY HH:MM' vorliegen
 function generateDateFromString(date_string) {
 
   // Prüfe Eingangsparameter
@@ -320,10 +340,7 @@ function organizeCSVData(data) {
   return result_data;
 }
 
-
-
 // Returns the clone of an given object.
-
 function clone(obj) {
   if (null == obj || "object" != typeof obj) return obj;
   var copy = obj.constructor();

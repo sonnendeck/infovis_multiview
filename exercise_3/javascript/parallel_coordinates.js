@@ -111,14 +111,14 @@ function drawParallelKoor(svg_base, xPos, yPos, dataArray) {
  
   legend.append("svg:line")
     .attr("class", String)
-    .attr("x2", 8);
+    .attr("x2", 10);
  
   legend.append("svg:text")
     .attr("x", 12)
     .attr("dy", ".31em")
     .text(function(d) {
-    return d;
-  });
+      return d;
+    });
  
   // Add foreground lines.
   foreground = svg.append("svg:g")

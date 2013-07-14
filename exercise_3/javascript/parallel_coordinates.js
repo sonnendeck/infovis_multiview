@@ -1,7 +1,7 @@
 // simply access via amount value: AMOUNT_NAMES[data.snack_amount]
 var AMOUNT_NAMES = ["wenig", "mittel", "viel"];
 var TYPE_NAMES = ["Frühstück", "Mittagessen", "Snack", "Abendessen"];
-var OCCASION_NAMES = ["Arbeit", "Daheim", "Imbiss", "Mensa", "Restaurant"];
+var OCCASION_NAMES = ["Arbeit", "Daheim", "Imbiss", "Mensa", "Restaurant", "Freunde"];
 
 function drawParallelKoor(svg_base, xPos, yPos, dataArray) {
 
@@ -18,7 +18,8 @@ function drawParallelKoor(svg_base, xPos, yPos, dataArray) {
       'Arbeit': 0,
       'Imbiss': 2,
       'Restaurant': 4,
-      'Mensa': 3
+      'Mensa': 3,
+      'Freunde': 5
     };
 
   /**	

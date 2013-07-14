@@ -67,9 +67,7 @@ function drawTimeline(svg_base, xPos, yPos, dataArray) {
   var end_time = new Date("June" + (data[0].time.getDate() + 1) + ", 2013 03:00");
 
 
-  var x = d3.time.scale()
-    .domain([start_time, end_time])
-    .range([0, width]);
+  var x = d3.time.scale().domain([start_time, end_time]).range([0, width]);
   var x_linear = d3.scale.linear()
     .domain([0, end_time.getTime() - start_time.getTime()])
     .rangeRound([0, width]);

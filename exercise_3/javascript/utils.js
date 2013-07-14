@@ -55,7 +55,8 @@ function parseCSVData() {
         area_data     = getAreaChartData(csv_data_2);
     	  drawAreaChart(svg, 50, 300, area_data);
 		  
-        // drawParallelKoor(svg, 700, 300, null);
+        
+        drawParallelKoor(svg, 700, 300, null);
         
       } else {
         console.log("Fehler beim Lesen der CSV: " + error);

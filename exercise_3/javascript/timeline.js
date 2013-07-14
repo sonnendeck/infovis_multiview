@@ -1,5 +1,7 @@
 function drawTimeline(svg_base, xPos, yPos, dataArray) {
 
+	var NAMES = ["Huong", "Martin", "Tom", "Thomas"]
+
 	var margin = {top: yPos, right: 20, bottom: 30, left: xPos},
     width = 960 - margin.left - margin.right + xPos,
     height = 200 - margin.top - margin.bottom + yPos,
@@ -10,6 +12,8 @@ function drawTimeline(svg_base, xPos, yPos, dataArray) {
 	var tickFormat = "%H Uhr";
 
 	var current_day = new  Date("June 6, 2013 00:00");
+
+	var selectedNames = new Array(0,0,0,0);
 
 
 	// d3.csv("sample_data", funtion(data){
@@ -50,7 +54,7 @@ function drawTimeline(svg_base, xPos, yPos, dataArray) {
 	var data = dataArray;
 
 	var start_time = new Date("June" + data[0].time.getDate() + ", 2013 06:00");
-	var end_time = new Date("June" + (data[0].time.getDate() + 1) + ", 2013 00:00");
+	var end_time = new Date("June" + (data[0].time.getDate() + 1) + ", 2013 03:00");
 
 
 	var x = d3.time.scale().domain([start_time,end_time]).range([0, width]);
@@ -193,7 +197,7 @@ function drawTimeline(svg_base, xPos, yPos, dataArray) {
 	//   return (d.name * 60) - 50;
 	// });
 
-	enter.attr("rx", 5).attr("ry", 5);
+	//enter.attr("rx", 5).attr("ry", 5);
 	enter.attr("width", function(d) {
 	  return x_linear(d.duration * 60000);
 	}); 
@@ -216,16 +220,16 @@ enter.style("fill", function(d) {
 
 enter.attr("class", function(d) {
 		  if(d.type == "Frühstück") {
-			return "breakfast";
+			return "t_breakfast";
 		  }
 		  if(d.type == "Mittagessen") {
-			return "lunch";
+			return "t_lunch";
 		  }
 		  if(d.type == "Abendessen") {
-			return "dinner";
+			return "t_dinner";
 		  }
 		  if(d.type == "Snack") {
-			return "snack";
+			return "t_snack";
 		  }
 		})
 
@@ -333,16 +337,31 @@ rect.on("click", function(d) {
 //mouseover for the names //
 svg.selectAll(".yAxis text").on("mouseover", function() {
 	d3.select(this).style("font-weight", "bold");
+	d3.select(this).style("cursor", "default");
 });
 
 svg.selectAll(".yAxis text").on("mouseout", function() {
 	d3.select(this).style("font-weight", "normal");
 });
 
-	var selectedName;
+svg.selectAll(".yAxis text").on("click", function(d) { 
+	if (selectedNames[NAMES.indexOf(d3.select(this).text())] == 0) {
+		selectedNames[NAMES.indexOf(d3.select(this).text())] = 1;
 
-	svg.selectAll(".yAxis text").on("click", function(d) { d3.select(this).style("fill", "rgb(120,120,120)"); selectedName = d3.select(this).text(); d3.select(this).text("selected");});
+		d3.select(this).style("fill", "rgb(120,120,120)"); 
+	}
+	else {
+		selectedNames[NAMES.indexOf(d3.select(this).text())] = 0;
 
+		d3.select(this).style("fill", "rgb(0,0,0)"); 
+	}
+
+	console.log(selectedNames[0]);
+	console.log(selectedNames[1]);
+	console.log(selectedNames[2]);
+	console.log(selectedNames[3]);
+
+});
 	// function addMinutes(date, minutes) {
 	// 	return new Date(date.getTime() + minutes*60000);
 	// }

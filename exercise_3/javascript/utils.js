@@ -52,9 +52,11 @@ function parseCSVData() {
       drawTimeline(svg, 50, 50, timeline_data);
 
       // Generiert AreaChart relevante CSV Daten und zeichnet das Diagramm
+      // area_data = getAreaChartData(getMealDataFor(["Thomas"], csv_data));
       area_data = getAreaChartData(csv_data);
       drawAreaChart(svg, 100, 300, area_data);
 
+      // var pc_data = getParallelCoordinatesData(getMealDataFor(["Thomas"], csv_data));
       var pc_data = getParallelCoordinatesData(csv_data);
       drawParallelKoor(svg, 750, 300, pc_data);
       

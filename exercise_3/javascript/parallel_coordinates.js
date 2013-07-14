@@ -22,12 +22,6 @@ function drawParallelKoor(svg_base, xPos, yPos, dataArray) {
       'Freunde': 5
     };
 
-  /**	
-var margin = {top: yPos + 20, right: 20, bottom: 30, left: xPos + 40},
-    width = 600 - margin.left - margin.right + xPos,
-    height = 400 - margin.top - margin.bottom + yPos;
-**/
-
   var m = [yPos + 80, 160, 200, xPos + 160],
     w = 800 - m[1] - m[3] + xPos,
     h = 600 - m[0] - m[2] + yPos;
@@ -41,16 +35,10 @@ var margin = {top: yPos + 20, right: 20, bottom: 30, left: xPos + 40},
   var axes = {};
 
   var foreground;
-
-  var svg = d3.select("body")
-    .append("svg:svg")
-    .attr("width", w + m[1] + m[3])
-    .attr("height", h + m[0] + m[2])
-    .append("svg:g")
-    .attr("transform", "translate(" + m[3] + "," + m[0] + ")");
-
-  var essen = dataArray;
-
+  var svg = svg_base.append("g")
+  			.attr("class","context")
+        .attr("transform", "translate(" + m[3] + "," + m[0] + ")");
+ 
   // AXES
   axes = {
     default: d3.svg.axis()
@@ -77,36 +65,36 @@ var margin = {top: yPos + 20, right: 20, bottom: 30, left: xPos + 40},
     })
       .orient("left")
   }
-
+ 
   // Create a scale and brush for each trait.
   fields.forEach(function(f) {
     // Coerce values to numbers.
-    // essen.forEach(function(d) { d[f] = +d[f]; });
+    // dataArray.forEach(function(d) { d[f] = +d[f]; });
     if (f == 'Art') {
-      essen.forEach(function(d) {
+      dataArray.forEach(function(d) {
         d[f] = art[d[f]];
       });
     } else if (f == 'Rahmen') {
-      essen.forEach(function(d) {
+      dataArray.forEach(function(d) {
         d[f] = rahmen[d[f]];
       });
     } else if (f == 'Gesamtmenge') {
-      essen.forEach(function(d) {
+      dataArray.forEach(function(d) {
         d[f] = +d[f] - 1;
       });
     }
-
+ 
     y[f] = d3.scale.linear()
-      .domain([0, d3.max(essen, function(d) {
+      .domain([0, d3.max(dataArray, function(d) {
       return parseInt(d[f]);
     })])
       .range([h, 0]);
-
+ 
     y[f].brush = d3.svg.brush()
       .y(y[f])
       .on("brush", brush);
   });
-
+ 
   // Add a legend.
   var legend = svg.selectAll("g.legend")
     .data(name)
@@ -114,30 +102,29 @@ var margin = {top: yPos + 20, right: 20, bottom: 30, left: xPos + 40},
     .append("svg:g")
     .attr("class", "legend")
     .attr("transform", function(d, i) {
-      console.log(i);
       if (i<2) {
         return "translate(0," + (i * 20 + 340) + ")";
       } else {
         return "translate(50," + ((i * 20 - 40) + 340) + ")";
       }
     });
-
+ 
   legend.append("svg:line")
     .attr("class", String)
     .attr("x2", 8);
-
+ 
   legend.append("svg:text")
     .attr("x", 12)
     .attr("dy", ".31em")
     .text(function(d) {
     return d;
   });
-
+ 
   // Add foreground lines.
   foreground = svg.append("svg:g")
     .attr("class", "foreground")
     .selectAll("path")
-    .data(essen)
+    .data(dataArray)
     .enter()
     .append("svg:path")
     .attr("d", path)
@@ -159,9 +146,8 @@ var margin = {top: yPos + 20, right: 20, bottom: 30, left: xPos + 40},
     // console.log(this);
     d3.select(this)
       .style('stroke-width', '5px');
-
   });
-
+ 
   // Add a group element for each trait.
   var g = svg.selectAll(".trait")
     .data(fields)
@@ -177,10 +163,11 @@ var margin = {top: yPos + 20, right: 20, bottom: 30, left: xPos + 40},
       x: x(d)
     };
   })
-    .on("dragstart", dragstart)
-    .on("drag", drag)
-    .on("dragend", dragend));
-
+    // .on("dragstart", dragstart)
+    // .on("drag", drag)
+    // .on("dragend", dragend)
+  );
+ 
   // Add an axis and title.
   g.append("svg:g")
     .attr("class", "axis")
@@ -190,13 +177,13 @@ var margin = {top: yPos + 20, right: 20, bottom: 30, left: xPos + 40},
       d3.select(this)
         .call(axes.art.scale(y[d]));
       /*{
-            	switch(axes.art.text){
-            		case '0': "Frühstück";
-            		case '1': "Mittagessen";
-            		case '2': "Abendessen";
-            		case '3': "Snack";
-            			
-            	}
+              switch(axes.art.text){
+                case '0': "Frühstück";
+                case '1': "Mittagessen";
+                case '2': "Abendessen";
+                case '3': "Snack";
+                  
+              }
             }*/
       break;
     case 'Gesamtmenge':
@@ -217,7 +204,7 @@ var margin = {top: yPos + 20, right: 20, bottom: 30, left: xPos + 40},
     .attr("text-anchor", "middle")
     .attr("y", - 9)
     .text(String);
-
+ 
   // Add a brush for each axis.
   g.append("svg:g")
     .attr("class", "brush")
@@ -228,11 +215,11 @@ var margin = {top: yPos + 20, right: 20, bottom: 30, left: xPos + 40},
     .selectAll("rect")
     .attr("x", - 8)
     .attr("width", 16);
-
+ 
   function dragstart(d) {
     i = fields.indexOf(d);
   }
-
+ 
   function drag(d) {
     x.range()[i] = d3.event.x;
     fields.sort(function(a, b) {
@@ -243,7 +230,7 @@ var margin = {top: yPos + 20, right: 20, bottom: 30, left: xPos + 40},
     });
     foreground.attr("d", path);
   }
-
+ 
   function dragend(d) {
     x.domain(fields)
       .rangePoints([0, w]);
@@ -256,18 +243,16 @@ var margin = {top: yPos + 20, right: 20, bottom: 30, left: xPos + 40},
     t.selectAll(".foreground path")
       .attr("d", path);
   }
-
-
+ 
+ 
   // Returns the path for a given data point.
-
   function path(d) {
     return line(fields.map(function(p) {
       return [x(p), y[p](d[p])];
     }));
   }
-
+ 
   // Handles a brush event, toggling the display of foreground lines.
-
   function brush() {
     var actives = fields.filter(function(p) {
       return !y[p].brush.empty();

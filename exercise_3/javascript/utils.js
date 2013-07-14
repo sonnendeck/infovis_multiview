@@ -82,10 +82,11 @@ function getAreaChartData(data) {
   d3.keys(data).forEach(function (key) {
     
     var meal_entries = data[key];
+    var current_date = generateDateFromString(key);
 
     // Wenn es das Element noch nicht gibt, dann füge einfach einen Eintrag hinzu
-    if (d3.keys(result_data).indexOf(key) == -1) {
-      result_data[key] = {
+    if (d3.keys(result_data).indexOf(current_date) == -1) {
+      result_data[current_date] = {
           breakfast: 0,
           lunch: 0,
           snack: 0,
@@ -99,16 +100,16 @@ function getAreaChartData(data) {
       
       switch (element.type) {
         case "Frühstück":
-          result_data[key].breakfast += +element.total_amount;
+          result_data[current_date].breakfast += +element.total_amount;
           break;
         case "Mittagessen":
-          result_data[key].lunch     += +element.total_amount;
+          result_data[current_date].lunch     += +element.total_amount;
           break;
         case "Snack":
-          result_data[key].snack     += +element.total_amount;
+          result_data[current_date].snack     += +element.total_amount;
           break;
         case "Abendessen":
-          result_data[key].dinner    += +element.total_amount;
+          result_data[current_date].dinner    += +element.total_amount;
           break;
         default:
       }
@@ -156,15 +157,20 @@ function getTimelineChartData(data) {
 function generateDateFromString(date_string) {
   
   // Prüfe Eingangsparameter
-  var check = date_string.match(/\S{2}\.\S{2}\.\S{4}\s\S{2}\:\S{2}/);
-  if (check != date_string) {
-    throw("Der Datumsstring sollte im Format DD.MM.YYYY HH:MM angegeben werden.");
-    return;
-  }
+  // var check = date_string.match(/\S{2}\.\S{2}\.\S{4}\s\S{2}\:\S{2}/);
+  // if (check != date_string) {
+  //   throw("Der Datumsstring sollte im Format DD.MM.YYYY HH:MM angegeben werden.");
+  //   return;
+  // }
   
   var complete_date = date_string.split(' ');
   var date_parts    = complete_date[0];
-  var time_parts    = complete_date[1].split(':');
+  
+  if (complete_date.length == 2) {
+    var time_parts = complete_date[1].split(':');
+  } else {
+    var time_parts = ["00", "00"]
+  }
   
   var parts = date_parts.split('.');
   parts.push(time_parts[0], time_parts[1]);
@@ -213,6 +219,7 @@ function organizeCSVData(data) {
 
   return result_data;
 }
+
 
 
 // Returns the clone of an given object.

@@ -16,6 +16,10 @@ function drawTimeline(svg_base, xPos, yPos, dataArray) {
 	var selectedNames = new Array(0,0,0,0);
 
 
+	var div = d3.select("body").append("div")   
+    .attr("class", "tooltip")               
+    .style("opacity", 0);
+
 	// d3.csv("sample_data", funtion(data){
 	// return {
 	//   zeit: new Date(+d.zeit,0,1),
@@ -287,6 +291,14 @@ rect.on("mouseover", function() {
 			return "rgb(140,160,20)";
 		  }
 		})
+
+	div.transition()        
+                .duration(200)      
+                .style("opacity", .9);      
+            div .html("kl" + "<br/>")  
+                .style("left", (d3.event.pageX) + "px")     
+                .style("top", (d3.event.pageY - 28) + "px");
+
 });
 
 rect.on("mouseout", function() {
@@ -314,7 +326,7 @@ rect.on("click", function(d) {
 	.attr("y", d3.select(this).attr("y"))
 	.attr("width", d3.select(this).attr("width"))
 	.attr("height", d3.select(this).attr("height"))
-	.attr("rx", 5).attr("ry", 5)
+	//.attr("rx", 5).attr("ry", 5)
 	.attr("transform", "translate("+ trans_y +",0)")
 	.style("fill", d3.select(this).style("fill"))
 	.transition()

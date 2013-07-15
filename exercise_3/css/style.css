@@ -9,10 +9,11 @@ div.tooltip {
   height: 28px;                 
   padding: 2px;             
   font: 12px sans-serif;        
-  background: lightsteelblue;   
+  background: black;   
   border: 0px;      
-  border-radius: 8px;           
-  pointer-events: none;         
+  border-radius: 0px;           
+  pointer-events: none;    
+  color: white;     
 }
 
 /* Area Chart */
@@ -199,7 +200,7 @@ font-style: oblique;
 }
 
 .legend line {
- stroke-width: 10px;
+ stroke-width: 2px;
 }
 
 .Tom {

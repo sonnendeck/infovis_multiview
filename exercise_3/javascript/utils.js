@@ -165,28 +165,37 @@ function manageAreaChartMouseEvents(rect) {
 			.style("fill", "white")
 			.style("opacity", "0.67");
 
-      console.log(d.values[curDay].Tag);
 			selectedDay = d.values[curDay].Tag;
       
       // update timeline
       timeline_data = getTimelineChartData(getMealDataAt(selectedDay, csv_data));
-      // rect.transition().attr('x', 500).style("opacity",0).duration(2000);
       
-      
-      rect.transition().attr('x', 600)
-      .style("opacity",0.5)
-      .duration(1000)
-      .each("end",function() { // as seen above
-        rect.transition()         // a new transition!
-        .attr("y",-100)
-        .style("opacity",0.5)
-        .duration(750)    // we could have had another
-        .each("end",function() { // as seen above
-          d3.selectAll(".context_tl").remove();
-          drawTimeline(svg, xTimeline, yTimeline, timeline_data);
-          manageTimelineMouseEvents(getTimelineRects());
-         })
-       });
+      var shouldRedraw = true;
+       getTimelineRects().transition().attr('x', 600).duration(1000).
+       each( "end", function(d,i) {
+         getTimelineRects()
+         .transition()
+         .attr("y",-100)
+         .duration(500)
+           .each("end", (function(d,i) {
+             if (shouldRedraw) {
+           d3.selectAll(".context_tl").remove();
+           drawTimeline(svg, xTimeline, yTimeline, timeline_data);
+           manageTimelineMouseEvents(getTimelineRects());
+       }}))});
+
+       // WORKS
+       // getTimelineRects().transition().attr('x', 600).attr("y",-100).duration(500).each("end", (function(d,i) {
+       //     d3.selectAll(".context_tl").remove();
+       //     drawTimeline(svg, xTimeline, yTimeline, timeline_data);
+       //     manageTimelineMouseEvents(getTimelineRects());
+       // }));
+
+
+       // rect.transition().style("opacity",0.5).delay(750).each("end", function(d,i) {
+         // drawTimeline(svg, xTimeline, yTimeline, timeline_data);
+         // manageTimelineMouseEvents(getTimelineRects());
+       // });
       
       // update parallel coordinates
       pc_data = getParallelCoordinatesData(getSourceDataForSelection());

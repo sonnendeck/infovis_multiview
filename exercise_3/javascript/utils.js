@@ -170,15 +170,42 @@ function manageAreaChartMouseEvents(rect) {
       
       // update timeline
       timeline_data = getTimelineChartData(getMealDataAt(selectedDay, csv_data));
-      d3.selectAll(".context_tl").remove();
-      drawTimeline(svg, xTimeline, yTimeline, timeline_data);
-      manageTimelineMouseEvents(getTimelineRects());
+      // rect.transition().attr('x', 500).style("opacity",0).duration(2000);
+      
+      
+      rect.transition().attr('x', 600)
+      .style("opacity",0.5)
+      .duration(1000)
+      .each("end",function() { // as seen above
+        rect.transition()         // a new transition!
+        .attr("y",-100)
+        .style("opacity",0.5)
+        .duration(750)    // we could have had another
+        .each("end",function() { // as seen above
+          d3.selectAll(".context_tl").remove();
+          drawTimeline(svg, xTimeline, yTimeline, timeline_data);
+          manageTimelineMouseEvents(getTimelineRects());
+         })
+       });
       
       // update parallel coordinates
       pc_data = getParallelCoordinatesData(getSourceDataForSelection());
       d3.selectAll(".foreground").transition().style("opacity",0);
       d3.selectAll(".context_pc").transition().style("opacity",0);
       drawParallelKoor(svg, xPC, yPC, pc_data);
+      
+      
+      // update parallel coordinates
+      // pc_data = getParallelCoordinatesData(getSourceDataForSelection());
+     //  d3.selectAll(".foreground")
+     //  .transition()
+     //  .duration(1500)
+     //  .each("end",function() { // as seen above
+     //    d3.selectAll(".context_pc").remove();
+     //    // d3.selectAll(".foreground").style("opacity",1);
+     //    drawParallelKoor(svg, xPC, yPC, pc_data);
+     //   });
+       // d3.selectAll(".foreground").style("opacity",1);
 		}
 		else {
 			selectedDay = null;

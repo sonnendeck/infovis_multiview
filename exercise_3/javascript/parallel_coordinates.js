@@ -119,8 +119,9 @@ function drawParallelKoor(svg_base, xPos, yPos, dataArray) {
     .text(function(d) {
       return d;
     });
- 
+    // d3.transition().duration(500)
   // Add foreground lines.
+
   foreground = svg.append("svg:g")
     .attr("class", "foreground")
     .selectAll("path")
@@ -131,6 +132,7 @@ function drawParallelKoor(svg_base, xPos, yPos, dataArray) {
     .attr("class", function(d) {
     return d.Nutzer;
   })
+  .style("opacity",1)
     .on('mouseover', function(d, i) {
     // console.log(this);
     d3.select(this)

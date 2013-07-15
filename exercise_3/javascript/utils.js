@@ -22,7 +22,7 @@ var xTimeline = 50, yTimeline = 50;
 var xPC = 750, yPC = 300;
 
 function drawCharts() {
-   // Generiert Timeline relevante CSV Daten und zeichnet das Diagramm        
+      // Generiert Timeline relevante CSV Daten und zeichnet das Diagramm        
       timeline_data = getTimelineChartData(csv_data);
       drawTimeline(svg, xTimeline, yTimeline, timeline_data);
 
@@ -132,7 +132,7 @@ function manageAreaChartMouseEvents() {
       timeline_data = getTimelineChartData(selected_data);
       // d3.selectAll(".t_rect").remove();
       d3.selectAll(".context_tl").remove();
-      s(svg, xTimeline, yTimeline, timeline_data);
+      drawTimeline(svg, xTimeline, yTimeline, timeline_data);
       
       // update parallel coordinates
       pc_data = getParallelCoordinatesData(selected_data);

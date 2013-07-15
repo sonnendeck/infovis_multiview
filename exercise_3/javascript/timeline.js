@@ -215,13 +215,31 @@ function drawTimeline(svg_base, xPos, yPos, dataArray) {
   var enter = rect.enter().append("rect");
 
   enter.attr("class", "t_rect")
-    .attr("x", function(d) {
+    // .attr("x", function(d) {
+    //     return x(d.time);
+    //   })
+    .attr('x', 600)
+    .attr("transform", "translate(" + trans_y + ",0)")
+    .attr("y",-100)
+    // .attr("y", function(d) {
+    //     return y(d.name) + height / 16;
+    //   });
+
+
+  enter.transition().attr('y', function(d) {
+    return y(d.name) + height / 16;
+  })
+  .style("opacity",0.4)
+  .duration(1000)
+  // .delay(1800)
+  .each("end",function() {
+    rect.transition().attr('x', function(d) {
         return x(d.time);
       })
-    .attr("transform", "translate(" + trans_y + ",0)")
-    .attr("y", function(d) {
-        return y(d.name) + height / 16;
-      });
+    .style("opacity",1)
+    .duration(750)
+   });
+
 
   // enter.attr("y", function(d) {
   //   return (d.name * 60) - 50;

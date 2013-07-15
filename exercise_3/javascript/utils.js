@@ -253,6 +253,73 @@ function manageAreaChartMouseEvents(rect) {
 function manageTimelineMouseEvents(rect) {
   var trans_y = 50;
 
+var div = d3.select("body")
+    .append("div")
+    .attr("class", "tooltip")
+    .style("opacity", 0);
+
+  // mouseover
+
+rect.on("mouseover", function(d) {
+    var hoveredRectData = d;
+    d3.select(this)
+      .style("fill", function(d) {
+      if (d.type == "Frühstück") {
+        return "rgb(90,150,190)";
+      }
+      if (d.type == "Mittagessen") {
+        return "rgb(255,170,30)";
+      }
+      if (d.type == "Abendessen") {
+        return "rgb(200,20,20)";
+      }
+      if (d.type == "Snack") {
+        return "rgb(140,160,20)";
+      }
+    })
+
+    div.transition()
+      .duration(200)
+      .style("opacity", .9);
+    div.html("Dauer: " + d.duration + "min <br/>")
+      .style("left", (d3.select(this).attr("x") - 60 + ((d3.select(this).attr("width") - 60) / 2 )) + "px")
+      .style("top", (d3.select(this).attr("y") - 50) + "px");
+
+
+d3.selectAll(".area").each(function(d) {
+        if(d.name == hoveredRectData.type) {
+          console.log("drin");
+          d3.select(this).style("opacity", "0.6");
+        }
+
+  });
+});
+
+  rect.on("mouseout", function() {
+    d3.select(this)
+      .style("fill", function(d) {
+      if (d.type == "Frühstück") {
+        return "rgb(90,180,220)";
+      }
+      if (d.type == "Mittagessen") {
+        return "rgb(255,200,60)";
+      }
+      if (d.type == "Abendessen") {
+        return "rgb(200,50,50)";
+      }
+      if (d.type == "Snack") {
+        return "rgb(140,190,50)";
+      }
+    })
+
+      div.transition()        
+                .duration(500)      
+                .style("opacity", 0);
+
+     d3.selectAll(".area").style("opacity", "1");
+        
+  });
+
   // Click on the meals //
   rect.on("click", function(data) {
     svg.append("rect")
@@ -408,7 +475,7 @@ function manageTimelineMouseEvents(rect) {
     drawAreaChart(svg, xAreaChart, yAreaChart, area_data);
     manageAreaChartMouseEvents(getTimelineRects());
 
-    console.log("Array:" + selectedNamesAsString[0] + "," + selectedNamesAsString[1] + "," + selectedNamesAsString[2] + "," + selectedNamesAsString[3]);
+    //console.log("Array:" + selectedNamesAsString[0] + "," + selectedNamesAsString[1] + "," + selectedNamesAsString[2] + "," + selectedNamesAsString[3]);
   });
 }
 

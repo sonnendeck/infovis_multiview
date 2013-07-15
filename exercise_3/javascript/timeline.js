@@ -21,10 +21,10 @@ function drawTimeline(svg_base, xPos, yPos, dataArray) {
   var selectedNames = new Array(0, 0, 0, 0);
 
 
-  var div = d3.select("body")
-    .append("div")
-    .attr("class", "tooltip")
-    .style("opacity", 0);
+  // var div = d3.select("body")
+  //   .append("div")
+  //   .attr("class", "tooltip")
+  //   .style("opacity", 0);
 
   // d3.csv("sample_data", funtion(data){
   // return {
@@ -92,6 +92,15 @@ function drawTimeline(svg_base, xPos, yPos, dataArray) {
   var svg = svg_base.append("g")
     .attr("class", "context_tl")
     .attr("transform", "translate(" + xPos + "," + yPos + ")");
+
+   // Linie //
+
+   svg.append("path")
+    .attr("d", "M0,0L1,6L2,4")
+    .attr("transform", null)
+  .transition()
+    .ease("linear")
+    .attr("transform", "translate(" + x(-1) + ")");
 
 
   // Date //
@@ -312,55 +321,55 @@ function drawTimeline(svg_base, xPos, yPos, dataArray) {
 
 svg.selectAll(".dinner").style("fill", "#000000");
 
-  rect.on("mouseover", function(d) {
-    d3.select(this)
-      .style("fill", function(d) {
-      if (d.type == "Frühstück") {
-        return "rgb(90,150,190)";
-      }
-      if (d.type == "Mittagessen") {
-        return "rgb(255,170,30)";
-      }
-      if (d.type == "Abendessen") {
-        return "rgb(200,20,20)";
-      }
-      if (d.type == "Snack") {
-        return "rgb(140,160,20)";
-      }
-    })
+  // rect.on("mouseover", function(d) {
+  //   d3.select(this)
+  //     .style("fill", function(d) {
+  //     if (d.type == "Frühstück") {
+  //       return "rgb(90,150,190)";
+  //     }
+  //     if (d.type == "Mittagessen") {
+  //       return "rgb(255,170,30)";
+  //     }
+  //     if (d.type == "Abendessen") {
+  //       return "rgb(200,20,20)";
+  //     }
+  //     if (d.type == "Snack") {
+  //       return "rgb(140,160,20)";
+  //     }
+  //   })
 
-    div.transition()
-      .duration(200)
-      .style("opacity", .9);
-    div.html("Dauer: " + d.duration + "min <br/>")
-      .style("left", (d3.select(this).attr("x") - 60 + ((d3.select(this).attr("width") - 60) / 2 )) + "px")
-      .style("top", (d3.select(this).attr("y") - 50) + "px");
+  //   div.transition()
+  //     .duration(200)
+  //     .style("opacity", .9);
+  //   div.html("Dauer: " + d.duration + "min <br/>")
+  //     .style("left", (d3.select(this).attr("x") - 60 + ((d3.select(this).attr("width") - 60) / 2 )) + "px")
+  //     .style("top", (d3.select(this).attr("y") - 50) + "px");
 
-      console.log(d3.select(this).attr("x"));
+  //     console.log(d3.select(this).attr("x"));
 
-  });
+  // });
 
-  rect.on("mouseout", function() {
-    d3.select(this)
-      .style("fill", function(d) {
-      if (d.type == "Frühstück") {
-        return "rgb(90,180,220)";
-      }
-      if (d.type == "Mittagessen") {
-        return "rgb(255,200,60)";
-      }
-      if (d.type == "Abendessen") {
-        return "rgb(200,50,50)";
-      }
-      if (d.type == "Snack") {
-        return "rgb(140,190,50)";
-      }
-    })
+  // rect.on("mouseout", function() {
+  //   d3.select(this)
+  //     .style("fill", function(d) {
+  //     if (d.type == "Frühstück") {
+  //       return "rgb(90,180,220)";
+  //     }
+  //     if (d.type == "Mittagessen") {
+  //       return "rgb(255,200,60)";
+  //     }
+  //     if (d.type == "Abendessen") {
+  //       return "rgb(200,50,50)";
+  //     }
+  //     if (d.type == "Snack") {
+  //       return "rgb(140,190,50)";
+  //     }
+  //   })
 
-      div.transition()        
-                .duration(500)      
-                .style("opacity", 0);
-  });
+  //     div.transition()        
+  //               .duration(500)      
+  //               .style("opacity", 0);
+  // });
 
   // // Click on the meals //
 //   rect.on("click", function(d) {
@@ -421,6 +430,8 @@ svg.selectAll(".dinner").style("fill", "#000000");
       .style("fill", "gray");
     d3.select(this)
       .style("cursor", "default");
+
+
   });
 
   svg.selectAll(".yAxis text")

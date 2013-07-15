@@ -124,6 +124,13 @@ var svg = svg_base.append("g")
 		.attr("class", "g")
 		.attr("transform", function(d) { return "translate(" + x(d.Tag) + ",0)"; });
 
+		svg.append("text")
+    .text("Juni")
+    .attr("x", 350)
+    .attr("y", height + 40)
+    .style("font-size", 17)
+    .style("font-weight", "normal");
+
 	// days.selectAll("rect")
 	//     .data(function(d) { return d.amount; })
 	//   .enter().append("rect")

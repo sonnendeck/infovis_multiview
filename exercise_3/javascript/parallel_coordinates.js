@@ -52,12 +52,11 @@ function drawParallelKoor(svg_base, xPos, yPos, dataArray) {
     })
       .orient("left"),
     rahmen: d3.svg.axis()
-      .ticks(d3.keys(rahmen)
-      .length)
+      .ticks(d3.keys(rahmen).length)
       .tickFormat(function(d, i) {
       return OCCASION_NAMES[d]
     })
-      .orient("left"),
+      .orient("right"),
     menge: d3.svg.axis()
       .ticks(2)
       .tickFormat(function(d, i) {

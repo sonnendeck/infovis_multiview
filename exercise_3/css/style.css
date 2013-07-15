@@ -185,8 +185,8 @@ svg {
 
 .foreground path {
 fill: none;
-stroke-opacity: .5;
-stroke-width: 1.5px;
+stroke-opacity: 1;
+stroke-width: .8px;
 }
 
 .foreground path.fade {
@@ -200,23 +200,23 @@ font-style: oblique;
 }
 
 .legend line {
- stroke-width: 2px;
+ stroke-width: 10px;
 }
 
 .Tom {
-stroke: #ff7f0e;
+stroke: #722662;
 }
 
 .Huong {
-stroke: #d62728;
+stroke: #FFFF00;
 }
 
 .Thomas {
-stroke: #1f77b4;
+stroke: #23266a;
 }
 
 .Martin {
-stroke: #2ca02c;
+stroke: #5dbf41;
 }
 
 .brush .extent {

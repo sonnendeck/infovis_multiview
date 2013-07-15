@@ -270,10 +270,7 @@ function manageTimelineMouseEvents(rect) {
       d3.select(this).style("fill", "rgb(0,0,0)");
     }
 
-    if (selectedNames[0] == 0 && selectedNames[1] == 0 && selectedNames[2] == 0 && selectedNames[3] == 0) {
-      console.log("erfolg");
-      selectedNames = new Array(1,1,1,1);
-    }
+    
 
     selectedNamesAsString = new Array();
     for (var i = 0; i < 4; i++) {
@@ -281,8 +278,13 @@ function manageTimelineMouseEvents(rect) {
         selectedNamesAsString.push(NAMES[i]);
       }
     }    
-    isSpecificDaySelected = selectedNamesAsString.length < 4;
+
+    if (selectedNames[0] == 0 && selectedNames[1] == 0 && selectedNames[2] == 0 && selectedNames[3] == 0) {
+      console.log("erfolg");
+      selectedNamesAsString = new Array("Huong", "Martin", "Tom", "Thomas");
+    }
     
+    isSpecificDaySelected = selectedNamesAsString.length < 4;
 
     timeline_data = getTimelineChartData(getSourceDataForSelection());
     // drawTimeline(svg, 50, 50, timeline_data);

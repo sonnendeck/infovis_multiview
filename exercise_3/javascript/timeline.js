@@ -12,7 +12,7 @@ function drawTimeline(svg_base, xPos, yPos, dataArray) {
     height = 200 - margin.top - margin.bottom + yPos,
     trans_y = 50;
 
-  var rect_height = 16;
+  var rect_height = 30;
 
   var tickFormat = "%H Uhr";
 
@@ -294,7 +294,7 @@ function drawTimeline(svg_base, xPos, yPos, dataArray) {
 
 svg.selectAll(".dinner").style("fill", "#000000");
 
-  rect.on("mouseover", function() {
+  rect.on("mouseover", function(d) {
     d3.select(this)
       .style("fill", function(d) {
       if (d.type == "Frühstück") {
@@ -314,9 +314,11 @@ svg.selectAll(".dinner").style("fill", "#000000");
     div.transition()
       .duration(200)
       .style("opacity", .9);
-    div.html("kl" + "<br/>")
-      .style("left", (d3.event.pageX) + "px")
-      .style("top", (d3.event.pageY - 28) + "px");
+    div.html("Dauer: " + d.duration + "min <br/>")
+      .style("left", (d3.select(this).attr("x") - 60 + ((d3.select(this).attr("width") - 60) / 2 )) + "px")
+      .style("top", (d3.select(this).attr("y") - 50) + "px");
+
+      console.log(d3.select(this).attr("x"));
 
   });
 
@@ -336,6 +338,10 @@ svg.selectAll(".dinner").style("fill", "#000000");
         return "rgb(140,190,50)";
       }
     })
+
+      div.transition()        
+                .duration(500)      
+                .style("opacity", 0);
   });
 
   // // Click on the meals //

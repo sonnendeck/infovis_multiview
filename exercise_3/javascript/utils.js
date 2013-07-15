@@ -345,34 +345,16 @@ function getMealDataFor(names, data) {
 }
 
 
-function getMealDataAt(names, data) {
-  // if (data.length == 0) {
-  //   return [];
-  // }
-  // 
-  // var result_data = {};
-  // var tmp_meals = [];
-  // 
-  // d3.keys(data).forEach(function(key) {
-  //   var meal_entries = data[key];
-  //   tmp_meals = [];
-  // 
-  //   // Über alle Einträge eines Tages iterieren und Durchschnittswerte berechnen
-  //   for (var i = 0; i < meal_entries.length; i++) {
-  //     element = meal_entries[i];
-  // 
-  //     // Ist der Benutzer ausgewählt?
-  //     if (names.indexOf(element.user) > -1) {
-  //       tmp_meals.push(element);
-  //     }
-  //   }
-  //   
-  //   // Füge nur die Tage hinzu, für die auch Daten vorhanden sind.
-  //   if (tmp_meals.length > 0) {
-  //     result_data[key] = tmp_meals;
-  //   }
-  // });
-  // return result_data;
+function getMealDataAt(date_string, data) {
+  if (data.length == 0) {
+    return [];
+  }
+  
+  var short_date = getShortDateString(date_string);
+  var result_data = {};
+  result_data[short_date] = data[short_date];
+
+  return result_data;
 }
 
 
@@ -423,6 +405,14 @@ function leadingZeroForDate(value) {
   return result;
 }
 
+function getShortDateString(longDateString) {
+  var d = generateDateFromString(longDateString);
+  var curr_day = leadingZeroForDate(d.getDate());
+  var curr_month = leadingZeroForDate(d.getMonth());
+  var curr_year = d.getFullYear();
+  return curr_day + "." + curr_month + "." + curr_year;
+}
+
 function organizeCSVData(data) {
   if (data.length == 0) {
     return {};
@@ -432,15 +422,8 @@ function organizeCSVData(data) {
 
   for (var i = 0; i < data.length; i++) {
 
-    var element = data[i];
-
-    var d = generateDateFromString(element.time);
-
-    var curr_day = leadingZeroForDate(d.getDate());
-    var curr_month = leadingZeroForDate(d.getMonth());
-    var curr_year = d.getFullYear();
-
-    var element_date = curr_day + "." + curr_month + "." + curr_year;
+    var element = data[i];    
+    var element_date = getShortDateString(element.time);
 
     // Wenn es das Element noch nicht gibt, dann füge einfach einen Eintrag hinzu
     if (d3.keys(result_data)

@@ -91,7 +91,7 @@ function drawTimeline(svg_base, xPos, yPos, dataArray) {
 
 
   var svg = svg_base.append("g")
-    .attr("class", "context")
+    .attr("class", "context_tl")
     .attr("transform", "translate(" + xPos + "," + yPos + ")");
 
 
@@ -212,22 +212,17 @@ function drawTimeline(svg_base, xPos, yPos, dataArray) {
 
   //draw bars//
 
-  var rect = svg.selectAll("rect")
-    .data(data);
-  var enter = rect.enter()
-    .append("rect");
+  var rect = svg.selectAll("rect").data(data);
+  var enter = rect.enter().append("rect");
 
-  enter.attr("class", "t_rect");
-
-  enter.attr("x", function(d) {
-    return x(d.time);
-  });
-
-  enter.attr("transform", "translate(" + trans_y + ",0)");
-
-  enter.attr("y", function(d) {
-    return y(d.name) + height / 16;
-  });
+  enter.attr("class", "t_rect")
+    .attr("x", function(d) {
+        return x(d.time);
+      })
+    .attr("transform", "translate(" + trans_y + ",0)")
+    .attr("y", function(d) {
+        return y(d.name) + height / 16;
+      });
 
   // enter.attr("y", function(d) {
   //   return (d.name * 60) - 50;

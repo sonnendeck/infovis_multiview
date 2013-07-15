@@ -36,7 +36,7 @@ function drawParallelKoor(svg_base, xPos, yPos, dataArray) {
 
   var foreground;
   var svg = svg_base.append("g")
-  			.attr("class","context")
+  			.attr("class","context_pc")
         .attr("transform", "translate(" + m[3] + "," + m[0] + ")");
  
   // AXES

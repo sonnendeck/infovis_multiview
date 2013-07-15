@@ -15,6 +15,7 @@ var tmp_data = null;
 var csv_data = [];
 var area_data = {};
 var timeline_data = {};
+var pc_data = [];
 
 var xAreaChart = 100, yAreaChart = 300;
 var xTimeline = 50, yTimeline = 50;
@@ -60,8 +61,8 @@ function parseCSVData() {
       area_data = getAreaChartData(csv_data);
       drawAreaChart(svg, xAreaChart, yAreaChart, area_data);
 
-      // var pc_data = getParallelCoordinatesData(getMealDataFor(["Thomas"], csv_data));
-      var pc_data = getParallelCoordinatesData(csv_data);
+      // pc_data = getParallelCoordinatesData(getMealDataFor(["Thomas"], csv_data));
+      pc_data = getParallelCoordinatesData(csv_data);
       drawParallelKoor(svg, xPC, yPC, pc_data);
       
       // Maus Events
@@ -109,9 +110,28 @@ function manageAreaChartMouseEvents() {
 			.style("opacity", "0.5");
 
 			selectedDay = d.values[curDay].Tag;
+      
+      var selected_data = getMealDataAt(selectedDay, csv_data);
+      
+      // update timeline
+      timeline_data = getTimelineChartData(selected_data);
+      // d3.selectAll(".t_rect").remove();
+      d3.selectAll(".context_tl").remove();
+      s(svg, xTimeline, yTimeline, timeline_data);
+      
+      // update parallel coordinates
+      pc_data = getParallelCoordinatesData(selected_data);
+      d3.selectAll(".foreground").transition().style("opacity",0);
+      d3.selectAll(".context_pc").transition().style("opacity",0);
+      drawParallelKoor(svg, xPC, yPC, pc_data);
 		}
 		else {
 			selectedDay = null;
+      // update parallel coordinates
+      pc_data = getParallelCoordinatesData(csv_data);
+      d3.selectAll(".foreground").remove();
+      d3.selectAll(".context_pc").remove();
+      drawParallelKoor(svg, xPC, yPC, pc_data);
 		}
 	});
   
@@ -461,7 +481,8 @@ function getMealDataAt(date_string, data) {
     return [];
   }
   
-  var short_date = getShortDateString(date_string);
+  var date = new Date(date_string);
+  var short_date = leadingZeroForDate(date.getDate()) + "." + leadingZeroForDate(date.getMonth()) + "." + date.getFullYear();
   var result_data = {};
   result_data[short_date] = data[short_date];
 
@@ -477,14 +498,6 @@ function getMealDataAt(date_string, data) {
 
 // date_string muss in dem Format 'DD.MM.YYYY HH:MM' vorliegen
 function generateDateFromString(date_string) {
-
-  // Prüfe Eingangsparameter
-  // var check = date_string.match(/\S{2}\.\S{2}\.\S{4}\s\S{2}\:\S{2}/);
-  // if (check != date_string) {
-  //   throw("Der Datumsstring sollte im Format DD.MM.YYYY HH:MM angegeben werden.");
-  //   return;
-  // }
-
   var complete_date = date_string.split(' ');
   var date_parts = complete_date[0];
 

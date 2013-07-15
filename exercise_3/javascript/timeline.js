@@ -8,7 +8,7 @@ function drawTimeline(svg_base, xPos, yPos, dataArray) {
     bottom: 30,
     left: xPos
   },
-  width = 960 - margin.left - margin.right + xPos,
+  width = 1310 - margin.left - margin.right + xPos,
     height = 200 - margin.top - margin.bottom + yPos,
     trans_y = 50;
 
@@ -16,7 +16,7 @@ function drawTimeline(svg_base, xPos, yPos, dataArray) {
 
   var tickFormat = "%H Uhr";
 
-  var current_day = new Date("June 6, 2013 00:00");
+  var current_day = new Date("June" + dataArray[0].time.getDate() + ", 2013 00:00");
 
   var selectedNames = new Array(0, 0, 0, 0);
 
@@ -98,8 +98,8 @@ function drawTimeline(svg_base, xPos, yPos, dataArray) {
 
   svg.append("text")
     .text("" + current_day.getDate() + ". Juni 2013")
-    .attr("x", 60)
-    .attr("y", 0)
+    .attr("x", 50)
+    .attr("y", - 10)
     .style("font-size", 20)
     .style("font-weight", "normal");
 
@@ -150,7 +150,7 @@ function drawTimeline(svg_base, xPos, yPos, dataArray) {
   });
 
   //...and dots//
-  for (var i = 1; i < 24; i++) {
+  for (var i = 1; i < 22; i++) {
     svg.append("circle")
       .attr("class", "dots")
       .attr("cx", function() {
@@ -162,7 +162,7 @@ function drawTimeline(svg_base, xPos, yPos, dataArray) {
       .attr("r", 3);
   }
 
-  for (var i = 1; i < 24; i++) {
+  for (var i = 1; i < 22; i++) {
     svg.append("circle")
       .attr("class", "dots")
       .attr("cx", function() {
@@ -174,7 +174,7 @@ function drawTimeline(svg_base, xPos, yPos, dataArray) {
       .attr("r", 3);
   }
 
-  for (var i = 1; i < 24; i++) {
+  for (var i = 1; i < 22; i++) {
     svg.append("circle")
       .attr("class", "dots")
       .attr("cx", function() {
@@ -186,7 +186,7 @@ function drawTimeline(svg_base, xPos, yPos, dataArray) {
       .attr("r", 3);
   }
 
-  for (var i = 1; i < 24; i++) {
+  for (var i = 1; i < 22; i++) {
     svg.append("circle")
       .attr("class", "dots")
       .attr("cx", function() {

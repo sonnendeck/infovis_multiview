@@ -265,7 +265,7 @@ function manageTimelineMouseEvents(rect) {
     var rect_height = 16;
 
     //rect.data(timeline_data).exit().remove();
-    rect.data(timeline_data).remove();
+    //rect.data(timeline_data).remove();
   //   rect.attr("x", function(d) {
   //   return x(d.time);
   //   });

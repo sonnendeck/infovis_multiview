@@ -83,7 +83,8 @@ function parseCSVData() {
 
 
 function manageMouseEvents() {
-  var rect = svg.selectAll("rect");
+  var rect = svg.selectAll(".t_dinner, .t_snack, .t_lunch, .t_breakfast");
+  console.log(rect);
   manageTimelineMouseEvents(rect);
   manageAreaChartMouseEvents();
 }
@@ -136,6 +137,7 @@ function manageAreaChartMouseEvents() {
 
 function manageTimelineMouseEvents(rect) {
   var trans_y = 50;
+
   // Click on the meals //
   rect.on("click", function(data) {
     svg.append("rect")
@@ -171,8 +173,117 @@ function manageTimelineMouseEvents(rect) {
       d3.select(this).style("fill", "#100000");
     }
     
+
     // Update Charts
     // drawAreaChart(svg, 200, 500, area_data);
+  });
+
+// Select names
+
+    var NAMES = ["Huong", "Martin", "Tom", "Thomas"]
+    var selectedNames = new Array(0, 0, 0, 0);
+    var selectedNamesAsString;
+
+    svg.selectAll(".yAxis text")
+    .on("click", function(d) {
+    if (selectedNames[NAMES.indexOf(d3.select(this)
+      .text())] == 0) {
+      selectedNames[NAMES.indexOf(d3.select(this)
+        .text())] = 1;
+
+      d3.select(this)
+        .style("fill", "rgb(120,120,120)");
+    } else {
+      selectedNames[NAMES.indexOf(d3.select(this)
+        .text())] = 0;
+
+      d3.select(this)
+        .style("fill", "rgb(0,0,0)");
+    }
+
+    console.log(selectedNames[0]);
+    console.log(selectedNames[1]);
+    console.log(selectedNames[2]);
+    console.log(selectedNames[3]);
+
+    selectedNamesAsString = new Array();
+    for (var i = 0; i < 4; i++) {
+      if (selectedNames[i] == 1) {
+        selectedNamesAsString.push(NAMES[i]);
+      }
+    }
+
+    timeline_data = getTimelineChartData(getMealDataFor(selectedNamesAsString,csv_data));
+    // drawTimeline(svg, 50, 50, timeline_data);
+
+    var start_time = new Date("June" + timeline_data[0].time.getDate() + ", 2013 06:00");
+    var end_time = new Date("June" + (timeline_data[0].time.getDate() + 1) + ", 2013 03:00");
+
+    var x = d3.time.scale().domain([start_time, end_time]).range([0, width]);
+    var y = d3.scale.ordinal().domain(["Huong", "Martin", "Tom", "Thomas"]).rangeRoundBands([0, height], .1);
+    width = 960 - margin.left - margin.right + 50;
+    height = 200 - margin.top - margin.bottom + 50;
+
+    var rect_height = 16;
+
+    rect.data(timeline_data).exit().remove();
+    rect.attr("x", function(d) {
+    return x(d.time);
+    });
+
+    rect.attr("y", function(d) {
+    return y(d.name) + height / 16;
+  });
+
+
+    // draw new rects
+    //rect.data(timeline_data).enter().append("rect").attr("x", 100).attr("y", 100).attr("width", 100).attr("height", 100);
+  //   rect.data(timeline_data).enter().append("rect")
+  //     .attr("x", function(d) {
+  //   return x(d.time);
+  //   })
+  //     .attr("y", function(d) {
+  //   return y(d.name) + height / 16;
+  //   })
+  //     .attr("class", "t_rect")
+  //     .attr("transform", "translate(" + trans_y + ",0)")
+  //     .attr("width", function(d) {
+  //        return x_linear(d.duration * 60000);
+  //      })
+  //     .attr("height", rect_height)
+  //     .style("fill", function(d) {
+  //   if (d.type == "Frühstück") {
+  //     return "rgb(90,180,220)";
+  //   }
+  //   if (d.type == "Mittagessen") {
+  //     return "rgb(255,200,60)";
+  //   }
+  //   if (d.type == "Abendessen") {
+  //     return "rgb(200,50,50)";
+  //   }
+  //   if (d.type == "Snack") {
+  //     return "rgb(140,190,50)";
+  //   }
+  // })
+  //     .attr("class", function(d) {
+  //   if (d.type == "Frühstück") {
+  //     return "t_breakfast";
+  //   }
+  //   if (d.type == "Mittagessen") {
+  //     return "t_lunch";
+  //   }
+  //   if (d.type == "Abendessen") {
+  //     return "t_dinner";
+  //   }
+  //   if (d.type == "Snack") {
+  //     return "t_snack";
+  //   }
+  // });
+
+    console.log(rect.data(timeline_data));
+
+
+    console.log("Array:" + selectedNamesAsString[0] + "," + selectedNamesAsString[1] + "," + selectedNamesAsString[2] + "," + selectedNamesAsString[3]);
   });
 }
 

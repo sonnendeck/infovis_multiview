@@ -10,15 +10,15 @@ function drawParallelKoor(svg_base, xPos, yPos, dataArray) {
     art = {
       'Frühstück': 0,
       'Mittagessen': 1,
-      'Abendessen': 3,
-      'Snack': 2
+      'Snack': 2,
+      'Abendessen': 3
     },
     rahmen = {
-      'Daheim': 1,
       'Arbeit': 0,
+      'Daheim': 1,
       'Imbiss': 2,
-      'Restaurant': 4,
       'Mensa': 3,
+      'Restaurant': 4,
       'Freunde': 5
     };
 
@@ -134,6 +134,7 @@ function drawParallelKoor(svg_base, xPos, yPos, dataArray) {
     .on('mouseover', function(d, i) {
     // console.log(this);
     d3.select(this)
+      // .style('stroke', 'yellow')
       .style('stroke-width', '5px');
     //d3.select(this).style('stroke', 'yellow');
   })

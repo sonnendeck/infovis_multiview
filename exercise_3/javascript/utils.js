@@ -302,10 +302,10 @@ function manageTimelineMouseEvents(rect) {
     .on("click", function(d) {
     if (selectedNames[NAMES.indexOf(d3.select(this).text())] == 0) {
       selectedNames[NAMES.indexOf(d3.select(this).text())] = 1;
-      d3.select(this).style("fill", "rgb(250,0,0)");
+      d3.select(this).style("font-weight", "bold");
     } else {
       selectedNames[NAMES.indexOf(d3.select(this).text())] = 0;
-      d3.select(this).style("fill", "rgb(0,0,0)");
+      d3.select(this).style("font-weight", "normal");
     }
 
     

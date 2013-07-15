@@ -16,6 +16,20 @@ div.tooltip {
   color: white;     
 }
 
+div.pc_tooltip {   
+  position: absolute;           
+  text-align: center;           
+  width: 100px;                  
+  height: 28px;                 
+  padding: 2px;             
+  font: 12px sans-serif;        
+  background: black;   
+  border: 0px;      
+  border-radius: 0px;           
+  pointer-events: none;    
+  color: white;     
+}
+
 /* Area Chart */
 
 body {

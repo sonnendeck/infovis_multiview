@@ -121,6 +121,11 @@ function drawParallelKoor(svg_base, xPos, yPos, dataArray) {
     // d3.transition().duration(500)
   // Add foreground lines.
 
+  var div = d3.select("body")
+    .append("div")
+    .attr("class", "pc_tooltip")
+    .style("opacity", 0);
+
   foreground = svg.append("svg:g")
     .attr("class", "foreground")
     .selectAll("path")
@@ -138,11 +143,24 @@ function drawParallelKoor(svg_base, xPos, yPos, dataArray) {
       // .style('stroke', 'yellow')
       .style('stroke-width', '5px');
     //d3.select(this).style('stroke', 'yellow');
+
+console.log(new Date(d.Zeit) + "  " +d.Zeit );
+    div.transition()
+      .duration(200)
+      .style("opacity", .9);
+    div.html("Name: " + d.Nutzer + " <br/>" + d.Zeit + "")
+      .style("left", (Math.floor(d3.mouse(this)[0]) + 700) + "px")
+      .style("top", (Math.floor(d3.mouse(this)[1]) + 270) + "px");
+
   })
     .on('mouseout', function(d, i) {
     // console.log(this);
     d3.select(this)
       .style('stroke-width', '1.5px');
+
+      div.transition()        
+                .duration(500)      
+                .style("opacity", 0);
   })
     .on('click', function(d, i) {
     // console.log(this);

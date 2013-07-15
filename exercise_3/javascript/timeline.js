@@ -400,7 +400,7 @@ svg.selectAll(".dinner").style("fill", "#000000");
   svg.selectAll(".yAxis text")
     .on("mouseover", function() {
     d3.select(this)
-      .style("font-weight", "bold");
+      .style("fill", "gray");
     d3.select(this)
       .style("cursor", "default");
   });
@@ -408,7 +408,7 @@ svg.selectAll(".dinner").style("fill", "#000000");
   svg.selectAll(".yAxis text")
     .on("mouseout", function() {
     d3.select(this)
-      .style("font-weight", "normal");
+      .style("fill", "black");
   });
 
   // svg.selectAll(".yAxis text")

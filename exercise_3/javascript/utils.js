@@ -21,6 +21,21 @@ var xAreaChart = 100, yAreaChart = 300;
 var xTimeline = 50, yTimeline = 50;
 var xPC = 750, yPC = 300;
 
+function drawCharts() {
+   // Generiert Timeline relevante CSV Daten und zeichnet das Diagramm        
+      timeline_data = getTimelineChartData(csv_data);
+      drawTimeline(svg, xTimeline, yTimeline, timeline_data);
+
+      // Generiert AreaChart relevante CSV Daten und zeichnet das Diagramm
+      // area_data = getAreaChartData(getMealDataFor(["Thomas"], csv_data));
+      area_data = getAreaChartData(csv_data);
+      drawAreaChart(svg, xAreaChart, yAreaChart, area_data);
+
+      // var pc_data = getParallelCoordinatesData(getMealDataFor(["Thomas"], csv_data));
+      var pc_data = getParallelCoordinatesData(csv_data);
+      drawParallelKoor(svg, xPC, yPC, pc_data);
+}
+
 function parseCSVData() {
 
   csv_content = d3.csv("data/data.csv")
@@ -107,7 +122,7 @@ function manageAreaChartMouseEvents() {
 			.attr("height", 450)
 			.style("pointer-events", "none")
 			.style("fill", "white")
-			.style("opacity", "0.5");
+			.style("opacity", "0.67");
 
 			selectedDay = d.values[curDay].Tag;
       
@@ -150,7 +165,7 @@ function manageAreaChartMouseEvents() {
 			.attr("height", 450)
 			.style("pointer-events", "none")
 			.style("fill", "white")
-			.style("opacity", "0.25");
+			.style("opacity", "0.35");
 		}
 	});
 }
@@ -212,7 +227,7 @@ function manageTimelineMouseEvents(rect) {
         .text())] = 1;
 
       d3.select(this)
-        .style("fill", "rgb(120,120,120)");
+        .style("fill", "rgb(250,0,0)");
     } else {
       selectedNames[NAMES.indexOf(d3.select(this)
         .text())] = 0;
@@ -221,17 +236,19 @@ function manageTimelineMouseEvents(rect) {
         .style("fill", "rgb(0,0,0)");
     }
 
-    console.log(selectedNames[0]);
-    console.log(selectedNames[1]);
-    console.log(selectedNames[2]);
-    console.log(selectedNames[3]);
+    if (selectedNames[0] == 0 && selectedNames[1] == 0 && selectedNames[2] == 0 && selectedNames[3] == 0) {
+      console.log("erfolg");
+      selectedNames = new Array(1,1,1,1);
+    }
 
     selectedNamesAsString = new Array();
     for (var i = 0; i < 4; i++) {
       if (selectedNames[i] == 1) {
         selectedNamesAsString.push(NAMES[i]);
       }
-    }
+    }    
+
+    
 
     timeline_data = getTimelineChartData(getMealDataFor(selectedNamesAsString,csv_data));
     // drawTimeline(svg, 50, 50, timeline_data);
@@ -240,25 +257,28 @@ function manageTimelineMouseEvents(rect) {
     var end_time = new Date("June" + (timeline_data[0].time.getDate() + 1) + ", 2013 03:00");
 
     var x = d3.time.scale().domain([start_time, end_time]).range([0, width]);
+    var x_linear = d3.scale.linear().domain([0, end_time.getTime() - start_time.getTime()]).rangeRound([0, width]);
     var y = d3.scale.ordinal().domain(["Huong", "Martin", "Tom", "Thomas"]).rangeRoundBands([0, height], .1);
     width = 960 - margin.left - margin.right + 50;
     height = 200 - margin.top - margin.bottom + 50;
 
     var rect_height = 16;
 
-    rect.data(timeline_data).exit().remove();
-    rect.attr("x", function(d) {
-    return x(d.time);
-    });
+    //rect.data(timeline_data).exit().remove();
+    rect.data(timeline_data).remove();
+  //   rect.attr("x", function(d) {
+  //   return x(d.time);
+  //   });
 
-    rect.attr("y", function(d) {
-    return y(d.name) + height / 16;
-  });
+  //   rect.attr("y", function(d) {
+  //   return y(d.name) + height / 16;
+  // });
 
 
     // draw new rects
+    //svg.selectAll(".t_dinner, .t_snack, .t_lunch, .t_breakfast").data(timeline_data).enter().append("rect").attr("x", 100).attr("y", 100).attr("width", 100).attr("height", 100);
     //rect.data(timeline_data).enter().append("rect").attr("x", 100).attr("y", 100).attr("width", 100).attr("height", 100);
-  //   rect.data(timeline_data).enter().append("rect")
+  //   svg.selectAll(".t_dinner, .t_snack, .t_lunch, .t_breakfast").data(timeline_data).enter().append("rect")
   //     .attr("x", function(d) {
   //   return x(d.time);
   //   })
@@ -302,6 +322,9 @@ function manageTimelineMouseEvents(rect) {
 
     console.log(rect.data(timeline_data));
 
+    d3.selectAll(".area_context").remove();
+    area_data = getAreaChartData(getMealDataFor(selectedNamesAsString, csv_data));
+    drawAreaChart(svg, xAreaChart, yAreaChart, area_data);
 
     console.log("Array:" + selectedNamesAsString[0] + "," + selectedNamesAsString[1] + "," + selectedNamesAsString[2] + "," + selectedNamesAsString[3]);
   });

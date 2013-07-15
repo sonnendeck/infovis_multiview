@@ -288,11 +288,22 @@ rect.on("mouseover", function(d) {
 
 d3.selectAll(".area").each(function(d) {
         if(d.name == hoveredRectData.type) {
-          console.log("drin");
           d3.select(this).style("opacity", "0.6");
         }
 
   });
+
+// var format = d3.time.format("%d.%m.%Y %H:%M");
+// var formattedTime = format(hoveredRectData.time);
+var formattedTime = leadingZeroForDate(hoveredRectData.time.getDate()) + "." + leadingZeroForDate(hoveredRectData.time.getMonth()) + "." + hoveredRectData.time.getFullYear() + " " +leadingZeroForDate(hoveredRectData.time.getHours()) + ":" + leadingZeroForDate(hoveredRectData.time.getMinutes());
+d3.selectAll(".foreground").selectAll("path").each(function (d) {
+  // console.log(d.Zeit);
+    if((d.Zeit == formattedTime) && (d.Nutzer == hoveredRectData.name)) {
+      console.log("drin");
+         d3.select(this).style("stroke-width", "5px");
+    }
+});
+
 });
 
   rect.on("mouseout", function() {
@@ -317,6 +328,9 @@ d3.selectAll(".area").each(function(d) {
                 .style("opacity", 0);
 
      d3.selectAll(".area").style("opacity", "1");
+
+     d3.selectAll(".foreground").selectAll("path").style("stroke-width", "1.5px");
+
         
   });
 

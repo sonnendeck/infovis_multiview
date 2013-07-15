@@ -133,6 +133,7 @@ function drawParallelKoor(svg_base, xPos, yPos, dataArray) {
     .enter()
     .append("svg:path")
     .attr("d", path)
+    .style("stroke-width", "1.5px")
     .attr("class", function(d) {
     return d.Nutzer;
   })

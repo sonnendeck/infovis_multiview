@@ -139,7 +139,7 @@ function getSourceDataForSelection() {
   }
   
   // names selected
-  if (selectedNamesAsString.length > 0) {
+  if ((selectedNamesAsString.length > 0) && (selectedNamesAsString.length < 4)) {
     result_data = getMealDataFor(selectedNamesAsString, result_data);
   }
   
@@ -165,6 +165,7 @@ function manageAreaChartMouseEvents(rect) {
 			.style("fill", "white")
 			.style("opacity", "0.67");
 
+      console.log(d.values[curDay].Tag);
 			selectedDay = d.values[curDay].Tag;
       
       // update timeline
@@ -181,6 +182,7 @@ function manageAreaChartMouseEvents(rect) {
 		}
 		else {
 			selectedDay = null;
+      console.log(selectedDay);
       // update parallel coordinates
       pc_data = getParallelCoordinatesData(getSourceDataForSelection());
       d3.selectAll(".foreground").remove();
@@ -358,17 +360,17 @@ function manageTimelineMouseEvents(rect) {
 
     console.log(rect.data(timeline_data));
 
-    // update area chart
-    d3.selectAll(".area_context").remove();
-    area_data = getAreaChartData(getMealDataFor(selectedNamesAsString, csv_data));
-    drawAreaChart(svg, xAreaChart, yAreaChart, area_data);
-    manageAreaChartMouseEvents(getTimelineRects());
-
     // update parallel coordinates
     pc_data = getParallelCoordinatesData(getSourceDataForSelection());
     d3.selectAll(".foreground").transition().style("opacity",0);
     d3.selectAll(".context_pc").transition().style("opacity",0);
     drawParallelKoor(svg, xPC, yPC, pc_data);
+
+    // update area chart
+    d3.selectAll(".area_context").remove();
+    area_data = getAreaChartData(getMealDataFor(selectedNamesAsString, csv_data));
+    drawAreaChart(svg, xAreaChart, yAreaChart, area_data);
+    manageAreaChartMouseEvents(getTimelineRects());
 
     console.log("Array:" + selectedNamesAsString[0] + "," + selectedNamesAsString[1] + "," + selectedNamesAsString[2] + "," + selectedNamesAsString[3]);
   });

@@ -42,7 +42,7 @@ function drawAreaChart(svg_base, xPos, yPos, dataArray) {
   //   .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 var svg = svg_base.append("g")
-			.attr("class","context")
+			.attr("class","area_context")
 			.attr("transform", "translate(" + xPos + "," + yPos + ")");
 			
 	// Get the data, and display it

@@ -68,8 +68,7 @@ function drawTimeline(svg_base, xPos, yPos, dataArray) {
 
 
   var x = d3.time.scale().domain([start_time, end_time]).range([0, width]);
-  var x_linear = d3.scale.linear()
-    .domain([0, end_time.getTime() - start_time.getTime()])
+  var x_linear = d3.scale.linear().domain([0, end_time.getTime() - start_time.getTime()])
     .rangeRound([0, width]);
   var y = d3.scale.ordinal()
     .domain(["Huong", "Martin", "Tom", "Thomas"])

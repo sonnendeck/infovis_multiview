@@ -102,10 +102,10 @@ function manageMouseEvents() {
   var rect = svg.selectAll(".t_dinner, .t_snack, .t_lunch, .t_breakfast");
   console.log(rect);
   manageTimelineMouseEvents(rect);
-  manageAreaChartMouseEvents();
+  manageAreaChartMouseEvents(rect);
 }
 
-function manageAreaChartMouseEvents() {
+function manageAreaChartMouseEvents(rect) {
   var meal = svg.selectAll(".meal");
   
 	meal.on("click", function(d) {
@@ -130,7 +130,6 @@ function manageAreaChartMouseEvents() {
       
       // update timeline
       timeline_data = getTimelineChartData(selected_data);
-      // d3.selectAll(".t_rect").remove();
       d3.selectAll(".context_tl").remove();
       drawTimeline(svg, xTimeline, yTimeline, timeline_data);
       
@@ -265,7 +264,7 @@ function manageTimelineMouseEvents(rect) {
     var rect_height = 16;
 
     //rect.data(timeline_data).exit().remove();
-    rect.data(timeline_data).remove();
+    // rect.data(timeline_data).remove();
   //   rect.attr("x", function(d) {
   //   return x(d.time);
   //   });
@@ -322,9 +321,17 @@ function manageTimelineMouseEvents(rect) {
 
     console.log(rect.data(timeline_data));
 
+    var selected_data = getMealDataFor(selectedNamesAsString, csv_data);
+
     d3.selectAll(".area_context").remove();
-    area_data = getAreaChartData(getMealDataFor(selectedNamesAsString, csv_data));
+    area_data = getAreaChartData(selected_data);
     drawAreaChart(svg, xAreaChart, yAreaChart, area_data);
+
+    // update parallel coordinates
+    pc_data = getParallelCoordinatesData(selected_data);
+    d3.selectAll(".foreground").transition().style("opacity",0);
+    d3.selectAll(".context_pc").transition().style("opacity",0);
+    drawParallelKoor(svg, xPC, yPC, pc_data);
 
     console.log("Array:" + selectedNamesAsString[0] + "," + selectedNamesAsString[1] + "," + selectedNamesAsString[2] + "," + selectedNamesAsString[3]);
   });

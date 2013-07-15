@@ -163,9 +163,9 @@ function drawParallelKoor(svg_base, xPos, yPos, dataArray) {
       x: x(d)
     };
   })
-    // .on("dragstart", dragstart)
-    // .on("drag", drag)
-    // .on("dragend", dragend)
+    .on("dragstart", dragstart)
+    .on("drag", drag)
+    .on("dragend", dragend)
   );
  
   // Add an axis and title.

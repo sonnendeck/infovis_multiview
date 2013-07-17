@@ -224,6 +224,7 @@ function drawTimeline(svg_base, xPos, yPos, dataArray) {
   var enter = rect.enter().append("rect");
 
   enter.attr("class", "t_rect")
+  .style("opacity",0)
     // .attr("x", function(d) {
     //     return x(d.time);
     //   })
@@ -241,7 +242,7 @@ function drawTimeline(svg_base, xPos, yPos, dataArray) {
 
   enter.transition()
   .style("opacity",1)
-  .duration(1000);
+  .duration(300);
 
 
   // enter.attr("y", function(d) {

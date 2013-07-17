@@ -171,7 +171,7 @@ function manageAreaChartMouseEvents(rect) {
       timeline_data = getTimelineChartData(getMealDataAt(selectedDay, csv_data));
       
       var shouldRedraw = true;
-       getTimelineRects().transition().style("opacity", 0).duration(1000)
+       getTimelineRects().transition().style("opacity", 0).duration(500)
            .each("end", (function(d,i) {
              if (shouldRedraw) {
            d3.selectAll(".context_tl").remove();

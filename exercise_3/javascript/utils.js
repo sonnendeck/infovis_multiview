@@ -171,18 +171,13 @@ function manageAreaChartMouseEvents(rect) {
       timeline_data = getTimelineChartData(getMealDataAt(selectedDay, csv_data));
       
       var shouldRedraw = true;
-       getTimelineRects().transition().attr('x', 600).duration(1000).
-       each( "end", function(d,i) {
-         getTimelineRects()
-         .transition()
-         .attr("y",-100)
-         .duration(500)
+       getTimelineRects().transition().style("opacity", 0).duration(1000)
            .each("end", (function(d,i) {
              if (shouldRedraw) {
            d3.selectAll(".context_tl").remove();
            drawTimeline(svg, xTimeline, yTimeline, timeline_data);
            manageTimelineMouseEvents(getTimelineRects());
-       }}))});
+       }}));
 
        // WORKS
        // getTimelineRects().transition().attr('x', 600).attr("y",-100).duration(500).each("end", (function(d,i) {
@@ -336,6 +331,9 @@ d3.selectAll(".foreground").selectAll("path").each(function (d) {
 
   // Click on the meals //
   rect.on("click", function(data) {
+
+    clickedRectData = data;
+
     svg.append("rect")
     .attr("x", d3.select(this).attr("x")+50)
     .attr("y", d3.select(this).attr("y")+50)
@@ -369,6 +367,8 @@ d3.selectAll(".foreground").selectAll("path").each(function (d) {
       d3.select(this).style("fill", "#100000");
     }
     
+    
+
 
     // Update Charts
     // drawAreaChart(svg, 200, 500, area_data);
@@ -612,6 +612,7 @@ function getParallelCoordinatesData(data) {
       current_meal = {};
       current_meal['Nutzer'] = element.user;
       current_meal['Zeit'] = element.time;
+      current_meal['Date'] = leadingZeroForDate(current_date.getDate()) + "." + leadingZeroForDate(current_date.getMonth() +1) + ". " + current_date.getFullYear() +" " + element.time.split(" ")[1];
       current_meal['Dauer'] = element.duration;
       current_meal['Art'] = element.type;
       current_meal['Rahmen'] = element.occasion;

@@ -147,15 +147,14 @@ function drawParallelKoor(svg_base, xPos, yPos, dataArray) {
 
 console.log(new Date(d.Zeit) + "  " +d.Zeit );
 
-  if(d3.select(this).style("opacity", "0")) {
+  // if(!d3.select(this).style("opacity") == "0") {
     div.transition()
       .duration(200)
       .style("opacity", .9);
-
-    div.html("Name: " + d.Nutzer + " <br/>" + d.Zeit + "")
+    div.html("Name: " + d.Nutzer + " <br/>" + d.Date + "")
       .style("left", (Math.floor(d3.mouse(this)[0]) + 700) + "px")
       .style("top", (Math.floor(d3.mouse(this)[1]) + 270) + "px");
-}
+// }
   })
     .on('mouseout', function(d, i) {
     // console.log(this);
